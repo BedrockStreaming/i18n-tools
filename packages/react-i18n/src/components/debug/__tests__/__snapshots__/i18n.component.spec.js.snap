@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`i18n.renderProps should provide translate function and inherited props 1`] = `
+<DummyComponent
+  text="foo.bar"
+>
+  <div>
+    <Trans
+      render={[Function]}
+    >
+      <span>
+        foo.bar
+      </span>
+    </Trans>
+  </div>
+</DummyComponent>
+`;
+
+exports[`i18n.renderProps should rerender on update 1`] = `
+<DummyComponent
+  text="foo.bar"
+>
+  <div>
+    <Trans
+      render={[Function]}
+    >
+      <span>
+        foo.bar
+      </span>
+    </Trans>
+  </div>
+</DummyComponent>
+`;
+
+exports[`i18n.renderProps should rerender on update 2`] = `
+<DummyComponent
+  text="foo.bar"
+>
+  <div>
+    <Trans
+      render={[Function]}
+    >
+      <span>
+        **foo.bar**
+      </span>
+    </Trans>
+  </div>
+</DummyComponent>
+`;

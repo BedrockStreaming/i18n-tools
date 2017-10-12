@@ -1,0 +1,14 @@
+{
+  "extends": ["./node_modules/eslint-tools-m6web/.eslintrc"],
+  "env": {
+    "jasmine": true
+  },
+  "globals": {
+    "jest": true
+  },
+  "rules": {
+    "import/prefer-default-export": 0,
+    "react/require-default-props": 0,
+    "react/forbid-prop-types": 0
+  }
+}
