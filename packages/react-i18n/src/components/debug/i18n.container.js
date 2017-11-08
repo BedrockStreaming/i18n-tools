@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export const translate = RenderComponent => {
-
   class TranslatedComponent extends Component {
     componentDidMount() {
       this.update = () => this.forceUpdate();

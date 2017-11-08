@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 
 import { translate } from '../i18n.container';
 
@@ -22,7 +21,7 @@ describe('i18n container in debug mode', () => {
   it('should provide translate function and inherited props', () => {
     const wrapper = shallow(<TranslatedComponent foo="bar" />, { context });
 
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('should subscribe to provider for lang update', () => {
@@ -41,15 +40,19 @@ describe('i18n container in debug mode', () => {
   it('should rerender on update', () => {
     const firstTranslationFunction = jest.fn();
     const secondTranslationFunction = jest.fn();
+
     context.getTranslateFunction = jest.fn(() => firstTranslationFunction);
 
     const wrapper = shallow(<TranslatedComponent foo="bar" />, { context, lifecycleExperimental: true });
     expect(wrapper.find(DummyComponent).prop('t')).toBe(firstTranslationFunction);
 
-    context.getTranslateFunction.mockImplementation(() => secondTranslationFunction);
     expect(listeners.length).toBe(1);
     expect(wrapper.find(DummyComponent).prop('t')).not.toBe(secondTranslationFunction);
+
+    context.getTranslateFunction.mockImplementation(() => secondTranslationFunction);
+    wrapper.setContext(context);
     listeners[0]();
+
     expect(wrapper.find(DummyComponent).prop('t')).toBe(secondTranslationFunction);
   });
 });

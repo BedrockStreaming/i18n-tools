@@ -1,5 +1,5 @@
 {
-  "extends": ["./node_modules/eslint-tools-m6web/.eslintrc"],
+  "extends": "plugin:m6web-tools/m6web",
   "env": {
     "jasmine": true
   },

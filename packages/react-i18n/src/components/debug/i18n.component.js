@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export class Trans extends PureComponent {
+export default class TranslatedComponent extends Component {
   componentDidMount() {
     this.update = () => this.forceUpdate();
     this.context.subscribe(this.update);
@@ -12,17 +12,20 @@ export class Trans extends PureComponent {
   }
 
   render() {
+    const { i18nKey, data, number } = this.props;
     const t = this.context.getTranslateFunction();
 
-    return this.props.render({ t });
+    return t(i18nKey, data, number);
   }
 }
 
-Trans.propTypes = {
-  render: PropTypes.func.isRequired,
+TranslatedComponent.propTypes = {
+  i18nKey: PropTypes.string.isRequired,
+  data: PropTypes.object,
+  number: PropTypes.number,
 };
 
-Trans.contextTypes = {
+TranslatedComponent.contextTypes = {
   getTranslateFunction: PropTypes.func.isRequired,
   subscribe: PropTypes.func.isRequired,
   unsubscribe: PropTypes.func.isRequired,

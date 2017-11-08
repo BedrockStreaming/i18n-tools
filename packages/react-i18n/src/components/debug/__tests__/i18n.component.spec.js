@@ -1,15 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mount } from 'enzyme';
-import { mountToJson } from 'enzyme-to-json';
-import { Trans } from '../i18n.component';
+import { shallow } from 'enzyme';
+import Trans from '../i18n.component';
 
-const DummyComponent = props => (
-  <div>
-    <Trans render={({ t }) => <span>{t(props.text)}</span>} />
-  </div>
-);
-DummyComponent.propTypes = { text: PropTypes.string };
 
 describe('i18n.renderProps', () => {
   let context;
@@ -21,7 +14,6 @@ describe('i18n.renderProps', () => {
   };
 
   beforeEach(() => {
-
     listeners = [];
     context = {
       getTranslateFunction: jest.fn(() => jest.fn(x => x)),
@@ -31,19 +23,19 @@ describe('i18n.renderProps', () => {
   });
 
   it('should provide translate function and inherited props', () => {
-    const wrapper = mount(<DummyComponent text="foo.bar" />, { context, childContextTypes });
+    const wrapper = shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes });
 
-    expect(mountToJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('should subscribe to provider for lang update', () => {
-    mount(<DummyComponent text="foo.bar" />, { context, childContextTypes });
+    shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes })
 
     expect(context.subscribe).toBeCalledWith(jasmine.any(Function));
   });
 
   it('should unsubscribe from provider when unmounted', () => {
-    const wrapper = mount(<DummyComponent text="foo.bar" />, { context, childContextTypes });
+    const wrapper = shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes });
 
     wrapper.unmount();
     expect(context.unsubscribe).toBeCalledWith(jasmine.any(Function));
@@ -54,14 +46,16 @@ describe('i18n.renderProps', () => {
     const secondTranslationFunction = jest.fn(x => `**${x}**`);
     context.getTranslateFunction = jest.fn(() => firstTranslationFunction);
 
-    const wrapper = mount(<DummyComponent text="foo.bar" />, { context, childContextTypes });
+    const wrapper = shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes });
+
+    expect(wrapper).toMatchSnapshot();
 
     context.getTranslateFunction.mockImplementation(() => secondTranslationFunction);
     expect(listeners.length).toBe(1);
 
-    expect(mountToJson(wrapper)).toMatchSnapshot();
+    wrapper.setContext(context);
     listeners[0]();
 
-    expect(mountToJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

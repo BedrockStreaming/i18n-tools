@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import { translate } from '../i18n.container';
 
 jest.unmock('../i18n.container');
@@ -21,6 +20,6 @@ describe('i18n container', () => {
   it('should provide translate function and inherited props', () => {
     const wrapper = shallow(<TranslatedComponent foo="bar" />, { context });
 
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
