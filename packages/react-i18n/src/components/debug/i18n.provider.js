@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { PureComponent, Children } from 'react';
-import { translate } from '../utils/i18n.utils';
+import { translate } from '../../utils/i18n.utils';
 
 export class I18nProvider extends PureComponent {
   constructor(props, context) {
