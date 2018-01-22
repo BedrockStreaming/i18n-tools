@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
-import Trans from '../i18n.component';
+import { Trans } from '../i18n.component';
 
 
 describe('i18n.renderProps', () => {
