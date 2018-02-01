@@ -12,6 +12,12 @@ Object.defineProperty(exports, 'translateFunction', {
     return _i18n.translate;
   }
 });
+Object.defineProperty(exports, 'buildListFunction', {
+  enumerable: true,
+  get: function get() {
+    return _i18n.buildList;
+  }
+});
 
 var _i18n2 = require('./components/i18n.container');
 

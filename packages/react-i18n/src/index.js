@@ -1,4 +1,4 @@
-export { translate as translateFunction } from './utils/i18n.utils';
+export { translate as translateFunction, buildList as buildListFunction } from './utils/i18n.utils';
 
 export { translate } from './components/i18n.container';
 export { Trans } from './components/i18n.component';

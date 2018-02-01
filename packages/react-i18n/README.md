@@ -71,7 +71,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 Note that **number** and **data** can be used together.
 
 ### i18n container
-This  HOC provides the translate function to the component as prop.
+This HOC provides the translate function to the component as prop.
 ```jsx harmony
 import React from 'react';
 import { translate } from 'react-i18n';
@@ -101,3 +101,20 @@ export default translate(MyComponent);
   * **number**: amount used for plural forms
 
 Note that **number** and **data** can be used together.
+
+### BuildList
+Build list function allows you to build a list in specific language.
+```jsx harmony
+import { buildListFunction } from 'react-i18n';
+
+// Define separators with translations
+const lang = {
+  _i18n: {
+    separator: ', ',
+    and: ' and ',
+  }
+};
+
+const list = buildListFunction(lang)(['foo', 'bar', 'foobar']);
+// list => 'foo, bar and foobar'
+```

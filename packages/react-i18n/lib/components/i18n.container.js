@@ -39,6 +39,7 @@ var translate = exports.translate = function translate(RenderComponent) {
   };
 
   TranslatedComponent.fetchData = RenderComponent.fetchData;
+  TranslatedComponent.displayName = 'Translated(' + (RenderComponent.displayName || RenderComponent.name) + ')';
 
   return TranslatedComponent;
 };
