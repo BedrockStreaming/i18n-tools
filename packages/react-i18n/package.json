@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "Provider and utils for translation in a react app",
   "main": "lib/index.js",
+  "module": "es/index.js",
   "author": "m6web",
   "license": "MIT",
   "files": [
@@ -11,6 +12,7 @@
   ],
   "peerDependencies": {
     "lodash": "^4.17.0",
+    "lodash-es": "^4.17.0",
     "prop-types": "^15.6.2",
     "react": "^16.0.0",
     "sprintf-js": "^1.1.0"
@@ -20,8 +22,10 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-preset-es2015": "6.24.1",
+    "babel-plugin-use-lodash-es": "^0.1.0",
+    "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "enzyme": "3.1.1",
     "enzyme-adapter-react-16": "1.0.4",
@@ -36,11 +40,13 @@
     "sprintf-js": "1.1.1"
   },
   "scripts": {
-    "build": "babel src --out-dir lib --ignore __tests__,__mocks__",
+    "build": "yarn build:commonjs && yarn build:es",
+    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib --ignore __tests__,__mocks__",
+    "build:es": "BABEL_ENV=es babel src --out-dir es --ignore __tests__,__mocks__",
     "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "format": "prettier-eslint --write src/**/*.js",
     "lint": "eslint src/**/*.js",
-    "test": "jest",
+    "test": "BABEL_ENV=test jest",
     "release": "yarn lint && yarn test && yarn build && yarn version"
   }
 }
