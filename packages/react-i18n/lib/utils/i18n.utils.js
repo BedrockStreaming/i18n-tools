@@ -15,8 +15,49 @@ var _sprintfJs = require('sprintf-js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var numberPlaceholder = '%(number)s';
+
+var pluralizeFunctions = {
+  en: function en(number) {
+    return number === 0 || number > 1 ? 'other' : 'one';
+  },
+  fr: function fr(number) {
+    return number > 1 ? 'other' : 'one';
+  },
+  hu: function hu(number, pluralObject) {
+    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) !== -1) {
+      return 'one';
+    }
+
+    return number > 1 ? 'other' : 'one';
+  },
+  hr: function hr(number, pluralObject) {
+    // General plural
+    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) === -1) {
+      return number > 1 ? 'other' : 'one';
+    }
+
+    var numberInString = number.toString();
+    var lastDigit = numberInString.charAt(numberInString.length - 1);
+
+    if (number > 4 && number < 21 || ['0', '5', '6', '7', '8', '9'].includes(lastDigit)) {
+      // Third plural form
+      return 'many';
+    } else if (lastDigit === '1') {
+      // First plural form and singular
+      return 'one';
+    } else if (lastDigit === '2' || lastDigit === '3' || lastDigit === '4') {
+      // Second plural form
+      return 'few';
+    }
+  }
+};
+
 var translate = exports.translate = function translate(lang) {
   var i18nNames = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var pluralize = pluralizeFunctions[_lodash2.default.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
+
   return function (key) {
     var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var number = arguments[2];
@@ -24,12 +65,12 @@ var translate = exports.translate = function translate(lang) {
     var combineKey = key;
     // Pluralize
     if (typeof number !== 'undefined') {
-      combineKey = key + '.' + (number < 2 ? 'one' : 'other');
+      combineKey = key + '.' + pluralize(number, _lodash2.default.get(lang, combineKey, {}));
     }
 
     var translation = _lodash2.default.get(lang, combineKey, combineKey);
 
-    return (0, _sprintfJs.sprintf)(translation, _extends({}, data, i18nNames));
+    return (0, _sprintfJs.sprintf)(translation, _extends({}, data, i18nNames, { number: number }));
   };
 };
 

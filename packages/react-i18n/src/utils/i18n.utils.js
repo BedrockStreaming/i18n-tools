@@ -1,16 +1,54 @@
 import _ from 'lodash';
 import { sprintf } from 'sprintf-js';
 
-export const translate = (lang, i18nNames = {}) => (key, data = {}, number) => {
-  let combineKey = key;
-  // Pluralize
-  if (typeof number !== 'undefined') {
-    combineKey = `${key}.${number < 2 ? 'one' : 'other'}`;
-  }
+const numberPlaceholder = '%(number)s';
 
-  const translation = _.get(lang, combineKey, combineKey);
+const pluralizeFunctions = {
+  en: number => (number === 0 || number > 1 ? 'other' : 'one'),
+  fr: number => (number > 1 ? 'other' : 'one'),
+  hu: (number, pluralObject) => {
+    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) !== -1) {
+      return 'one';
+    }
 
-  return sprintf(translation, { ...data, ...i18nNames });
+    return number > 1 ? 'other' : 'one';
+  },
+  hr: (number, pluralObject) => {
+    // General plural
+    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) === -1) {
+      return number > 1 ? 'other' : 'one';
+    }
+
+    const numberInString = number.toString();
+    const lastDigit = numberInString.charAt(numberInString.length - 1);
+
+    if ((number > 4 && number < 21) || ['0', '5', '6', '7', '8', '9'].includes(lastDigit)) {
+      // Third plural form
+      return 'many';
+    } else if (lastDigit === '1') {
+      // First plural form and singular
+      return 'one';
+    } else if (lastDigit === '2' || lastDigit === '3' || lastDigit === '4') {
+      // Second plural form
+      return 'few';
+    }
+  },
+};
+
+export const translate = (lang, i18nNames = {}) => {
+  const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
+
+  return (key, data = {}, number) => {
+    let combineKey = key;
+    // Pluralize
+    if (typeof number !== 'undefined') {
+      combineKey = `${key}.${pluralize(number, _.get(lang, combineKey, {}))}`;
+    }
+
+    const translation = _.get(lang, combineKey, combineKey);
+
+    return sprintf(translation, { ...data, ...i18nNames, number });
+  };
 };
 
 export const buildList = lang => (list, maxSize) => {

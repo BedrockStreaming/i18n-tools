@@ -9,6 +9,7 @@ It uses react context to provide translation function to every components.
 ## Setup
 
 First install the library
+
 ```shell
 yarn add -E git+https://github.m6web.fr/m6web/react-i18n
 ```
@@ -43,7 +44,9 @@ const Root = () => (
 ## Use translation components
 
 ### i18n component
+
 This component needs React 16 at least because its render returns a string value.
+
 ```jsx harmony
 import React from 'react';
 import { Trans } from 'react-i18n';
@@ -64,6 +67,7 @@ export default const MyComponent = ({ nbExample, t }) => {
   );
 };
 ```
+
 * **i18nKeys**: key from the dictionary (required)
 * **number**: amount used for plural forms
 * **data**: object containing key/values used for interpolation in the translation
@@ -71,7 +75,9 @@ export default const MyComponent = ({ nbExample, t }) => {
 Note that **number** and **data** can be used together.
 
 ### i18n container
+
 This HOC provides the translate function to the component as prop.
+
 ```jsx harmony
 import React from 'react';
 import { translate } from 'react-i18n';
@@ -103,7 +109,9 @@ export default translate(MyComponent);
 Note that **number** and **data** can be used together.
 
 ### BuildList
+
 Build list function allows you to build a list in specific language.
+
 ```jsx harmony
 import { buildListFunction } from 'react-i18n';
 
@@ -118,3 +126,24 @@ const lang = {
 const list = buildListFunction(lang)(['foo', 'bar', 'foobar']);
 // list => 'foo, bar and foobar'
 ```
+
+### Pluralization
+
+The translate function provided in the component and the container handle plural for several languages.
+
+* FR (default value)
+* EN
+* HU
+* HR
+
+The lang has to be set through `_i18n.lang` key, and should be in lower case.
+This is the configuration of plural form for keys:
+
+| language | zero    | singular | general plural | first plural | second plural | third plural |
+| -------- | ------- | -------- | -------------- | ------------ | ------------- | ------------ |
+| FR       | `one`   | `one`    | `other`        | `other`      | -             | -            |
+| EN       | `other` | `one`    | `other`        | `other`      | -             | -            |
+| HU       | `one`   | `one`    | `other`        | `one`        | -             | -            |
+| HR       | `many`  | `one`    | `other`        | `one`        | `few`         | `many`       |
+
+The variable used in translation template string has to be `%(number)s`. For some languages, the presence of the variable is used to select plural form.
