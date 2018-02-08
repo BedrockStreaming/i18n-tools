@@ -12,17 +12,24 @@ export class Trans extends Component {
   }
 
   render() {
-    const { i18nKey, data, number } = this.props;
+    const { i18nKey, data, number, general } = this.props;
     const t = this.context.getTranslateFunction();
 
-    return t(i18nKey, data, number);
+    return t(i18nKey, data, number, general);
   }
 }
+
+Trans.defaultProps = {
+  data: {},
+  number: undefined,
+  general: false,
+};
 
 Trans.propTypes = {
   i18nKey: PropTypes.string.isRequired,
   data: PropTypes.object,
   number: PropTypes.number,
+  general: PropTypes.bool,
 };
 
 Trans.contextTypes = {

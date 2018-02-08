@@ -14,23 +14,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Trans = exports.Trans = function Trans(_ref, _ref2) {
   var i18nKey = _ref.i18nKey,
       data = _ref.data,
-      number = _ref.number;
+      number = _ref.number,
+      general = _ref.general;
   var getTranslateFunction = _ref2.getTranslateFunction;
 
   var t = getTranslateFunction();
 
-  return t(i18nKey, data, number);
+  return t(i18nKey, data, number, general);
 };
 
 Trans.defaultProps = {
   data: {},
-  number: undefined
+  number: undefined,
+  general: false
 };
 
 Trans.proptypes = {
   i18nKey: _propTypes2.default.string.isRequired,
   data: _propTypes2.default.object,
-  number: _propTypes2.default.number
+  number: _propTypes2.default.number,
+  general: _propTypes2.default.bool
 };
 
 Trans.contextTypes = {

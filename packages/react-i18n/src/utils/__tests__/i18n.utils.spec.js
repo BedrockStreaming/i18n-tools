@@ -17,13 +17,13 @@ describe('i18n translate function', () => {
     expect(t('foo.bar', { name: 'World' })).toBe('Hello World !');
   });
 
-  describe('without number interpolation', () => {
+  describe('with general plural', () => {
     it('should pluralize with default value', () => {
       const lang = { foo: { bar: { one: 'foo bar!', other: 'foos bars!!!' } } };
       const t = translate(lang);
-      expect(t('foo.bar', undefined, 0)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 1)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 2)).toBe('foos bars!!!');
+      expect(t('foo.bar', undefined, 0, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 1, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 2, true)).toBe('foos bars!!!');
     });
 
     it('should pluralize in french', () => {
@@ -32,9 +32,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'fr' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', undefined, 0)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 1)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 2)).toBe('foos bars!!!');
+      expect(t('foo.bar', undefined, 0, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 1, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 2, true)).toBe('foos bars!!!');
     });
 
     it('should pluralize in english', () => {
@@ -43,9 +43,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'en' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', undefined, 0)).toBe('foos bars!!!');
-      expect(t('foo.bar', undefined, 1)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 2)).toBe('foos bars!!!');
+      expect(t('foo.bar', undefined, 0, true)).toBe('foos bars!!!');
+      expect(t('foo.bar', undefined, 1, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 2, true)).toBe('foos bars!!!');
     });
 
     it('should pluralize in hungarian', () => {
@@ -54,9 +54,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'hu' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', undefined, 0)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 1)).toBe('foo bar!');
-      expect(t('foo.bar', undefined, 2)).toBe('foos bars!!!');
+      expect(t('foo.bar', undefined, 0, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 1, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 2, true)).toBe('foos bars!!!');
     });
 
     it('should pluralize in croatian', () => {
@@ -73,15 +73,15 @@ describe('i18n translate function', () => {
       };
       const t = translate(lang);
 
-      expect(t('foo.bar', undefined, 0)).toBe('first plural');
-      expect(t('foo.bar', undefined, 1)).toBe('first plural');
-      expect(t('foo.bar', undefined, 2)).toBe('general plural');
+      expect(t('foo.bar', undefined, 0, true)).toBe('first plural');
+      expect(t('foo.bar', undefined, 1, true)).toBe('first plural');
+      expect(t('foo.bar', undefined, 2, true)).toBe('general plural');
     });
   });
 
   describe('with number interpolation', () => {
     it('should pluralize with default value', () => {
-      const lang = { foo: { bar: { one: '%(number)s foo bar!', other: '%(number)s foos bars!!!' } } };
+      const lang = { foo: { bar: { one: '%(number)d foo bar!', other: '%(number)d foos bars!!!' } } };
       const t = translate(lang);
       expect(t('foo.bar', undefined, 0)).toBe('0 foo bar!');
       expect(t('foo.bar', undefined, 1)).toBe('1 foo bar!');
@@ -90,7 +90,7 @@ describe('i18n translate function', () => {
 
     it('should pluralize in french', () => {
       const lang = {
-        foo: { bar: { one: '%(number)s foo bar!', other: '%(number)s foos bars!!!' } },
+        foo: { bar: { one: '%(number)d foo bar!', other: '%(number)d foos bars!!!' } },
         _i18n: { lang: 'fr' },
       };
       const t = translate(lang);
@@ -101,7 +101,7 @@ describe('i18n translate function', () => {
 
     it('should pluralize in english', () => {
       const lang = {
-        foo: { bar: { one: '%(number)s foo bar!', other: '%(number)s foos bars!!!' } },
+        foo: { bar: { one: '%(number)d foo bar!', other: '%(number)d foos bars!!!' } },
         _i18n: { lang: 'en' },
       };
       const t = translate(lang);
@@ -112,7 +112,7 @@ describe('i18n translate function', () => {
 
     it('should pluralize in english', () => {
       const lang = {
-        foo: { bar: { one: '%(number)s foo bar!', other: '%(number)s foos bars!!!' } },
+        foo: { bar: { one: '%(number)d foo bar!', other: '%(number)d foos bars!!!' } },
         _i18n: { lang: 'en' },
       };
       const t = translate(lang);
@@ -123,7 +123,7 @@ describe('i18n translate function', () => {
 
     it('should pluralize in hungarian', () => {
       const lang = {
-        foo: { bar: { one: '%(number)s foo bar!', other: '%(number)s foos bars!!!' } },
+        foo: { bar: { one: '%(number)d foo bar!', other: '%(number)d foos bars!!!' } },
         _i18n: { lang: 'hu' },
       };
       const t = translate(lang);
@@ -136,9 +136,9 @@ describe('i18n translate function', () => {
       const lang = {
         foo: {
           bar: {
-            one: '%(number)s first plural',
-            few: '%(number)s second plural',
-            many: '%(number)s third plural',
+            one: '%(number)d first plural',
+            few: '%(number)d second plural',
+            many: '%(number)d third plural',
           },
         },
         _i18n: { lang: 'hr' },

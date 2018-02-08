@@ -39,21 +39,29 @@ export var Trans = function (_Component) {
       var _props = this.props,
           i18nKey = _props.i18nKey,
           data = _props.data,
-          number = _props.number;
+          number = _props.number,
+          general = _props.general;
 
       var t = this.context.getTranslateFunction();
 
-      return t(i18nKey, data, number);
+      return t(i18nKey, data, number, general);
     }
   }]);
 
   return Trans;
 }(Component);
 
+Trans.defaultProps = {
+  data: {},
+  number: undefined,
+  general: false
+};
+
 Trans.propTypes = {
   i18nKey: PropTypes.string.isRequired,
   data: PropTypes.object,
-  number: PropTypes.number
+  number: PropTypes.number,
+  general: PropTypes.bool
 };
 
 Trans.contextTypes = {

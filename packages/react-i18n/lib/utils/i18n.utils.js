@@ -15,7 +15,7 @@ var _sprintfJs = require('sprintf-js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var numberPlaceholder = '%(number)s';
+var numberPlaceholder = '%(number)';
 
 var pluralizeFunctions = {
   en: function en(number) {
@@ -24,16 +24,16 @@ var pluralizeFunctions = {
   fr: function fr(number) {
     return number > 1 ? 'other' : 'one';
   },
-  hu: function hu(number, pluralObject) {
-    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) !== -1) {
+  hu: function hu(number, general) {
+    if (!general) {
       return 'one';
     }
 
     return number > 1 ? 'other' : 'one';
   },
-  hr: function hr(number, pluralObject) {
+  hr: function hr(number, general) {
     // General plural
-    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) === -1) {
+    if (general) {
       return number > 1 ? 'other' : 'one';
     }
 
@@ -61,11 +61,12 @@ var translate = exports.translate = function translate(lang) {
   return function (key) {
     var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var number = arguments[2];
+    var general = arguments[3];
 
     var combineKey = key;
     // Pluralize
     if (typeof number !== 'undefined') {
-      combineKey = key + '.' + pluralize(number, _lodash2.default.get(lang, combineKey, {}));
+      combineKey = key + '.' + pluralize(number, general);
     }
 
     var translation = _lodash2.default.get(lang, combineKey, combineKey);

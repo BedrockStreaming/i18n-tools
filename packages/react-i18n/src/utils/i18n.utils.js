@@ -1,21 +1,21 @@
 import _ from 'lodash';
 import { sprintf } from 'sprintf-js';
 
-const numberPlaceholder = '%(number)s';
+const numberPlaceholder = '%(number)';
 
 const pluralizeFunctions = {
   en: number => (number === 0 || number > 1 ? 'other' : 'one'),
   fr: number => (number > 1 ? 'other' : 'one'),
-  hu: (number, pluralObject) => {
-    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) !== -1) {
+  hu: (number, general) => {
+    if (!general) {
       return 'one';
     }
 
     return number > 1 ? 'other' : 'one';
   },
-  hr: (number, pluralObject) => {
+  hr: (number, general) => {
     // General plural
-    if (pluralObject.other && pluralObject.other.indexOf(numberPlaceholder) === -1) {
+    if (general) {
       return number > 1 ? 'other' : 'one';
     }
 
@@ -38,11 +38,11 @@ const pluralizeFunctions = {
 export const translate = (lang, i18nNames = {}) => {
   const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
-  return (key, data = {}, number) => {
+  return (key, data = {}, number, general) => {
     let combineKey = key;
     // Pluralize
     if (typeof number !== 'undefined') {
-      combineKey = `${key}.${pluralize(number, _.get(lang, combineKey, {}))}`;
+      combineKey = `${key}.${pluralize(number, general)}`;
     }
 
     const translation = _.get(lang, combineKey, combineKey);

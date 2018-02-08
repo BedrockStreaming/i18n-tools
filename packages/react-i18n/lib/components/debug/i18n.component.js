@@ -53,21 +53,29 @@ var Trans = exports.Trans = function (_Component) {
       var _props = this.props,
           i18nKey = _props.i18nKey,
           data = _props.data,
-          number = _props.number;
+          number = _props.number,
+          general = _props.general;
 
       var t = this.context.getTranslateFunction();
 
-      return t(i18nKey, data, number);
+      return t(i18nKey, data, number, general);
     }
   }]);
 
   return Trans;
 }(_react.Component);
 
+Trans.defaultProps = {
+  data: {},
+  number: undefined,
+  general: false
+};
+
 Trans.propTypes = {
   i18nKey: _propTypes2.default.string.isRequired,
   data: _propTypes2.default.object,
-  number: _propTypes2.default.number
+  number: _propTypes2.default.number,
+  general: _propTypes2.default.bool
 };
 
 Trans.contextTypes = {

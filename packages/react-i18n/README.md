@@ -61,7 +61,7 @@ export default const MyComponent = ({ nbExample, t }) => {
         <Trans i18nKey="foo.bar" />
       </h1>
       <p>
-        <Trans i18nKey="foo.exemple" number={nbExample} data={data} />
+        <Trans i18nKey="foo.exemple" number={nbExample} data={data} general/>
       </p>
     </div>
   );
@@ -71,6 +71,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 * **i18nKeys**: key from the dictionary (required)
 * **number**: amount used for plural forms
 * **data**: object containing key/values used for interpolation in the translation
+* **general**: use general plural form if truthy
 
 Note that **number** and **data** can be used together.
 
@@ -92,7 +93,7 @@ const MyComponent = ({ nbExample, t }) => {
         {t('foo.bar')}
       </h1>
       <p>
-        {t('foo.exemple', data, nbExample)}
+        {t('foo.exemple', data, nbExample, true)}
       </p>
     </div>
   );
@@ -105,6 +106,7 @@ export default translate(MyComponent);
   * **key**: key from the dictionary (required)
   * **data**: object containing key/values used for interpolation in the translation
   * **number**: amount used for plural forms
+  * **general**: use general plural form if truthy
 
 Note that **number** and **data** can be used together.
 
@@ -146,4 +148,6 @@ This is the configuration of plural form for keys:
 | HU       | `one`   | `one`    | `other`        | `one`        | -             | -            |
 | HR       | `many`  | `one`    | `other`        | `one`        | `few`         | `many`       |
 
-The variable used in translation template string has to be `%(number)s`. For some languages, the presence of the variable is used to select plural form.
+The variable used in translation template string has to be `%(number)d`, and is automatically provided by the translate function.
+
+To use general form, you need to set 4th parameter of the translate function to `true`
