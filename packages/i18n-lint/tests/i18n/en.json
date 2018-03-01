@@ -1,0 +1,37 @@
+{
+  "default": {
+    "successKeys": {
+      "html": {
+        "div": "foo <div>bar</div>"
+      }
+    },
+    "errorKeys": {
+      "html": {
+        "unclosedDiv": "foo <div>bar",
+        "unopenedDiv": "foo bar</div>"
+      },
+      "$variables": {
+        "v0": "$ fooBar)s",
+        "v1": "$ (fooBar)s",
+        "v2": "(fooBar)s",
+        "v3": "$fooBar)s",
+        "v4": "$(fooBar) s",
+        "v5": "$ (fooBar) s",
+        "v6": "$(fooBars",
+        "v7": "$(fooBar)",
+        "v8": "$(fooBar s"
+      },
+      "%variables": {
+        "v0": "% fooBar)s",
+        "v1": "% (fooBar)s",
+        "v2": "(fooBar)s",
+        "v3": "%fooBar)s",
+        "v4": "%(fooBar) s",
+        "v5": "% (fooBar) s",
+        "v6": "%(fooBars",
+        "v7": "%(fooBar)",
+        "v8": "%(fooBar s"
+      }
+    }
+  }
+}
