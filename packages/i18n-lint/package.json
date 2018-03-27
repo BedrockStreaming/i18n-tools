@@ -17,6 +17,7 @@
     "lint": "eslint src/**/*.js tests/**/*.js"
   },
   "dependencies": {
+    "chalk": "2.3.2",
     "is-html": "1.1.0",
     "lodash": "4.17.5"
   }

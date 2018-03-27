@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _lodash = require('lodash');
@@ -18,94 +18,91 @@ var _logger = require('./logger');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var reportBuilder = function reportBuilder(message, isError) {
-    isError ? (0, _logger.error)(message) : (0, _logger.warn)(message);
+var reportBuilder = function reportBuilder(lang, key, message, value, isError) {
+  var log = isError ? _logger.error : _logger.warn;
 
-    return { error: isError, message: message };
+  log(lang.toUpperCase() + ' - translation for key ' + key + ' ' + message + ' \n ' + value + ' \n');
+
+  return { error: isError, message: message };
 };
 
 var getMatches = function getMatches(string, regex) {
-    var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
-    var matches = [];
-    var match = void 0;
-    while (match = regex.exec(string)) {
-        matches.push(match[index]);
-    }
-    return matches;
+  var matches = [];
+  var match = void 0;
+  while (match = regex.exec(string)) {
+    matches.push(match[index]);
+  }
+  return matches;
 };
 
 var noMissingTag = function noMissingTag(string) {
-    var openTags = [];
-    var closedTags = [];
+  var openTags = [];
+  var closedTags = [];
 
-    _lodash2.default.forEach(getMatches(string, /<([a-zA-Z]+)>/g, 1), function (tag) {
-        openTags.push(tag);
-    });
+  _lodash2.default.forEach(getMatches(string, /<([a-zA-Z]+)>/g, 1), function (tag) {
+    openTags.push(tag);
+  });
 
-    _lodash2.default.forEach(getMatches(string, /<\/([a-zA-Z]+)>/g, 1), function (tag) {
-        closedTags.push(tag);
-    });
+  _lodash2.default.forEach(getMatches(string, /<\/([a-zA-Z]+)>/g, 1), function (tag) {
+    closedTags.push(tag);
+  });
 
-    var tags = _lodash2.default.mergeWith(_lodash2.default.countBy(openTags), _lodash2.default.countBy(closedTags), function (objValue, srcValue) {
-        return { open: objValue || 0, closed: srcValue || 0 };
-    });
+  var tags = _lodash2.default.mergeWith(_lodash2.default.countBy(openTags), _lodash2.default.countBy(closedTags), function (objValue, srcValue) {
+    return {
+      open: objValue || 0,
+      closed: srcValue || 0
+    };
+  });
 
-    return _lodash2.default.every(tags, function (tag) {
-        return tag.open && tag.closed && tag.open === tag.closed;
-    });
+  return _lodash2.default.every(tags, function (tag) {
+    return tag.open && tag.closed && tag.open === tag.closed;
+  });
 };
 
 var rules = {
-    htmlValid: {
-        test: function test(string) {
-            return (0, _isHtml2.default)('<p>' + string + '</p>');
-        },
-        report: function report(value, key, lang, isError) {
-            return reportBuilder(lang + ': translation for key \'' + key + '\' is not html valid \n  ' + value, isError);
-        }
+  htmlValid: {
+    test: function test(string) {
+      return (0, _isHtml2.default)('<p>' + string + '</p>');
     },
-    noMissingTag: {
-        test: noMissingTag,
-        report: function report(value, key, lang, isError) {
-            return reportBuilder(lang + ': translation for key \'' + key + '\' has missing html tag \n  ' + value, isError);
-        }
+    message: 'is not html valid'
+  },
+  noMissingTag: {
+    test: noMissingTag,
+    message: 'has missing html tag'
+  },
+  doubleSpace: {
+    test: function test(string) {
+      return !/(?:\s|\\u00a0){2}/.test(string);
     },
-    doubleSpace: {
-        test: function test(string) {
-            return !/(?:\s|\\u00a0){2}/.test(string);
-        },
-        report: function report(value, key, lang, isError) {
-            return reportBuilder(lang + ': translation for key \'' + key + '\' has double white space \n  ' + value, isError);
-        }
-
+    message: 'has double white space'
+  },
+  htmlDoubleSpace: {
+    test: function test(string) {
+      return !/(?:\s|\\u00a0)<\/?[a-zA-Z]+>(?:\s|\\u00a0)/.test(string);
     },
-    htmlDoubleSpace: {
-        test: function test(string) {
-            return !/(?:\s|\\u00a0)<\/?[a-zA-Z]+>(?:\s|\\u00a0)/.test(string);
-        },
-        report: function report(value, key, lang, isError) {
-            return reportBuilder(lang + ': translation for key \'' + key + '\' has double white space with inner html tag \n  ' + value, isError);
-        }
-    }
+    message: 'has double white space with inner html tag'
+  }
 };
 
 exports.default = function (langs) {
-    var isError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var isError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-    var reports = [];
-    _lodash2.default.forEach(langs, function (lang, langName) {
-        return _lodash2.default.forEach((0, _utils.flatten)(lang), function (value, key) {
-            return _lodash2.default.forEach(rules, function (_ref) {
-                var test = _ref.test,
-                    report = _ref.report;
+  var reports = [];
+  _lodash2.default.forEach(langs, function (lang, langName) {
+    (0, _logger.info)('Starting lang ' + langName.toUpperCase() + ' \n');
+    _lodash2.default.forEach((0, _utils.flatten)(lang), function (value, key) {
+      return _lodash2.default.forEach(rules, function (_ref) {
+        var test = _ref.test,
+            message = _ref.message;
 
-                if (!test(value)) {
-                    reports.push(report(value, key, langName, isError));
-                }
-            });
-        });
+        if (!test(value)) {
+          reports.push(reportBuilder(langName, key, message, value, isError));
+        }
+      });
     });
+  });
 
-    return reports;
+  return reports;
 };

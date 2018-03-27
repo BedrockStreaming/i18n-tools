@@ -4,43 +4,35 @@ exports[`htmlVerifier should detect html errors 1`] = `
 Array [
   Object {
     "error": true,
-    "message": "tests: translation for key 'firstTag' has missing html tag 
-  foo <div> foo",
+    "message": "has missing html tag",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'firstTag' has double white space with inner html tag 
-  foo <div> foo",
+    "message": "has double white space with inner html tag",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'lastTag' has missing html tag 
-  foo </div> foo",
+    "message": "has missing html tag",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'lastTag' has double white space with inner html tag 
-  foo </div> foo",
+    "message": "has double white space with inner html tag",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'doubleSpace' has double white space 
-  foo  bar",
+    "message": "has double white space",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'doubleSpaceWithNonBreakingSpace' has double white space 
-  foo  bar",
+    "message": "has double white space",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'doubleSpaceWithHtmlTag' has double white space with inner html tag 
-  foo <foo> bar</foo>",
+    "message": "has double white space with inner html tag",
   },
   Object {
     "error": true,
-    "message": "tests: translation for key 'doubleSpaceWithHtmlTagClosing' has double white space with inner html tag 
-  <foo>foo </foo> bar",
+    "message": "has double white space with inner html tag",
   },
 ]
 `;
