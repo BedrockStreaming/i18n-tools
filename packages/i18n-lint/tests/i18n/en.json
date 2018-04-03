@@ -1,0 +1,47 @@
+{
+  "default": {
+    "successKeys": {
+      "html": {
+        "div": "foo <div>bar</div>",
+        "nestedHTML": "bar <i><strong> foo </strong></i>",
+        "noHTML": "foo bar"
+      }
+    },
+    "errorKeys": {
+      "html": {
+        "unclosedDiv": "foo <div>bar",
+        "unopenedDiv": "foo bar</div>",
+        "nestedClosedDiv": "bar <i>foo </strong></i>",
+        "nestedOpenedDiv": "bar <i> <strong>foo </i>"
+      },
+      "whiteSpace": {
+        "doubleSpace": "foo  bar",
+        "doubleSpaceWithNonBreakingSpace": "foo \u00a0bar",
+        "doubleSpaceWithHtmlTag": "foo <foo> bar</foo>",
+        "doubleSpaceWithHtmlTagClosing": "<foo>foo </foo> bar"
+      },
+      "$variables": {
+        "v0": "$ fooBar)s",
+        "v1": "$ (fooBar)s",
+        "v2": "(fooBar)s",
+        "v3": "$fooBar)s",
+        "v4": "$(fooBar) s",
+        "v5": "$ (fooBar) s",
+        "v6": "$(fooBars",
+        "v7": "$(fooBar)",
+        "v8": "$(fooBar s"
+      },
+      "%variables": {
+        "v0": "% fooBar)s",
+        "v1": "% (fooBar)s",
+        "v2": "(fooBar)s",
+        "v3": "%fooBar)s",
+        "v4": "%(fooBar) s",
+        "v5": "% (fooBar) s",
+        "v6": "%(fooBars",
+        "v7": "%(fooBar)",
+        "v8": "%(fooBar s"
+      }
+    }
+  }
+}

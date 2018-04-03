@@ -1,0 +1,6 @@
+{
+  "extends": ["./node_modules/eslint-tools-m6web/.eslintrc"],
+  "env": {
+    "mocha": true
+  }
+}

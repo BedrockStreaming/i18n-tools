@@ -1,0 +1,24 @@
+{
+  "name": "i18n-lint",
+  "version": "1.0.0",
+  "description": "i18n translation files linter",
+  "main": "index.js",
+  "author": "Florent Lepretre <florent.lepretre@m6.fr6.fr6.fr6.fr6.fr6.fr>",
+  "license": "MIT",
+  "devDependencies": {
+    "@m6web/eslint-plugin": "2.0.0",
+    "babel-cli": "6.26.0",
+    "babel-preset-es2015": "6.24.1",
+    "jest-cli": "22.4.2"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "format": "prettier-eslint --write src/**/*.js tests/**/*.js",
+    "lint": "eslint src/**/*.js tests/**/*.js"
+  },
+  "dependencies": {
+    "chalk": "2.3.2",
+    "is-html": "1.1.0",
+    "lodash": "4.17.5"
+  }
+}
