@@ -19,16 +19,19 @@ var JSONReader = function () {
     _classCallCheck(this, JSONReader);
   }
 
-  _createClass(JSONReader, [{
+  _createClass(JSONReader, null, [{
     key: 'parse',
     value: function parse(folderName, fileName) {
       try {
         var path = folderName + '/' + fileName;
 
         var text = _fs2.default.readFileSync(path, 'utf-8');
+
         return JSON.parse(text);
       } catch (e) {
         console.log('######## error', e);
+
+        return null;
       }
     }
   }]);

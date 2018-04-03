@@ -30,10 +30,12 @@ var getMatches = function getMatches(string, regex) {
   var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
   var matches = [];
-  var match = void 0;
-  while (match = regex.exec(string)) {
+  var match = regex.exec(string);
+  while (match) {
     matches.push(match[index]);
+    match = regex.exec(string);
   }
+
   return matches;
 };
 

@@ -13,16 +13,18 @@ const reportBuilder = (lang, key, message, value, isError) => {
 
 const getMatches = (string, regex, index = 1) => {
   const matches = [];
-  let match;
-  while ((match = regex.exec(string))) {
+  let match = regex.exec(string);
+  while (match) {
     matches.push(match[index]);
+    match = regex.exec(string);
   }
+
   return matches;
 };
 
 const noMissingTag = string => {
-  let openTags = [];
-  let closedTags = [];
+  const openTags = [];
+  const closedTags = [];
 
   _.forEach(getMatches(string, /<([a-zA-Z]+)>/g, 1), tag => {
     openTags.push(tag);

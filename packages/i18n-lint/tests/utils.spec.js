@@ -14,7 +14,7 @@ describe('flatten', () => {
       bar: 'foo foo foo',
     };
 
-    let res = flatten(lang);
+    const res = flatten(lang);
     expect(res).toEqual({ bar: 'foo foo foo', 'foo.foo.foo': 'bar', 'foo.foo.foobar': 'foo foo' });
   });
 });

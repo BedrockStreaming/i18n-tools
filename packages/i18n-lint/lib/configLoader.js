@@ -19,7 +19,7 @@ var ConfigLoader = function () {
     _classCallCheck(this, ConfigLoader);
   }
 
-  _createClass(ConfigLoader, [{
+  _createClass(ConfigLoader, null, [{
     key: 'load',
     value: function load(filePath) {
       return JSON.parse(_fs2.default.readFileSync(filePath, 'utf8'));

@@ -22,6 +22,7 @@ export default class Runner {
   run() {
     const mainLanguages = this.config.mainLanguages.reduce((accumulator, lang) => {
       accumulator[lang] = new Reader().parse(this.config.path, `${lang}.json`);
+
       return accumulator;
     }, {});
 

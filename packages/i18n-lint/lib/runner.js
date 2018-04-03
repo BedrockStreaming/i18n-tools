@@ -52,6 +52,7 @@ var Runner = function () {
 
       var mainLanguages = this.config.mainLanguages.reduce(function (accumulator, lang) {
         accumulator[lang] = new _reader2.default().parse(_this.config.path, lang + '.json');
+
         return accumulator;
       }, {});
 
