@@ -1,8 +1,8 @@
 {
-  "name": "eslint-plugin-m6web-i18n",
+  "name": "@m6web/eslint-plugin-i18n",
   "version": "0.5.1",
   "description": "eslint plugin for generic i18n",
-  "author": "M6web",
+  "author": "m6web",
   "main": "lib/index.js",
   "license": "MIT",
   "repository": {

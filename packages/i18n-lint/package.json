@@ -1,9 +1,9 @@
 {
-  "name": "i18n-lint",
+  "name": "@m6web/i18n-lint",
   "version": "1.0.0",
   "description": "i18n translation files linter",
   "main": "index.js",
-  "author": "Florent Lepretre <florent.lepretre@m6.fr6.fr6.fr6.fr6.fr6.fr>",
+  "author": "m6web",
   "license": "MIT",
   "devDependencies": {
     "@m6web/eslint-plugin": "2.0.0",
