@@ -1,15 +1,8 @@
 import _ from 'lodash';
 import isHtml from 'is-html';
 import { flatten } from '../utils';
-import { error, warn, info } from '../logger';
-
-const reportBuilder = (lang, key, message, value, isError) => {
-  const log = isError ? error : warn;
-
-  log(`${lang.toUpperCase()} - translation for key ${key} ${message} \n ${value} \n`);
-
-  return { error: isError, message };
-};
+import { info } from '../logger';
+import { reportBuilder } from '../reporters/reportBuilder';
 
 const getMatches = (string, regex, index = 1) => {
   const matches = [];
