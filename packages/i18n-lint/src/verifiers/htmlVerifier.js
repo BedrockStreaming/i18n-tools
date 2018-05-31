@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import isHtml from 'is-html';
-import { flatten } from './utils';
-import { error, warn, info } from './logger';
+import { flatten } from '../utils';
+import { error, warn, info } from '../logger';
 
 const reportBuilder = (lang, key, message, value, isError) => {
   const log = isError ? error : warn;

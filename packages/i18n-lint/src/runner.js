@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Reader from './reader';
 import ConfigLoader from './configLoader';
-import validateHTML from './htmlVerifier';
+import validateHTML from './verifiers/htmlVerifier';
 
 export default class Runner {
   constructor(defaultConfig) {

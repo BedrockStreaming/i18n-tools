@@ -1,6 +1,6 @@
-import HtmlVerifier from '../src/htmlVerifier';
+import HtmlVerifier from '../src/verifiers/htmlVerifier';
 
-jest.unmock('../src/htmlVerifier');
+jest.unmock('../src/verifiers/htmlVerifier');
 
 const tests = {
   firstTag: 'foo <div> foo',

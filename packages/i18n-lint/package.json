@@ -14,7 +14,8 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "format": "prettier-eslint --write src/**/*.js tests/**/*.js",
-    "lint": "eslint src/**/*.js tests/**/*.js"
+    "lint": "eslint src/**/*.js tests/**/*.js",
+    "test": "jest"
   },
   "dependencies": {
     "chalk": "2.3.2",
