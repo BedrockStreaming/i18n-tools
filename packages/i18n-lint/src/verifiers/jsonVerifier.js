@@ -1,25 +1,41 @@
-const alphabeticRule = (state, currentKey, currentIndex, jsonEntry, keys) => {
-  const nextKey = keys[currentIndex + 1];
+import { reportBuilder } from '../reporters/reportBuilder';
 
-  if (nextKey && nextKey < currentKey) {
-    return [...state, { error: true, message: `current key ${currentKey} is bigger than its next key ${nextKey}` }];
+const alphabeticRule = (lang, state, nodeIdentifier, nodeIndex, jsonEntry, keys) => {
+  const siblingNodeIdentifier = keys[nodeIndex + 1];
+
+  if (siblingNodeIdentifier && siblingNodeIdentifier < nodeIdentifier) {
+    return [
+      ...state,
+      reportBuilder(
+        lang,
+        nodeIdentifier,
+        `current key ${nodeIdentifier} is bigger than its next key ${siblingNodeIdentifier}`,
+        nodeIdentifier,
+        true,
+      ),
+    ];
   }
 
   return state;
 };
 
 const rules = [alphabeticRule];
+const EMPTY_ARRAY = [];
 
-export const validateJson = jsonEntries => {
-  const keys = Object.keys(jsonEntries);
+export const validateJson = (jsonTree, lang) => {
+  const keys = Object.keys(jsonTree);
 
-  return keys.reduce((state, currentKey, index) => {
-    const nextState = rules.reduce((acc, rule) => [...acc, ...rule(state, currentKey, index, jsonEntries, keys)], []);
+  return keys.reduce((state, nodeIdentifier, nodeIndex) => {
+    const nextState = rules.reduce(
+      (acc, rule) => acc.concat(rule(lang, state, nodeIdentifier, nodeIndex, jsonTree, keys)),
+      EMPTY_ARRAY,
+    );
+    const currentNode = jsonTree[nodeIdentifier];
 
-    if (typeof jsonEntries[currentKey] === 'object') {
-      return [...nextState, ...validateJson(jsonEntries[currentKey])];
+    if (typeof currentNode === 'object') {
+      return [...nextState, ...validateJson(currentNode, lang)];
     }
 
     return nextState;
-  }, []);
+  }, EMPTY_ARRAY);
 };

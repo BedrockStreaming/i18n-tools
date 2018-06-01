@@ -14,6 +14,6 @@ const tests = {
 
 describe('htmlVerifier', () => {
   it('should detect html errors', () => {
-    expect(HtmlVerifier({ tests }, true)).toMatchSnapshot();
+    expect(HtmlVerifier(tests, 'test', true)).toMatchSnapshot();
   });
 });

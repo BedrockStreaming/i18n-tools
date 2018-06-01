@@ -18,13 +18,17 @@ var _configLoader = require('./configLoader');
 
 var _configLoader2 = _interopRequireDefault(_configLoader);
 
-var _htmlVerifier = require('./htmlVerifier');
+var _htmlVerifier = require('./verifiers/htmlVerifier');
 
 var _htmlVerifier2 = _interopRequireDefault(_htmlVerifier);
+
+var _jsonVerifier = require('./verifiers/jsonVerifier');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var reporters = [_htmlVerifier2.default, _jsonVerifier.validateJson];
 
 var Runner = function () {
   function Runner(defaultConfig) {
@@ -40,7 +44,7 @@ var Runner = function () {
       var configIndex = process.argv.indexOf('--config') + 1;
       if (configIndex < process.argv.length && configIndex > 0) {
         configPath = process.argv[configIndex];
-        this.config = _lodash2.default.merge(config, new _configLoader2.default().load(configPath));
+        this.config = _lodash2.default.merge(config, _configLoader2.default.load(configPath));
       } else {
         this.config = config;
       }
@@ -50,15 +54,17 @@ var Runner = function () {
     value: function run() {
       var _this = this;
 
-      var mainLanguages = this.config.mainLanguages.reduce(function (accumulator, lang) {
-        accumulator[lang] = new _reader2.default().parse(_this.config.path, lang + '.json');
+      var reports = this.config.mainLanguages.reduce(function (accumulator, lang) {
+        var tradForLang = _reader2.default.parse(_this.config.path, lang + '.json');
 
-        return accumulator;
-      }, {});
+        var validatorReports = reporters.reduce(function (acc, validate) {
+          return acc.concat(validate(tradForLang, lang));
+        }, []);
 
-      var htmlReports = (0, _htmlVerifier2.default)(mainLanguages);
+        return accumulator.concat(validatorReports);
+      }, []);
 
-      process.exit(_lodash2.default.find(htmlReports, { error: true }) ? 1 : 0);
+      process.exit(_lodash2.default.find(reports, { error: true }) ? 1 : 0);
     }
   }]);
 

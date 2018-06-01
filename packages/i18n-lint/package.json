@@ -15,7 +15,8 @@
     "build": "babel src --out-dir lib",
     "format": "prettier-eslint --write src/**/*.js tests/**/*.js",
     "lint": "eslint src/**/*.js tests/**/*.js",
-    "test": "jest"
+    "test": "jest",
+    "test:integration": "yarn build && node ./lib/index --config tests/test.config.json"
   },
   "dependencies": {
     "chalk": "2.3.2",
