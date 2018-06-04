@@ -11,7 +11,7 @@ describe('jsonVerifier', () => {
         c: 'position',
       },
     };
-    expect(validateJson(invalidJson)).toEqual([
+    expect(validateJson(invalidJson, 'en')).toEqual([
       { error: true, message: 'current key b is bigger than its next key a' },
       { error: true, message: 'current key z is bigger than its next key c' },
     ]);

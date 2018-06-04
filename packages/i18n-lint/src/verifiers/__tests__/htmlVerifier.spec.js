@@ -1,4 +1,4 @@
-import HtmlVerifier from '../htmlVerifier';
+import { validateHTML } from '../htmlVerifier';
 
 jest.unmock('../htmlVerifier');
 
@@ -12,8 +12,8 @@ const tests = {
   doubleSpaceWithHtmlTagClosing: '<foo>foo </foo> bar',
 };
 
-describe('htmlVerifier', () => {
+describe('validateHTML', () => {
   it('should detect html errors', () => {
-    expect(HtmlVerifier(tests, 'test', true)).toMatchSnapshot();
+    expect(validateHTML(tests, 'test', true)).toMatchSnapshot();
   });
 });

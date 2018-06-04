@@ -54,7 +54,7 @@ const rules = {
   },
 };
 
-export default (jsonTree, lang, isError = true) => {
+export const validateHTML = (jsonTree, lang, isError = true) => {
   const reports = [];
 
   info(`Starting lang ${lang.toUpperCase()} \n`);
