@@ -17,27 +17,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var alphabeticRule = function alphabeticRule(lang, state, nodeIdentifier, nodeIndex, jsonEntry, keys) {
+var alphabeticRule = function alphabeticRule(lang, nodeIdentifier, nodeIndex, jsonEntry, keys) {
   var siblingNodeIdentifier = keys[nodeIndex + 1];
 
   if (siblingNodeIdentifier && siblingNodeIdentifier < nodeIdentifier) {
-    return [].concat(_toConsumableArray(state), [(0, _reportBuilder.reportBuilder)(lang, nodeIdentifier, 'current key ' + nodeIdentifier + ' is bigger than its next key ' + siblingNodeIdentifier, nodeIdentifier, true)]);
+    return [(0, _reportBuilder.reportBuilder)(lang, nodeIdentifier, 'current key ' + nodeIdentifier + ' is bigger than its next key ' + siblingNodeIdentifier, nodeIdentifier, true)];
   }
 
-  return state;
+  return [];
 };
 
 var rules = [alphabeticRule];
-var EMPTY_ARRAY = [];
 
 var validateJson = exports.validateJson = function validateJson(jsonTree, lang) {
   var keys = Object.keys(jsonTree);
 
-  return keys.reduce(function (state, nodeIdentifier, nodeIndex) {
+  return _lodash2.default.flatMap(keys, function (nodeIdentifier, nodeIndex) {
     var nextState = _lodash2.default.flatMap(rules, function (rule) {
-      return rule(lang, state, nodeIdentifier, nodeIndex, jsonTree, keys);
+      return rule(lang, nodeIdentifier, nodeIndex, jsonTree, keys);
     });
-
     var currentNode = jsonTree[nodeIdentifier];
 
     if ((typeof currentNode === 'undefined' ? 'undefined' : _typeof(currentNode)) === 'object') {
@@ -45,5 +43,5 @@ var validateJson = exports.validateJson = function validateJson(jsonTree, lang) 
     }
 
     return nextState;
-  }, EMPTY_ARRAY);
+  });
 };

@@ -1,12 +1,11 @@
 import _ from 'lodash';
 import { reportBuilder } from '../reporters/reportBuilder';
 
-const alphabeticRule = (lang, state, nodeIdentifier, nodeIndex, jsonEntry, keys) => {
+const alphabeticRule = (lang, nodeIdentifier, nodeIndex, jsonEntry, keys) => {
   const siblingNodeIdentifier = keys[nodeIndex + 1];
 
   if (siblingNodeIdentifier && siblingNodeIdentifier < nodeIdentifier) {
     return [
-      ...state,
       reportBuilder(
         lang,
         nodeIdentifier,
@@ -17,17 +16,16 @@ const alphabeticRule = (lang, state, nodeIdentifier, nodeIndex, jsonEntry, keys)
     ];
   }
 
-  return state;
+  return [];
 };
 
 const rules = [alphabeticRule];
-const EMPTY_ARRAY = [];
 
 export const validateJson = (jsonTree, lang) => {
   const keys = Object.keys(jsonTree);
 
-  return keys.reduce((state, nodeIdentifier, nodeIndex) => {
-    const nextState = _.flatMap(rules, rule => rule(lang, state, nodeIdentifier, nodeIndex, jsonTree, keys));
+  return _.flatMap(keys, (nodeIdentifier, nodeIndex) => {
+    const nextState = _.flatMap(rules, rule => rule(lang, nodeIdentifier, nodeIndex, jsonTree, keys));
     const currentNode = jsonTree[nodeIdentifier];
 
     if (typeof currentNode === 'object') {
@@ -35,5 +33,5 @@ export const validateJson = (jsonTree, lang) => {
     }
 
     return nextState;
-  }, EMPTY_ARRAY);
+  });
 };
