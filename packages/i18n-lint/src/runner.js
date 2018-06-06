@@ -23,13 +23,13 @@ export default class Runner {
   }
 
   run() {
-    const reports = this.config.mainLanguages.reduce((accumulator, lang) => {
-      const tradForLang = Reader.parse(this.config.path, `${lang}.json`);
+    const { mainLanguages, path } = this.config;
 
-      const validatorReports = reporters.reduce((acc, validate) => acc.concat(validate(tradForLang, lang)), []);
+    const reports = _.flatMap(mainLanguages, lang => {
+      const tradForLang = Reader.parse(path, `${lang}.json`);
 
-      return accumulator.concat(validatorReports);
-    }, []);
+      return _.flatMap(reporters, reporter => reporter(tradForLang, lang));
+    });
 
     process.exit(_.find(reports, { error: true }) ? 1 : 0);
   }

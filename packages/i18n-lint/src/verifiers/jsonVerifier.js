@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { reportBuilder } from '../reporters/reportBuilder';
 
 const alphabeticRule = (lang, state, nodeIdentifier, nodeIndex, jsonEntry, keys) => {
@@ -26,10 +27,7 @@ export const validateJson = (jsonTree, lang) => {
   const keys = Object.keys(jsonTree);
 
   return keys.reduce((state, nodeIdentifier, nodeIndex) => {
-    const nextState = rules.reduce(
-      (acc, rule) => acc.concat(rule(lang, state, nodeIdentifier, nodeIndex, jsonTree, keys)),
-      EMPTY_ARRAY,
-    );
+    const nextState = _.flatMap(rules, rule => rule(lang, state, nodeIdentifier, nodeIndex, jsonTree, keys));
     const currentNode = jsonTree[nodeIdentifier];
 
     if (typeof currentNode === 'object') {
