@@ -1,6 +1,6 @@
-import HtmlVerifier from '../src/htmlVerifier';
+import { validateHTML } from '../htmlVerifier';
 
-jest.unmock('../src/htmlVerifier');
+jest.unmock('../htmlVerifier');
 
 const tests = {
   firstTag: 'foo <div> foo',
@@ -12,8 +12,8 @@ const tests = {
   doubleSpaceWithHtmlTagClosing: '<foo>foo </foo> bar',
 };
 
-describe('htmlVerifier', () => {
+describe('validateHTML', () => {
   it('should detect html errors', () => {
-    expect(HtmlVerifier({ tests }, true)).toMatchSnapshot();
+    expect(validateHTML(tests, 'test', true)).toMatchSnapshot();
   });
 });

@@ -1,15 +1,8 @@
 import _ from 'lodash';
 import isHtml from 'is-html';
-import { flatten } from './utils';
-import { error, warn, info } from './logger';
-
-const reportBuilder = (lang, key, message, value, isError) => {
-  const log = isError ? error : warn;
-
-  log(`${lang.toUpperCase()} - translation for key ${key} ${message} \n ${value} \n`);
-
-  return { error: isError, message };
-};
+import { flatten } from '../utils';
+import { info } from '../logger';
+import { reportBuilder } from '../reporters/reportBuilder';
 
 const getMatches = (string, regex, index = 1) => {
   const matches = [];
@@ -61,18 +54,17 @@ const rules = {
   },
 };
 
-export default (langs, isError = true) => {
+export const validateHTML = (jsonTree, lang, isError = true) => {
   const reports = [];
-  _.forEach(langs, (lang, langName) => {
-    info(`Starting lang ${langName.toUpperCase()} \n`);
-    _.forEach(flatten(lang), (value, key) =>
-      _.forEach(rules, ({ test, message }) => {
-        if (!test(value)) {
-          reports.push(reportBuilder(langName, key, message, value, isError));
-        }
-      }),
-    );
-  });
+
+  info(`Starting lang ${lang.toUpperCase()} \n`);
+  _.forEach(flatten(jsonTree), (value, key) =>
+    _.forEach(rules, ({ test, message }) => {
+      if (!test(value)) {
+        reports.push(reportBuilder(lang, key, message, value, isError));
+      }
+    }),
+  );
 
   return reports;
 };

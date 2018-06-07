@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`htmlVerifier should detect html errors 1`] = `
+exports[`validateHTML should detect html errors 1`] = `
 Array [
   Object {
     "error": true,
