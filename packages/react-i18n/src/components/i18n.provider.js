@@ -1,30 +1,13 @@
 import PropTypes from 'prop-types';
-import { Component, Children } from 'react';
 import { translate } from '../utils/i18n.utils';
+import { ReactI18n } from './i18n.context';
 
-export class I18nProvider extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.translate = translate(this.props.lang, this.props.i18nNames);
-  }
-
-  getChildContext() {
-    return {
-      getTranslateFunction: () => this.translate,
-    };
-  }
-
-  render() {
-    return Children.only(this.props.children);
-  }
-}
+export const I18nProvider = ({ children, lang, i18nNames }) => (
+  <ReactI18n.provider value={translate(lang, i18nNames)}>{children}</ReactI18n.provider>
+);
 
 I18nProvider.propTypes = {
   children: PropTypes.element.isRequired,
   lang: PropTypes.object.isRequired,
   i18nNames: PropTypes.object,
-};
-
-I18nProvider.childContextTypes = {
-  getTranslateFunction: PropTypes.func,
 };
