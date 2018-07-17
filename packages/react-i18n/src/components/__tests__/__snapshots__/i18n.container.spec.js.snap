@@ -3,11 +3,6 @@
 exports[`i18n container should provide translate function and inherited props 1`] = `
 <DummyComponent
   foo="bar"
-  t={
-    Object {
-      "calls": Array [],
-      "name": "jest.fn()",
-    }
-  }
+  t={[MockFunction]}
 />
 `;

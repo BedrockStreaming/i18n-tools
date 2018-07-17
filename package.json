@@ -9,5 +9,8 @@
   ],
   "devDependencies": {
     "lerna": "^2.9.0"
+  },
+  "scripts": {
+    "test": "yarn jest && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests"
   }
 }
