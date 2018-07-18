@@ -1,5 +1,6 @@
-# Do not ignore /lib untill postinstall script
-# lib/
+# build files
+es/
+lib/
 
 # Node modules
 node_modules/

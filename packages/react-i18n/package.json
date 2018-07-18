@@ -7,15 +7,11 @@
   "author": "m6web",
   "license": "MIT",
   "files": [
-    "src/",
     "lib/"
   ],
   "peerDependencies": {
-    "lodash": "^4.17.0",
-    "lodash-es": "^4.17.0",
     "prop-types": "^15.6.2",
-    "react": "^16.0.0",
-    "sprintf-js": "^1.1.0"
+    "react": "^16.0.0"
   },
   "jest": {
     "timers": "fake"
@@ -32,6 +28,7 @@
     "enzyme-to-json": "3.2.1",
     "jest": "23.4.1",
     "lodash": "4.17.4",
+    "lodash-es": "4.17.0",
     "prop-types": "15.6.0",
     "react": "16.0.0",
     "react-addons-test-utils": "15.6.2",
@@ -39,11 +36,12 @@
     "sprintf-js": "1.1.1"
   },
   "scripts": {
+    "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "build": "yarn build:commonjs && yarn build:es",
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib --ignore __tests__,__mocks__",
     "build:es": "BABEL_ENV=es babel src --out-dir es --ignore __tests__,__mocks__",
-    "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "format": "prettier-eslint --write src/**/*.js *.md",
+    "prepack": "yarn test && yarn build",
     "test": "BABEL_ENV=test jest",
     "release": "yarn lint && yarn test && yarn build && yarn version"
   }
