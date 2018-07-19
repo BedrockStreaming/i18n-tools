@@ -1,6 +1,6 @@
 {
   "name": "@m6web/i18n-lint",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "i18n translation files linter",
   "main": "index.js",
   "author": "m6web",
