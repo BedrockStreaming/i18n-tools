@@ -1,21 +1,17 @@
 {
   "name": "@m6web/react-i18n",
-  "version": "1.3.0",
+  "version": "1.0.0",
   "description": "Provider and utils for translation in a react app",
   "main": "lib/index.js",
   "module": "es/index.js",
   "author": "m6web",
   "license": "MIT",
   "files": [
-    "src/",
     "lib/"
   ],
   "peerDependencies": {
-    "lodash": "^4.17.0",
-    "lodash-es": "^4.17.0",
     "prop-types": "^15.6.2",
-    "react": "^16.0.0",
-    "sprintf-js": "^1.1.0"
+    "react": "^16.0.0"
   },
   "jest": {
     "timers": "fake"
@@ -30,22 +26,24 @@
     "enzyme": "3.1.1",
     "enzyme-adapter-react-16": "1.0.4",
     "enzyme-to-json": "3.2.1",
-    "eslint-plugin-m6web-tools": "1.2.0",
-    "jest": "21.3.0-beta.2",
-    "lodash": "4.17.4",
+    "jest": "23.4.1",
+    "lodash-es": "4.17.0",
     "prop-types": "15.6.0",
     "react": "16.0.0",
     "react-addons-test-utils": "15.6.2",
-    "react-dom": "16.0.0",
+    "react-dom": "16.0.0"
+  },
+  "dependencies": {
+    "lodash": "4.17.4",
     "sprintf-js": "1.1.1"
   },
   "scripts": {
+    "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "build": "yarn build:commonjs && yarn build:es",
     "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib --ignore __tests__,__mocks__",
     "build:es": "BABEL_ENV=es babel src --out-dir es --ignore __tests__,__mocks__",
-    "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "format": "prettier-eslint --write src/**/*.js *.md",
-    "lint": "eslint src/**/*.js",
+    "prepack": "yarn test && yarn build",
     "test": "BABEL_ENV=test jest",
     "release": "yarn lint && yarn test && yarn build && yarn version"
   }

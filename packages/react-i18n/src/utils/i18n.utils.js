@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import { sprintf } from 'sprintf-js';
 
-const numberPlaceholder = '%(number)';
-
 const pluralizeFunctions = {
   en: number => (number === 0 || number > 1 ? 'other' : 'one'),
   fr: number => (number > 1 ? 'other' : 'one'),
@@ -32,6 +30,8 @@ const pluralizeFunctions = {
       // Second plural form
       return 'few';
     }
+
+    return '';
   },
 };
 

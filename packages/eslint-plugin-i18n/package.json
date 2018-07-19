@@ -5,20 +5,8 @@
   "author": "m6web",
   "main": "lib/index.js",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/M6Web/eslint-plugin-m6web-i18n.git"
-  },
-  "scripts": {
-    "build": "babel src --out-dir lib",
-    "babel-watch": "babel src --out-dir lib --watch",
-    "format": "prettier-eslint --write src/**/*.js",
-    "lint": "eslint src/**/*.js tests/**/*.js",
-    "test": "mocha --recursive tests",
-    "prepack": "yarn lint && yarn test && yarn build"
-  },
-  "peerDependencies": {
-    "eslint": "^4.0.0"
+  "dependencies": {
+    "minimatch": "3.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -29,7 +17,18 @@
     "mversion": "^1.10.1",
     "sinon": "^3.2.1"
   },
-  "dependencies": {
-    "minimatch": "3.0.4"
+  "peerDependencies": {
+    "eslint": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/M6Web/eslint-plugin-m6web-i18n.git"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "babel-watch": "babel src --out-dir lib --watch",
+    "format": "prettier-eslint --write src/**/*.js",
+    "test": "mocha --recursive tests",
+    "prepack": "yarn test && yarn build"
   }
 }

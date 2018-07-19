@@ -1,4 +1,4 @@
-import { Trans, translate, I18nProvider, translateFunction } from '../../lib';
+import { Trans, translate, I18nProvider, translateFunction } from '../';
 
 describe('index', () => {
   it('should export translate function', () => {
