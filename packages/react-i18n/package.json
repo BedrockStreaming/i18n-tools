@@ -37,6 +37,9 @@
     "lodash": "4.17.10",
     "sprintf-js": "1.1.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "build": "yarn build:commonjs && yarn build:es",

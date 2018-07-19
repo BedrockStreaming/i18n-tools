@@ -20,6 +20,9 @@
   "peerDependencies": {
     "eslint": "^4.0.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/M6Web/eslint-plugin-m6web-i18n.git"

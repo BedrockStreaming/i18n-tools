@@ -16,6 +16,9 @@
     "is-html": "1.1.0",
     "lodash": "4.17.10"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "babel src --out-dir lib",
     "format": "prettier-eslint --write src/**/*.js tests/**/*.js",
