@@ -3,8 +3,9 @@ import Reader from './reader';
 import ConfigLoader from './configLoader';
 import { validateHTML } from './verifiers/htmlVerifier';
 import { validateJson } from './verifiers/jsonVerifier';
+import { info } from './logger';
 
-const reporters = [validateHTML, validateJson];
+const reporters = { validateHTML, validateJson };
 
 export default class Runner {
   constructor(defaultConfig) {
@@ -28,8 +29,40 @@ export default class Runner {
     const reports = _.flatMap(mainLanguages, lang => {
       const tradForLang = Reader.parse(path, `${lang}.json`);
 
-      return _.flatMap(reporters, reporter => reporter(tradForLang, lang));
+      return _.compact(
+        _.flatMap(reporters, (reporter, key) => {
+          const reporterLevel = this.config.rules[key];
+          if (reporterLevel === 'error') {
+            return reporter(tradForLang, lang);
+          } else if (reporterLevel === 'warning') {
+            return reporter(tradForLang, lang, false);
+          }
+
+          return undefined;
+        }),
+      );
     });
+
+    const { nbError, nbWarning } = _.reduce(
+      reports,
+      (acc, report) => {
+        if (report.error) {
+          acc.nbError += 1;
+        } else {
+          acc.nbWarning += 1;
+        }
+
+        return acc;
+      },
+      { nbError: 0, nbWarning: 0 },
+    );
+
+    if (nbError || nbWarning) {
+      info(`${nbWarning} warning${nbWarning ? '' : 's'} found`);
+      info(`${nbError} erro${nbError ? '' : 's'} found`);
+    } else {
+      info('Everything is fine');
+    }
 
     process.exit(_.find(reports, { error: true }) ? 1 : 0);
   }
