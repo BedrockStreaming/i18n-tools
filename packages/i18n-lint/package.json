@@ -2,9 +2,12 @@
   "name": "@m6web/i18n-lint",
   "version": "1.0.0",
   "description": "i18n translation files linter",
-  "main": "index.js",
+  "main": "lib/index.js",
   "author": "m6web",
   "license": "MIT",
+  "bin": {
+    "i18n-lint": "./lib/index.js"
+  },
   "devDependencies": {
     "@m6web/eslint-plugin": "2.0.0",
     "babel-cli": "6.26.0",
