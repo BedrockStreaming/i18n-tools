@@ -1,23 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import { Trans } from '../i18nString.component';
 
-describe('i18n.renderProps', () => {
-  let context = {};
-  const childContextTypes = {
-    getTranslateFunction: PropTypes.func,
-  };
+jest.mock('../i18n.context');
 
-  beforeEach(() => {
-    context = {
-      getTranslateFunction: jest.fn(() => jest.fn(x => x)),
-    };
-  });
+describe('i18n.renderProps', () => {
 
   it('should return a translated string', () => {
-    const wrapper = shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes });
+    const wrapper = shallow(<Trans i18nKey="foo.bar" />);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });
