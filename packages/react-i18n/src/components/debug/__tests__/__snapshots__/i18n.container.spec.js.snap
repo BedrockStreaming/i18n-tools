@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`i18n container in debug mode should provide translate function and inherited props 1`] = `
-<DummyComponent
-  foo="bar"
-  t={[MockFunction]}
-/>
-`;
