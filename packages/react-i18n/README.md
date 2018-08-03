@@ -18,7 +18,7 @@ Add the provider above a component to configure and provide translation function
 
 ```jsx harmony
 // Import the provider
-import { I18nProvider } from '@m6webreact-i18n';
+import { I18nProvider } from '@m6we/react-i18n';
 
 // Dictionnary for your app, you should have a different dictionary for each language
 const translations = {
@@ -49,7 +49,7 @@ This component needs React 16 at least because its render returns a string value
 
 ```jsx harmony
 import React from 'react';
-import { Trans } from '@m6webreact-i18n';
+import { Trans } from '@m6we/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
@@ -77,7 +77,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 
 ```jsx harmony
 import React from 'react';
-import { HtmlTrans } from '@m6webreact-i18n';
+import { HtmlTrans } from '@m6we/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
@@ -106,7 +106,7 @@ This HOC provides the translate function to the component as prop.
 
 ```jsx harmony
 import React from 'react';
-import { translate } from '@m6webreact-i18n';
+import { translate } from '@m6we/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
@@ -140,7 +140,7 @@ Note that **number** and **data** can be used together.
 Build list function allows you to build a list in specific language.
 
 ```jsx harmony
-import { buildListFunction } from '@m6webreact-i18n';
+import { buildListFunction } from '@m6we/react-i18n';
 
 // Define separators with translations
 const lang = {
