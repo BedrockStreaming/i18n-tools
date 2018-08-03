@@ -12,7 +12,7 @@ Trans.defaultProps = {
   general: false,
 };
 
-Trans.proptypes = {
+Trans.propTypes = {
   i18nKey: PropTypes.string.isRequired,
   data: PropTypes.object,
   number: PropTypes.number,
