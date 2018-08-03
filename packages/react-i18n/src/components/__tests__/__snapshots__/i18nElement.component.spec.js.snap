@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`i18n.renderProps should return html translation 1`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<div>foo.bar</div>",
+    }
+  }
+/>
+`;
+
+exports[`i18n.renderProps should return html translation in a div 1`] = `
+<div
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<div>foo.bar</div>",
+    }
+  }
+/>
+`;
