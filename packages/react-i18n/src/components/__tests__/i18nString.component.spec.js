@@ -15,7 +15,7 @@ describe('i18n.renderProps', () => {
     };
   });
 
-  it('should return translation string', () => {
+  it('should return a translated string', () => {
     const wrapper = shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes });
 
     expect(wrapper).toMatchSnapshot();

@@ -15,14 +15,16 @@ describe('i18n.renderProps', () => {
     };
   });
 
+  const getWrapper = (props) => shallow(<HtmlTrans i18nKey="foo.bar" {...props} />, { context, childContextTypes });
+
   it('should return html translation', () => {
-    const wrapper = shallow(<HtmlTrans i18nKey="foo.bar" />, { context, childContextTypes });
+    const wrapper = getWrapper();
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should return html translation in a div', () => {
-    const wrapper = shallow(<HtmlTrans i18nKey="foo.bar" element="div" />, { context, childContextTypes });
+    const wrapper = getWrapper({ element: 'div' });
 
     expect(wrapper).toMatchSnapshot();
   });

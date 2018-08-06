@@ -8,7 +8,6 @@ export const Trans = ({ i18nKey, data, number, general }, { getTranslateFunction
 
 Trans.defaultProps = {
   data: {},
-  number: undefined,
   general: false,
 };
 

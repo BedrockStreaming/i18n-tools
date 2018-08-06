@@ -11,7 +11,6 @@ export const HtmlTrans = ({ i18nKey, data, number, general, element, ...otherPro
 HtmlTrans.defaultProps = {
   element: 'span',
   data: {},
-  number: undefined,
   general: false,
 };
 
