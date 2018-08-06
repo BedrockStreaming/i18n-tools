@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
-import { Trans } from '../i18n.component';
+import { Trans } from '../i18nString.component';
 
 describe('i18n.renderProps', () => {
   let context = {};
@@ -15,7 +15,7 @@ describe('i18n.renderProps', () => {
     };
   });
 
-  it('should provide translate function and inherited props', () => {
+  it('should return a translated string', () => {
     const wrapper = shallow(<Trans i18nKey="foo.bar" />, { context, childContextTypes });
 
     expect(wrapper).toMatchSnapshot();

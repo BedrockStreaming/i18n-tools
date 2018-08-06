@@ -8,11 +8,10 @@ export const Trans = ({ i18nKey, data, number, general }, { getTranslateFunction
 
 Trans.defaultProps = {
   data: {},
-  number: undefined,
   general: false,
 };
 
-Trans.proptypes = {
+Trans.propTypes = {
   i18nKey: PropTypes.string.isRequired,
   data: PropTypes.object,
   number: PropTypes.number,
