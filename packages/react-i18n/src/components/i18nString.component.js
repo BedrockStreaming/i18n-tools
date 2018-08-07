@@ -1,10 +1,10 @@
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Consumer } from './i18n.context';
 
-export const Trans = ({ i18nKey, data, number, general }, { getTranslateFunction }) => {
-  const t = getTranslateFunction();
-
-  return t(i18nKey, data, number, general);
-};
+export const Trans = ({ i18nKey, data, number, general }) => (
+  <Consumer>{t => t(i18nKey, data, number, general)}</Consumer>
+);
 
 Trans.defaultProps = {
   data: {},

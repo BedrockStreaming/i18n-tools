@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Consumer } from './i18n.context';
 
-export const HtmlTrans = ({ i18nKey, data, number, general, element, ...otherProps }, { getTranslateFunction }) => {
-  const t = getTranslateFunction();
-  const props = { ...otherProps, dangerouslySetInnerHTML: { __html: t(i18nKey, data, number, general) } };
-
-  return React.createElement(element, props);
-};
+export const HtmlTrans = ({ i18nKey, data, number, general, element: Element, ...props }) => (
+  <Consumer>
+    {t => <Element {...props} dangerouslySetInnerHTML={{ __html: t(i18nKey, data, number, general) }} />}
+  </Consumer>
+);
 
 HtmlTrans.defaultProps = {
   element: 'span',
