@@ -17,7 +17,3 @@ Trans.propTypes = {
   number: PropTypes.number,
   general: PropTypes.bool,
 };
-
-Trans.contextTypes = {
-  getTranslateFunction: PropTypes.func.isRequired,
-};

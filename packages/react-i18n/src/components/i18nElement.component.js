@@ -21,7 +21,3 @@ HtmlTrans.propTypes = {
   number: PropTypes.number,
   general: PropTypes.bool,
 };
-
-HtmlTrans.contextTypes = {
-  getTranslateFunction: PropTypes.func.isRequired,
-};

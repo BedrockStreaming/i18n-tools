@@ -19,10 +19,6 @@ export const translate = RenderComponent => {
     componentRef: PropTypes.func,
   };
 
-  TranslatedComponent.contextTypes = {
-    getTranslateFunction: PropTypes.func.isRequired,
-  };
-
   TranslatedComponent.fetchData = RenderComponent.fetchData;
   TranslatedComponent.displayName = `Translated(${RenderComponent.displayName || RenderComponent.name})`;
 
