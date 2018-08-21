@@ -9,6 +9,7 @@
   ],
   "devDependencies": {
     "@m6web/eslint-plugin": "2.0.0",
+    "coveralls": "2.13.1",
     "eslint-plugin-monorepo": "0.2.0",
     "lerna": "^2.9.0"
   },
@@ -22,6 +23,7 @@
     "prepack:eslint-plugin-i18n": "yarn --cwd packages/eslint-plugin-i18n prepack",
     "prepack:i18n-tools": "yarn --cwd packages/i18n-lint prepack",
     "prepack:react-i18n": "yarn --cwd packages/react-i18n prepack",
-    "test": "yarn jest && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests"
+    "test": "yarn jest && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests",
+    "test:ci": "yarn jest --coverage && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests"
   }
 }
