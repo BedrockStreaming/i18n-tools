@@ -8,6 +8,9 @@
   "bin": {
     "i18n-lint": "./lib/index.js"
   },
+  "files": [
+    "lib/"
+  ],
   "devDependencies": {
     "@m6web/eslint-plugin": "2.0.0",
     "babel-cli": "6.26.0",
