@@ -7,7 +7,7 @@
   "author": "m6web",
   "license": "MIT",
   "files": [
-    "lib/"
+    "lib/",
     "es/"
   ],
   "peerDependencies": {
