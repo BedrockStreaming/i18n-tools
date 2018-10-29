@@ -1,6 +1,6 @@
 {
   "name": "@m6web/react-i18n",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Provider and utils for translation in a react app",
   "main": "lib/index.js",
   "module": "es/index.js",
