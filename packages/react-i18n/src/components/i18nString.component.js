@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Consumer } from './i18n.context';
+import context from './i18n.context';
 
-export const Trans = ({ i18nKey, data, number, general }) => (
-  <Consumer>{t => t(i18nKey, data, number, general)}</Consumer>
-);
+export const Trans = ({ i18nKey, data, number, general }) => {
+  const t = useContext(context)
+
+  return t(i18nKey, data, number, general);
+};
 
 Trans.defaultProps = {
   data: {},

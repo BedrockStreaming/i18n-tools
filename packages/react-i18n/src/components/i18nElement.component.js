@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Consumer } from './i18n.context';
+import context from './i18n.context';
 
-export const HtmlTrans = ({ i18nKey, data, number, general, element: Element, ...props }) => (
-  <Consumer>
-    {t => <Element {...props} dangerouslySetInnerHTML={{ __html: t(i18nKey, data, number, general) }} />}
-  </Consumer>
-);
+export const HtmlTrans = ({ i18nKey, data, number, general, element: Element, ...props }) => {
+  const t = useContext(context);
+
+  return <Element {...props} dangerouslySetInnerHTML={{ __html: t(i18nKey, data, number, general) }}/>;
+};
 
 HtmlTrans.defaultProps = {
   element: 'span',

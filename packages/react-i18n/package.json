@@ -12,7 +12,7 @@
   ],
   "peerDependencies": {
     "prop-types": "^15.6.2",
-    "react": "^16.4.2"
+    "react": "^16.7.0"
   },
   "jest": {
     "timers": "fake"
@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "lodash": "4.17.10",
+    "react": "16.7.0-alpha.0",
     "sprintf-js": "1.1.1"
   },
   "publishConfig": {

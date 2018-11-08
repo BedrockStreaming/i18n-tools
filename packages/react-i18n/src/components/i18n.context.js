@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const { Provider, Consumer } = React.createContext('translation');
+export default React.createContext('translation');

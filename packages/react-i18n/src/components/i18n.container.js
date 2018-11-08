@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Consumer } from './i18n.context';
+import context from './i18n.context';
 
 export const translate = RenderComponent => {
-  const TranslatedComponent = props => (
-    <Consumer>
-      {t => {
-        if (props.componentRef) {
-          return <RenderComponent t={t} {...props} ref={element => props.componentRef(element)} />;
-        }
+  const TranslatedComponent = props => {
+    const t = useContext(context);
 
-        return <RenderComponent t={t} {...props} />;
-      }}
-    </Consumer>
-  );
+    if (props.componentRef) {
+      return <RenderComponent t={t} {...props} ref={element => props.componentRef(element)} />;
+    }
+
+    return <RenderComponent t={t} {...props} />;
+  };
 
   TranslatedComponent.propTypes = {
     componentRef: PropTypes.func,
