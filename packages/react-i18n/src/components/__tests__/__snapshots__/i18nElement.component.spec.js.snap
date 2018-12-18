@@ -19,3 +19,13 @@ exports[`i18n.renderProps should return html translation in a div 1`] = `
   }
 />
 `;
+
+exports[`i18n.renderProps should return html translation in a react element 1`] = `
+<Dummy
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<div>foo.bar</div>",
+    }
+  }
+/>
+`;

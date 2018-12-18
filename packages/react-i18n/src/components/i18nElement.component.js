@@ -15,7 +15,7 @@ HtmlTrans.defaultProps = {
 };
 
 HtmlTrans.propTypes = {
-  element: PropTypes.string,
+  element: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   i18nKey: PropTypes.string.isRequired,
   data: PropTypes.object,
   number: PropTypes.number,

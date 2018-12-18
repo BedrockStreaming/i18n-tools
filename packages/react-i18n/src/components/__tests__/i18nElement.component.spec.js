@@ -20,4 +20,11 @@ describe('i18n.renderProps', () => {
 
     expect(wrapper.shallow()).toMatchSnapshot();
   });
+
+  it('should return html translation in a react element', () => {
+    const Dummy = props => <dummy {...props} />;
+    const wrapper = getWrapper({ element: Dummy });
+
+    expect(wrapper.shallow()).toMatchSnapshot();
+  });
 });
