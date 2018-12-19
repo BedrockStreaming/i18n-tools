@@ -98,7 +98,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 * **number**: amount used for plural forms
 * **data**: object containing key/values used for interpolation in the translation
 * **general**: use general plural form if truthy
-* **element**: HTML element used to generate ReactElement. (default value: `span`) 
+* **element**: HTML element, or React element used for rendering. (default value: `span`) 
 
 Note that **number** and **data** can be used together.
 
