@@ -9,9 +9,9 @@
   ],
   "devDependencies": {
     "@m6web/eslint-plugin": "2.0.0",
-    "coveralls": "2.13.1",
-    "eslint-plugin-monorepo": "0.2.0",
-    "lerna": "^2.9.0"
+    "coveralls": "3.0.2",
+    "eslint-plugin-monorepo": "0.2.1",
+    "lerna": "^3.11.1"
   },
   "scripts": {
     "lint": "eslint packages/**/src/**/*.js packages/**/tests/**/*.js",
