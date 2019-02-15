@@ -137,6 +137,33 @@ export default translate(MyComponent);
 
 Note that **number** and **data** can be used together.
 
+### useT hook
+
+This hook provide the `t` function in a functional component.
+
+```jsx harmony
+import React from 'react';
+import { useT } from '@m6we/react-i18n';
+
+// Interpolation values
+const data = { element: 'foo' };
+
+export const MyComponent = ({ nbExample }) => {
+  const t = useT();
+
+  return (
+    <div class="foo">
+      <h1>
+        {t('foo.bar')}
+      </h1>
+      <p>
+        {t('foo.exemple', data, nbExample, true)}
+      </p>
+    </div>
+  );
+};
+```
+
 ### BuildList
 
 Build list function allows you to build a list in specific language.
