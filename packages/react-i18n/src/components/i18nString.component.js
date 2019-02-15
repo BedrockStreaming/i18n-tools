@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Consumer } from './i18n.context';
+import { Context } from './../context/i18n.context';
 
 export const Trans = ({ i18nKey, data, number, general }) => (
-  <Consumer>{t => t(i18nKey, data, number, general)}</Consumer>
+  <Context.Consumer>{t => t(i18nKey, data, number, general)}</Context.Consumer>
 );
 
 Trans.defaultProps = {

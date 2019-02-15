@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Trans } from '../i18nString.component';
 
-jest.mock('../i18n.context');
+jest.mock('../../context/i18n.context');
 
 describe('i18n.renderProps', () => {
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Consumer } from './i18n.context';
+import { Context } from '../context/i18n.context';
 
 export const translate = RenderComponent => {
   const TranslatedComponent = props => (
-    <Consumer>
+    <Context.Consumer>
       {t => {
         if (props.componentRef) {
           return <RenderComponent t={t} {...props} ref={element => props.componentRef(element)} />;
@@ -12,7 +12,7 @@ export const translate = RenderComponent => {
 
         return <RenderComponent t={t} {...props} />;
       }}
-    </Consumer>
+    </Context.Consumer>
   );
 
   TranslatedComponent.propTypes = {
