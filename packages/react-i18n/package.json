@@ -11,8 +11,8 @@
     "es/"
   ],
   "peerDependencies": {
-    "prop-types": "^15.6.2",
-    "react": "^16.4.2"
+    "prop-types": "^15.7.1",
+    "react": "^16.8.1"
   },
   "jest": {
     "timers": "fake"
@@ -24,19 +24,19 @@
     "babel-plugin-use-lodash-es": "^0.2.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
-    "enzyme": "3.3.0",
-    "enzyme-adapter-react-16": "1.1.1",
-    "enzyme-to-json": "3.3.4",
-    "jest": "23.4.1",
-    "lodash-es": "4.17.10",
-    "prop-types": "15.6.2",
-    "react": "16.4.2",
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "1.9.1",
+    "enzyme-to-json": "3.3.5",
+    "jest": "23.6.0",
+    "lodash-es": "4.17.11",
+    "prop-types": "15.7.1",
+    "react": "16.8.1",
     "react-addons-test-utils": "15.6.2",
-    "react-dom": "16.4.2"
+    "react-dom": "16.8.1"
   },
   "dependencies": {
-    "lodash": "4.17.10",
-    "sprintf-js": "1.1.1"
+    "lodash": "4.17.11",
+    "sprintf-js": "1.1.2"
   },
   "publishConfig": {
     "access": "public"
