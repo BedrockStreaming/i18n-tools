@@ -139,7 +139,7 @@ Note that **number** and **data** can be used together.
 
 ### useTranslate hook
 
-This hook provide the `t` function in a functional component.
+This hook provides the `t` function in a functional component.
 
 ```jsx harmony
 import React from 'react';
