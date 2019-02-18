@@ -1,15 +1,14 @@
 import { useContext } from 'react';
 import { Context } from '../../context/i18n.context';
-import { useT } from '../useT';
+import { useTranslate } from '../useTranslate';
 
 jest.mock('react');
 
-useContext.mockReturnValue('t function')
+useContext.mockReturnValue('t function');
 
-
-describe('useT', () => {
+describe('useTranslate', () => {
   it('should return the translation function', () => {
-    const t = useT();
+    const t = useTranslate();
 
     expect(useContext).toHaveBeenCalledWith(Context);
     expect(t).toBe('t function');

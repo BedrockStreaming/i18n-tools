@@ -98,7 +98,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 * **number**: amount used for plural forms
 * **data**: object containing key/values used for interpolation in the translation
 * **general**: use general plural form if truthy
-* **element**: HTML element, or React element used for rendering. (default value: `span`) 
+* **element**: HTML element, or React element used for rendering. (default value: `span`)
 
 Note that **number** and **data** can be used together.
 
@@ -137,19 +137,19 @@ export default translate(MyComponent);
 
 Note that **number** and **data** can be used together.
 
-### useT hook
+### useTranslate hook
 
 This hook provide the `t` function in a functional component.
 
 ```jsx harmony
 import React from 'react';
-import { useT } from '@m6web/react-i18n';
+import { useTranslate } from '@m6web/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
 
 export const MyComponent = ({ nbExample }) => {
-  const t = useT();
+  const t = useTranslate();
 
   return (
     <div class="foo">
