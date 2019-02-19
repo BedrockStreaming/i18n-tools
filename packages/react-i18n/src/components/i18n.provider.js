@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from '../utils/i18n.utils';
-import { Provider } from './i18n.context';
+import { Context } from '../context/i18n.context';
 
 export const I18nProvider = ({ lang, i18nNames, children }) => (
-  <Provider value={translate(lang, i18nNames)}>{children}</Provider>
+  <Context.Provider value={translate(lang, i18nNames)}>{children}</Context.Provider>
 );
 
 I18nProvider.propTypes = {

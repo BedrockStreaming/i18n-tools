@@ -2,8 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { HtmlTrans } from '../i18nElement.component';
 
-jest.mock('../i18n.context', () => ({
-  Consumer: jest.fn(({ children}) => children(x => `<div>${x}</div>`))
+jest.mock('../../context/i18n.context', () => ({
+  Context: {
+    Consumer: jest.fn(({ children}) => children(x => `<div>${x}</div>`))
+  }
 }));
 
 describe('i18n.renderProps', () => {

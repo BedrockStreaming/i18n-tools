@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Consumer } from './i18n.context';
+import { Context } from '../context/i18n.context';
 
 export const HtmlTrans = ({ i18nKey, data, number, general, element: Element, ...props }) => (
-  <Consumer>
+  <Context.Consumer>
     {t => <Element {...props} dangerouslySetInnerHTML={{ __html: t(i18nKey, data, number, general) }} />}
-  </Consumer>
+  </Context.Consumer>
 );
 
 HtmlTrans.defaultProps = {
@@ -15,7 +15,7 @@ HtmlTrans.defaultProps = {
 };
 
 HtmlTrans.propTypes = {
-  element: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  element: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.func]),
   i18nKey: PropTypes.string.isRequired,
   data: PropTypes.object,
   number: PropTypes.number,

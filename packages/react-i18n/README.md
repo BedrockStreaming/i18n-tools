@@ -20,7 +20,7 @@ Add the provider above a component to configure and provide translation function
 
 ```jsx harmony
 // Import the provider
-import { I18nProvider } from '@m6we/react-i18n';
+import { I18nProvider } from '@m6web/react-i18n';
 
 // Dictionnary for your app, you should have a different dictionary for each language
 const translations = {
@@ -51,7 +51,7 @@ This component needs React 16 at least because its render returns a string value
 
 ```jsx harmony
 import React from 'react';
-import { Trans } from '@m6we/react-i18n';
+import { Trans } from '@m6web/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
@@ -79,7 +79,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 
 ```jsx harmony
 import React from 'react';
-import { HtmlTrans } from '@m6we/react-i18n';
+import { HtmlTrans } from '@m6web/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
@@ -98,7 +98,7 @@ export default const MyComponent = ({ nbExample, t }) => {
 * **number**: amount used for plural forms
 * **data**: object containing key/values used for interpolation in the translation
 * **general**: use general plural form if truthy
-* **element**: HTML element, or React element used for rendering. (default value: `span`) 
+* **element**: HTML element, or React element used for rendering. (default value: `span`)
 
 Note that **number** and **data** can be used together.
 
@@ -108,7 +108,7 @@ This HOC provides the translate function to the component as prop.
 
 ```jsx harmony
 import React from 'react';
-import { translate } from '@m6we/react-i18n';
+import { translate } from '@m6web/react-i18n';
 
 // Interpolation values
 const data = { element: 'foo' };
@@ -137,12 +137,39 @@ export default translate(MyComponent);
 
 Note that **number** and **data** can be used together.
 
+### useTranslate hook
+
+This hook provides the `t` function in a functional component.
+
+```jsx harmony
+import React from 'react';
+import { useTranslate } from '@m6web/react-i18n';
+
+// Interpolation values
+const data = { element: 'foo' };
+
+export const MyComponent = ({ nbExample }) => {
+  const t = useTranslate();
+
+  return (
+    <div class="foo">
+      <h1>
+        {t('foo.bar')}
+      </h1>
+      <p>
+        {t('foo.exemple', data, nbExample, true)}
+      </p>
+    </div>
+  );
+};
+```
+
 ### BuildList
 
 Build list function allows you to build a list in specific language.
 
 ```jsx harmony
-import { buildListFunction } from '@m6we/react-i18n';
+import { buildListFunction } from '@m6web/react-i18n';
 
 // Define separators with translations
 const lang = {
