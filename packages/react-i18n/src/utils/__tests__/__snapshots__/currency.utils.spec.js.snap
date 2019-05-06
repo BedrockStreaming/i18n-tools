@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Currency utils should format in 'en' currency 1`] = `"$100,000.00"`;
+
+exports[`Currency utils should format in 'fr' currency 1`] = `"100 000,00 €"`;
+
+exports[`Currency utils should format in 'hr' currency 1`] = `"100.000,00 HRK"`;
+
+exports[`Currency utils should format in 'hu' currency 1`] = `"100 000,00 Ft"`;
