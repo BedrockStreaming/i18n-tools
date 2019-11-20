@@ -1,3 +1,5 @@
+import React from 'react';
+import { mount } from 'enzyme';
 import { translate, buildList } from '../i18n.utils';
 
 describe('i18n translate function', () => {
@@ -157,6 +159,120 @@ describe('i18n translate function', () => {
       [0, 25, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 40, 45].forEach(i =>
         expect(t('foo.bar', undefined, i)).toBe(`${i} third plural`),
       );
+    });
+  });
+
+  describe('with JSX', () => {
+    // eslint-disable-next-line react/prop-types
+    const Bold = ({ children }) => <strong>{children}</strong>;
+    // eslint-disable-next-line react/prop-types
+    const Italic = ({ children }) => <em>{children}</em>;
+    const LineBreak = () => <br />;
+
+    it('should render the JSX component present inside the translation', () => {
+      const lang = {
+        foo: {
+          bar: 'Hello <Bold>Moto</Bold> !',
+        },
+      };
+      const renderers = { Bold };
+      const t = translate(lang);
+
+      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render the nested JSX component present inside the translation', () => {
+      const lang = {
+        foo: {
+          bar: 'Hello <Bold><Italic>Moto</Italic></Bold> !',
+        },
+      };
+      const renderers = { Bold, Italic };
+      const t = translate(lang);
+
+      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render the JSX component and sibling JSX component present inside the translation', () => {
+      const lang = {
+        foo: {
+          bar: '<Italic>Hello</Italic> <Bold>Moto</Bold> !',
+        },
+      };
+      const renderers = { Bold, Italic };
+      const t = translate(lang);
+
+      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render the short (without children) JSX component inside the translation', () => {
+      const lang = {
+        foo: {
+          bar: 'Hello<LineBreak />Moto<LineBreak/> !',
+        },
+      };
+      const renderers = { LineBreak };
+      const t = translate(lang);
+
+      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render a complex JSX structure inside the translation', () => {
+      const lang = {
+        foo: {
+          bar: '<Bold><Italic>Hell</Italic>o</Bold><LineBreak />Moto<LineBreak/> !',
+        },
+      };
+      const renderers = { LineBreak, Bold, Italic };
+      const t = translate(lang);
+
+      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    /* eslint-disable no-console */
+    it('should throw an error if renderer not provided', () => {
+      console.warn = jest.fn();
+      const lang = {
+        foo: {
+          bar: 'Hello <Bold><Italic>Moto</Italic></Bold> !',
+        },
+      };
+      const renderers = { Bold };
+      const t = translate(lang);
+      t('foo.bar', undefined, undefined, false, renderers);
+
+      expect(console.warn).toHaveBeenCalledWith('No renderer provided for component "Italic"');
+    });
+    /* eslint-enable no-console */
+
+    it('should not try to interpolate basic html tag', () => {
+      const lang = {
+        foo: {
+          bar: '<em>Hello</em> <strong>Moto</strong> !',
+        },
+      };
+      const renderers = {};
+      const t = translate(lang);
+
+      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });

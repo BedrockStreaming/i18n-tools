@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`i18n translate function with JSX should not try to interpolate basic html tag 1`] = `
+<div>
+  &lt;em&gt;Hello&lt;/em&gt; &lt;strong&gt;Moto&lt;/strong&gt; !
+</div>
+`;
+
+exports[`i18n translate function with JSX should render a complex JSX structure inside the translation 1`] = `
+<div>
+  <Bold>
+    <strong>
+      <Italic>
+        <em>
+          Hell
+        </em>
+      </Italic>
+      o
+    </strong>
+  </Bold>
+  <LineBreak>
+    <br />
+  </LineBreak>
+  Moto
+  <LineBreak>
+    <br />
+  </LineBreak>
+   !
+</div>
+`;
+
+exports[`i18n translate function with JSX should render the JSX component and sibling JSX component present inside the translation 1`] = `
+<div>
+  <Italic>
+    <em>
+      Hello
+    </em>
+  </Italic>
+   
+  <Bold>
+    <strong>
+      Moto
+    </strong>
+  </Bold>
+   !
+</div>
+`;
+
+exports[`i18n translate function with JSX should render the JSX component present inside the translation 1`] = `
+<div>
+  Hello 
+  <Bold>
+    <strong>
+      Moto
+    </strong>
+  </Bold>
+   !
+</div>
+`;
+
+exports[`i18n translate function with JSX should render the nested JSX component present inside the translation 1`] = `
+<div>
+  Hello 
+  <Bold>
+    <strong>
+      <Italic>
+        <em>
+          Moto
+        </em>
+      </Italic>
+    </strong>
+  </Bold>
+   !
+</div>
+`;
+
+exports[`i18n translate function with JSX should render the short (without children) JSX component inside the translation 1`] = `
+<div>
+  Hello
+  <LineBreak>
+    <br />
+  </LineBreak>
+  Moto
+  <LineBreak>
+    <br />
+  </LineBreak>
+   !
+</div>
+`;
