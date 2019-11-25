@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { mount } from 'enzyme';
 import { translate, buildList } from '../i18n.utils';
@@ -163,9 +165,7 @@ describe('i18n translate function', () => {
   });
 
   describe('with JSX', () => {
-    // eslint-disable-next-line react/prop-types
     const Bold = ({ children }) => <strong>{children}</strong>;
-    // eslint-disable-next-line react/prop-types
     const Italic = ({ children }) => <em>{children}</em>;
     const LineBreak = () => <br />;
 
