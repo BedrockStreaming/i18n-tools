@@ -87,3 +87,9 @@ exports[`i18n translate function with JSX should render the short (without child
    !
 </div>
 `;
+
+exports[`i18n translate function with JSX should works with badly formatted JSX 1`] = `
+<div>
+  &lt;Bold&gt;Toto&lt;/Italic&gt;
+</div>
+`;

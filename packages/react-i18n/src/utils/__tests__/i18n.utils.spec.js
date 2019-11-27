@@ -274,6 +274,22 @@ describe('i18n translate function', () => {
 
       expect(wrapper).toMatchSnapshot();
     });
+
+    it('should works with badly formatted JSX', () => {
+      const lang = {
+        foo: {
+          bar: '<Bold>Toto</Italic>'
+        }
+      }
+
+      const renderers = {Bold, Italic}
+      const t = translate(lang)
+
+      const result = t('foo.bar', undefined, undefined, undefined, renderers)
+      const wrapper = mount(<div>{result}</div>)
+
+      expect(wrapper).toMatchSnapshot()
+    });
   });
 });
 
