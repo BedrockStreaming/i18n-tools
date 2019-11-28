@@ -70,10 +70,11 @@ export default const MyComponent = ({ nbExample, t }) => {
 };
 ```
 
-* **i18nKeys**: key from the dictionary (required)
-* **number**: amount used for plural forms
-* **data**: object containing key/values used for interpolation in the translation
-* **general**: use general plural form if truthy
+- **i18nKeys**: key from the dictionary (required)
+- **number**: amount used for plural forms
+- **data**: object containing key/values used for interpolation in the translation
+- **general**: use general plural form if truthy
+- **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
 
 ### i18n HTML component
 
@@ -94,11 +95,12 @@ export default const MyComponent = ({ nbExample, t }) => {
 };
 ```
 
-* **i18nKeys**: key from the dictionary (required)
-* **number**: amount used for plural forms
-* **data**: object containing key/values used for interpolation in the translation
-* **general**: use general plural form if truthy
-* **element**: HTML element, or React element used for rendering. (default value: `span`)
+- **i18nKeys**: key from the dictionary (required)
+- **number**: amount used for plural forms
+- **data**: object containing key/values used for interpolation in the translation
+- **general**: use general plural form if truthy
+- **element**: HTML element, or React element used for rendering. (default value: `span`)
+- **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
 
 Note that **number** and **data** can be used together.
 
@@ -129,11 +131,12 @@ const MyComponent = ({ nbExample, t }) => {
 export default translate(MyComponent);
 ```
 
-* **t**: translation function, params are:
-  * **key**: key from the dictionary (required)
-  * **data**: object containing key/values used for interpolation in the translation
-  * **number**: amount used for plural forms
-  * **general**: use general plural form if truthy
+- **t**: translation function, params are:
+- **key**: key from the dictionary (required)
+- **data**: object containing key/values used for interpolation in the translation
+- **number**: amount used for plural forms
+- **general**: use general plural form if truthy
+- **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
 
 Note that **number** and **data** can be used together.
 
@@ -205,3 +208,39 @@ This is the configuration of plural form for keys:
 The variable used in translation template string has to be `%(number)d`, and is automatically provided by the translate function.
 
 To use general form, you need to set 4th parameter of the translate function to `true`
+
+### JSX Interpolation
+
+It is possible to interpolate JSX components inside translation, to do so you have to give `renderers` parameter or props.
+For example if you have in your translation : `foo <LinkToHome>bar</LinkToHome>` you should have a `LinkToHome` renderer.
+
+```jsx harmony
+import React from 'react';
+import { useTranslate } from '@m6web/react-i18n';
+
+const renderers = {
+  LinkToHome: ({ children }) => <a href="/">{children}</a>,
+};
+
+const MyComponent = () => {
+  const t = useTranslate();
+
+  return (
+    <div class="foo">
+      <p>{t('foo.example', undefined, undefined, undefined, renderers)}</p>
+    </div>
+  );
+};
+```
+
+In this example, the `<LinkToHome>` inside your translation will be rendered by the component given in `renderers`.
+
+For the moment only the children props are used by the renderer. 
+```jsx harmony
+// Do
+<Link>Home</Link>
+<Link /> or <Link/>
+
+// Don't
+<Link href="/home">Home</Link>
+```
