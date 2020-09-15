@@ -1,5 +1,5 @@
 const minimatch = require('minimatch');
-const { getKeyValue, get, getLangConfig } = require('../utils/utils');
+const { getKeyValue, get, getLangConfig, areWeUsingUseTranslate } = require('../utils/utils');
 
 module.exports = {
   meta: {
@@ -35,7 +35,15 @@ module.exports = {
           return;
         }
 
-        const [keyNode, dataNode, countNode] = node.arguments;
+        let [keyNode, dataNode, countNode] = node.arguments;
+
+        const [usingHook, params] = areWeUsingUseTranslate(dataNode);
+
+        if (usingHook) {
+          dataNode = params.data;
+          countNode = params.count;
+        }
+
         const key = getKeyValue(keyNode);
 
         if (!key) {
@@ -59,7 +67,7 @@ module.exports = {
             values = translateValue ? [translateValue] : [];
           }
 
-          if ((!dataNode || dataNode.name === 'undefined') && values.some(value => interpolationTester.test(value))) {
+          if ((!dataNode || dataNode.name === 'undefined') && values.some((value) => interpolationTester.test(value))) {
             context.report({
               node,
               severity: 2,
@@ -69,7 +77,7 @@ module.exports = {
             return;
           }
 
-          if (dataNode && dataNode.name !== 'undefined' && !values.some(value => interpolationTester.test(value))) {
+          if (dataNode && dataNode.name !== 'undefined' && !values.some((value) => interpolationTester.test(value))) {
             context.report({
               node,
               severity: 2,

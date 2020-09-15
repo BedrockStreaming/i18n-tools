@@ -13,7 +13,7 @@ exports.has = (object, key) => !!recursiveGet(object, key.split('.'), 0);
 
 exports.get = (object, key) => recursiveGet(object, key.split('.'), 0);
 
-exports.getKeyValue = key => {
+exports.getKeyValue = (key) => {
   if (key.type === 'Literal') {
     return key.value;
   } else if (key.type === 'TemplateLiteral' && key.quasis.length === 1) {
@@ -47,4 +47,23 @@ exports.getLangConfig = (config, languagesKey) => {
   }
 
   return langConfig[languagesKey];
+};
+
+const useTranslateParams = ['data', 'number', 'general', 'renderers'];
+
+export const areWeUsingUseTranslate = (node) => {
+  if (!node) {
+    return [false, null];
+  }
+
+  const params = node.properties.reduce((acc, property) => {
+    if (useTranslateParams.includes(property.key.name)) {
+      return Object.assign(acc, { [property.key.name]: property });
+    }
+    return acc;
+  }, {});
+
+  const usingHook = Object.keys(params).length;
+
+  return [usingHook, params];
 };
