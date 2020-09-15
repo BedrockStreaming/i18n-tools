@@ -1,7 +1,7 @@
 const minimatch = require('minimatch');
 const { getKeyValue, get, has, getLangConfig, areWeUsingUseTranslate } = require('../utils/utils');
 
-module.exports = (langsKey) => ({
+module.exports = langsKey => ({
   meta: {
     docs: {
       description: 'ensures that used translate key is in translation file',
@@ -24,7 +24,8 @@ module.exports = (langsKey) => ({
           return;
         }
 
-        let [keyNode, dataNode, countNode] = node.arguments;
+        const [keyNode] = node.arguments;
+        let [, dataNode, countNode] = node.arguments;
 
         const [usingHook, params] = areWeUsingUseTranslate(dataNode);
 
@@ -71,7 +72,7 @@ module.exports = (langsKey) => ({
           }
 
           if (countNode && Array.isArray(config.pluralizedKeys)) {
-            const missingKeys = config.pluralizedKeys.filter((plural) => !has(translation, `${key}.${plural}`));
+            const missingKeys = config.pluralizedKeys.filter(plural => !has(translation, `${key}.${plural}`));
 
             if (missingKeys.length) {
               context.report({

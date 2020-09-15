@@ -35,7 +35,8 @@ module.exports = {
           return;
         }
 
-        let [keyNode, dataNode, countNode] = node.arguments;
+        const [keyNode] = node.arguments;
+        let [, dataNode, countNode] = node.arguments;
 
         const [usingHook, params] = areWeUsingUseTranslate(dataNode);
 
@@ -67,7 +68,7 @@ module.exports = {
             values = translateValue ? [translateValue] : [];
           }
 
-          if ((!dataNode || dataNode.name === 'undefined') && values.some((value) => interpolationTester.test(value))) {
+          if ((!dataNode || dataNode.name === 'undefined') && values.some(value => interpolationTester.test(value))) {
             context.report({
               node,
               severity: 2,
@@ -77,7 +78,7 @@ module.exports = {
             return;
           }
 
-          if (dataNode && dataNode.name !== 'undefined' && !values.some((value) => interpolationTester.test(value))) {
+          if (dataNode && dataNode.name !== 'undefined' && !values.some(value => interpolationTester.test(value))) {
             context.report({
               node,
               severity: 2,
