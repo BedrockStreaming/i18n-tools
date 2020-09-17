@@ -1,4 +1,4 @@
-import { Trans, translate, I18nProvider, translateFunction, useTranslate } from '../';
+import { Trans, translate, I18nProvider, translateFunction, useTranslate, tFunction } from '../';
 
 describe('index', () => {
   it('should export translate function', () => {
@@ -7,5 +7,6 @@ describe('index', () => {
     expect(typeof I18nProvider).toBe('function');
     expect(typeof translateFunction).toBe('function');
     expect(typeof useTranslate).toBe('function');
+    expect(typeof tFunction).toBe('function');
   });
 });
