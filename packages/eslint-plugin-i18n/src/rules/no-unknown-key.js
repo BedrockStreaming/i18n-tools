@@ -68,10 +68,8 @@ module.exports = langsKey => ({
         const nodeAttributes = _.get(node, 'attributes', null);
         if (nodeName === 'Trans') {
           const filteredAttributes = Object.values(nodeAttributes).reduce(
-            (acc, attribute) => ({
-              ...acc,
-              [attribute.name.name]: attribute.value.value || attribute.value.expression.value,
-            }),
+            (acc, attribute) =>
+              Object.assign(acc, { [attribute.name.name]: attribute.value.value || attribute.value.expression.value }),
             {},
           );
 

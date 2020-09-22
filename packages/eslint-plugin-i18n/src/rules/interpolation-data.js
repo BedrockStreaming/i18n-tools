@@ -73,10 +73,7 @@ module.exports = {
 
         if (nodeName === 'Trans') {
           const filteredAttributes = Object.values(nodeAttributes).reduce(
-            (acc, attribute) => ({
-              ...acc,
-              [attribute.name.name]: attribute.value.value || attribute.value,
-            }),
+            (acc, attribute) => Object.assign(acc, { [attribute.name.name]: attribute.value.value || attribute.value }),
             {},
           );
 
@@ -85,7 +82,7 @@ module.exports = {
           if (!i18nKey) {
             return;
           }
-          console.log(i18nKey, number, data);
+
           check(i18nKey, number, data, config, context, node);
         }
       },
