@@ -1,5 +1,44 @@
+const _ = require('lodash');
 const minimatch = require('minimatch');
 const { getKeyValue, get, getLangConfig, areWeUsingUseTranslate } = require('../utils/utils');
+
+const check = (key, countNode, dataNode, config, context, node) => {
+  getLangConfig(config, 'principalLangs').forEach(({ translation }) => {
+    if (!translation) {
+      return;
+    }
+
+    const isPluralized = !!countNode && Array.isArray(config.pluralizedKeys);
+    const translateValue = get(translation, key);
+    const [{ interpolationPattern }] = context.options;
+    const interpolationTester = new RegExp(interpolationPattern);
+
+    let values;
+    if (isPluralized) {
+      values = Object.values(translateValue);
+    } else {
+      values = translateValue ? [translateValue] : [];
+    }
+
+    if ((!dataNode || dataNode.name === 'undefined') && values.some(value => interpolationTester.test(value))) {
+      context.report({
+        node,
+        severity: 2,
+        message: `'${key}' requires interpolation data.`,
+      });
+
+      return;
+    }
+
+    if (dataNode && dataNode.name !== 'undefined' && !values.some(value => interpolationTester.test(value))) {
+      context.report({
+        node,
+        severity: 2,
+        message: `'${key}' doesn't require any interpolation data.`,
+      });
+    }
+  });
+};
 
 module.exports = {
   meta: {
@@ -28,6 +67,28 @@ module.exports = {
     }
 
     return {
+      JSXOpeningElement(node) {
+        const nodeName = _.get(node, 'name.name', null);
+        const nodeAttributes = _.get(node, 'attributes', null);
+
+        if (nodeName === 'Trans') {
+          const filteredAttributes = Object.values(nodeAttributes).reduce(
+            (acc, attribute) => ({
+              ...acc,
+              [attribute.name.name]: attribute.value.value || attribute.value,
+            }),
+            {},
+          );
+
+          const { i18nKey, number, data } = filteredAttributes;
+
+          if (!i18nKey) {
+            return;
+          }
+          console.log(i18nKey, number, data);
+          check(i18nKey, number, data, config, context, node);
+        }
+      },
       CallExpression(node) {
         const funcName = (node.callee.type === 'MemberExpression' && node.callee.property.name) || node.callee.name;
 
@@ -51,41 +112,7 @@ module.exports = {
           return;
         }
 
-        getLangConfig(config, 'principalLangs').forEach(({ translation }) => {
-          if (!translation) {
-            return;
-          }
-
-          const isPluralized = !!countNode && Array.isArray(config.pluralizedKeys);
-          const translateValue = get(translation, key);
-          const [{ interpolationPattern }] = context.options;
-          const interpolationTester = new RegExp(interpolationPattern);
-
-          let values;
-          if (isPluralized) {
-            values = Object.values(translateValue);
-          } else {
-            values = translateValue ? [translateValue] : [];
-          }
-
-          if ((!dataNode || dataNode.name === 'undefined') && values.some(value => interpolationTester.test(value))) {
-            context.report({
-              node,
-              severity: 2,
-              message: `'${key}' requires interpolation data.`,
-            });
-
-            return;
-          }
-
-          if (dataNode && dataNode.name !== 'undefined' && !values.some(value => interpolationTester.test(value))) {
-            context.report({
-              node,
-              severity: 2,
-              message: `'${key}' doesn't require any interpolation data.`,
-            });
-          }
-        });
+        check(key, countNode, dataNode, config, context, node);
       },
     };
   },
