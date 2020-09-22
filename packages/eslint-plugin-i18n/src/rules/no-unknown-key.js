@@ -1,5 +1,5 @@
 const minimatch = require('minimatch');
-const { getKeyValue, get, has, getLangConfig } = require('../utils/utils');
+const { getKeyValue, get, has, getLangConfig, areWeUsingUseTranslate } = require('../utils/utils');
 
 module.exports = langsKey => ({
   meta: {
@@ -24,7 +24,16 @@ module.exports = langsKey => ({
           return;
         }
 
-        const [keyNode, , countNode] = node.arguments;
+        const [keyNode] = node.arguments;
+        let [, dataNode, countNode] = node.arguments;
+
+        const [usingHook, params] = areWeUsingUseTranslate(dataNode);
+
+        if (usingHook) {
+          dataNode = params.data;
+          countNode = params.count;
+        }
+
         const key = getKeyValue(keyNode);
 
         if (!key) {

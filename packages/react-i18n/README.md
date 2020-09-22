@@ -151,17 +151,13 @@ import { useTranslate } from '@m6web/react-i18n';
 // Interpolation values
 const data = { element: 'foo' };
 
-export const MyComponent = ({ nbExample }) => {
+export const MyComponent = ({ number }) => {
   const t = useTranslate();
 
   return (
     <div class="foo">
-      <h1>
-        {t('foo.bar')}
-      </h1>
-      <p>
-        {t('foo.exemple', data, nbExample, true)}
-      </p>
+      <h1>{t('foo.bar')}</h1>
+      <p>{t('foo.exemple', { data, number, general: true })}</p>
     </div>
   );
 };
@@ -227,7 +223,7 @@ const MyComponent = () => {
 
   return (
     <div class="foo">
-      <p>{t('foo.example', undefined, undefined, undefined, renderers)}</p>
+      <p>{t('foo.example', { renderers })}</p>
     </div>
   );
 };

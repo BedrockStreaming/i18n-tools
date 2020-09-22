@@ -48,3 +48,23 @@ exports.getLangConfig = (config, languagesKey) => {
 
   return langConfig[languagesKey];
 };
+
+const useTranslateParams = ['data', 'number', 'general', 'renderers'];
+
+exports.areWeUsingUseTranslate = node => {
+  if (!node || !node.properties) {
+    return [false, null];
+  }
+
+  const params = node.properties.reduce((acc, property) => {
+    if (useTranslateParams.includes(property.key.name)) {
+      return Object.assign(acc, { [property.key.name]: property });
+    }
+
+    return acc;
+  }, {});
+
+  const usingHook = Object.keys(params).length;
+
+  return [usingHook, params];
+};

@@ -4,13 +4,27 @@ import { useTranslate } from '../useTranslate';
 
 jest.mock('react');
 
-useContext.mockReturnValue('t function');
+const t = jest.fn();
+useContext.mockReturnValue(t);
 
 describe('useTranslate', () => {
-  it('should return the translation function', () => {
-    const t = useTranslate();
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should wrap the translation function', () => {
+    const wrapTranslate = useTranslate();
+    wrapTranslate('key', { data: {}, number: 'number', general: 'general', renderers: 'renderers' });
 
     expect(useContext).toHaveBeenCalledWith(Context);
-    expect(t).toBe('t function');
+    expect(t).toHaveBeenCalledWith('key', {}, 'number', 'general', 'renderers');
+  });
+
+  it('should wrap the translation function 2', () => {
+    const wrapTranslate = useTranslate();
+    wrapTranslate('key');
+
+    expect(useContext).toHaveBeenCalledWith(Context);
+    expect(t).toHaveBeenCalledWith('key', undefined, undefined, undefined, undefined);
   });
 });
