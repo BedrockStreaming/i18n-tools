@@ -2,7 +2,7 @@ const _ = require('lodash');
 const minimatch = require('minimatch');
 const { getKeyValue, get, getLangConfig, areWeUsingUseTranslate } = require('../utils/utils');
 
-const check = (key, countNode, dataNode, config, context, node) => {
+const check = ({ key, countNode, dataNode, config, context, node }) => {
   getLangConfig(config, 'principalLangs').forEach(({ translation }) => {
     if (!translation) {
       return;
@@ -83,7 +83,7 @@ module.exports = {
             return;
           }
 
-          check(i18nKey, number, data, config, context, node);
+          check({ key: i18nKey, countNode: number, dataNode: data, config, context, node });
         }
       },
       CallExpression(node) {
@@ -109,7 +109,7 @@ module.exports = {
           return;
         }
 
-        check(key, countNode, dataNode, config, context, node);
+        check({ key, countNode, dataNode, config, context, node });
       },
     };
   },
