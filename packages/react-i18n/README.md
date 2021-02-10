@@ -35,9 +35,12 @@ const i18nNames = {
   company: 'm6'
 };
 
+// Callback in case of missing translation
+const errorCallback = console.warn;
+
 // Put your app in the provider
 const Root = () => (
-  <I18nProvider lang={translations} i18nNames={i18nNames} >
+  <I18nProvider lang={translations} i18nNames={i18nNames} errorCallback={errorCallback}>
     <App />
   </I18nProvider>
 );
