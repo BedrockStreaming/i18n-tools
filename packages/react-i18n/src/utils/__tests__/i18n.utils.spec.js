@@ -10,6 +10,14 @@ describe('i18n translate function', () => {
     expect(translate({})('foo.bar')).toBe('foo.bar');
   });
 
+  it('should call the errorCallback if the translation is missing', () => {
+    const errorCallback = jest.fn();
+    expect(translate(undefined, undefined, errorCallback)('foo.bar')).toBe('foo.bar');
+    expect(errorCallback).toBeCalledWith('foo.bar');
+    expect(translate({}, undefined, errorCallback)('foo.foo')).toBe('foo.foo');
+    expect(errorCallback).toBeCalledWith('foo.foo');
+  });
+
   it('should return translation for a given key ', () => {
     const lang = { foo: { bar: 'foo bar!' } };
     expect(translate(lang)('foo.bar')).toBe('foo bar!');
@@ -167,7 +175,7 @@ describe('i18n translate function', () => {
   describe('with JSX', () => {
     const Bold = ({ children }) => <strong>{children}</strong>;
     const Italic = ({ children }) => <em>{children}</em>;
-    const LineBreak = () => <br />;
+    const LineBreak = () => <br/>;
 
     it('should render the JSX component present inside the translation', () => {
       const lang = {
@@ -278,17 +286,17 @@ describe('i18n translate function', () => {
     it('should works with badly formatted JSX', () => {
       const lang = {
         foo: {
-          bar: '<Bold>Toto</Italic>'
-        }
-      }
+          bar: '<Bold>Toto</Italic>',
+        },
+      };
 
-      const renderers = {Bold, Italic}
-      const t = translate(lang)
+      const renderers = { Bold, Italic };
+      const t = translate(lang);
 
-      const result = t('foo.bar', undefined, undefined, undefined, renderers)
-      const wrapper = mount(<div>{result}</div>)
+      const result = t('foo.bar', undefined, undefined, undefined, renderers);
+      const wrapper = mount(<div>{result}</div>);
 
-      expect(wrapper).toMatchSnapshot()
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });
