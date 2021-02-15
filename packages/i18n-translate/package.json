@@ -1,5 +1,5 @@
 {
-  "name": "i18n-translate",
+  "name": "@m6web/i18n-translate",
   "version": "0.1.0",
   "description": "Translation and pluralization functions for m6web-i18n",
   "keywords": [
