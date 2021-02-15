@@ -35,9 +35,12 @@ const i18nNames = {
   company: 'm6'
 };
 
+// Callback in case of missing translation
+const errorCallback = console.warn;
+
 // Put your app in the provider
 const Root = () => (
-  <I18nProvider lang={translations} i18nNames={i18nNames} >
+  <I18nProvider lang={translations} i18nNames={i18nNames} errorCallback={errorCallback}>
     <App />
   </I18nProvider>
 );
@@ -70,11 +73,11 @@ export default const MyComponent = ({ nbExample, t }) => {
 };
 ```
 
-- **i18nKeys**: key from the dictionary (required)
-- **number**: amount used for plural forms
-- **data**: object containing key/values used for interpolation in the translation
-- **general**: use general plural form if truthy
-- **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
+* **i18nKeys**: key from the dictionary (required)
+* **number**: amount used for plural forms
+* **data**: object containing key/values used for interpolation in the translation
+* **general**: use general plural form if truthy
+* **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
 
 ### i18n HTML component
 
@@ -95,12 +98,12 @@ export default const MyComponent = ({ nbExample, t }) => {
 };
 ```
 
-- **i18nKeys**: key from the dictionary (required)
-- **number**: amount used for plural forms
-- **data**: object containing key/values used for interpolation in the translation
-- **general**: use general plural form if truthy
-- **element**: HTML element, or React element used for rendering. (default value: `span`)
-- **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
+* **i18nKeys**: key from the dictionary (required)
+* **number**: amount used for plural forms
+* **data**: object containing key/values used for interpolation in the translation
+* **general**: use general plural form if truthy
+* **element**: HTML element, or React element used for rendering. (default value: `span`)
+* **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
 
 Note that **number** and **data** can be used together.
 
@@ -131,12 +134,12 @@ const MyComponent = ({ nbExample, t }) => {
 export default translate(MyComponent);
 ```
 
-- **t**: translation function, params are:
-- **key**: key from the dictionary (required)
-- **data**: object containing key/values used for interpolation in the translation
-- **number**: amount used for plural forms
-- **general**: use general plural form if truthy
-- **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
+* **t**: translation function, params are:
+* **key**: key from the dictionary (required)
+* **data**: object containing key/values used for interpolation in the translation
+* **number**: amount used for plural forms
+* **general**: use general plural form if truthy
+* **renderers**: object containing the renderers to use to interpolate JSX (for more information see `JSX interpolation section`)
 
 Note that **number** and **data** can be used together.
 
@@ -231,7 +234,8 @@ const MyComponent = () => {
 
 In this example, the `<LinkToHome>` inside your translation will be rendered by the component given in `renderers`.
 
-For the moment only the children props are used by the renderer. 
+For the moment only the children props are used by the renderer.
+
 ```jsx harmony
 // Do
 <Link>Home</Link>

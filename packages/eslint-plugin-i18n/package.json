@@ -34,5 +34,6 @@
     "format": "prettier-eslint --write src/**/*.js",
     "test": "mocha --recursive tests",
     "prepack": "yarn test && yarn build"
-  }
+  },
+  "gitHead": "c2cec68fec1a8b532093d6fbb74c969a149039b4"
 }

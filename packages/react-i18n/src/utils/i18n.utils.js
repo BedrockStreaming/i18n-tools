@@ -116,7 +116,7 @@ const interpolateJSXInsideTranslation = (translation, renderers) => {
   return translationChildren;
 };
 
-export const translate = (lang, i18nNames = {}) => {
+export const translate = (lang, i18nNames = {}, errorCallback = _.noop) => {
   const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
   return (key, data = {}, number, general, renderers) => {
@@ -126,7 +126,13 @@ export const translate = (lang, i18nNames = {}) => {
       combineKey = `${key}.${pluralize(number, general)}`;
     }
 
-    const translation = _.get(lang, combineKey, combineKey);
+    let translation;
+    if (_.has(lang, combineKey)) {
+      translation = _.get(lang, combineKey);
+    } else {
+      errorCallback(combineKey);
+      translation = combineKey;
+    }
 
     const translatedResult = sprintf(translation, { ...data, ...i18nNames, number });
     if (renderers) {
