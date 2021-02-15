@@ -1,7 +1,11 @@
 {
-  "name": "@m6web/react-i18n",
-  "version": "1.10.0-alpha.0",
-  "description": "Provider and utils for translation in a react app",
+  "name": "@m6web/i18n-translate",
+  "version": "1.0.0-alpha.0",
+  "description": "Translation and pluralization functions for m6web-i18n",
+  "keywords": [
+    "i18n",
+    "translation"
+  ],
   "main": "lib/index.js",
   "module": "es/index.js",
   "author": "m6web",
@@ -10,12 +14,14 @@
     "lib/",
     "es/"
   ],
-  "peerDependencies": {
-    "prop-types": "^15.7.1",
-    "react": "^16.8.1"
+  "homepage": "https://github.com/M6Web/i18n-tools#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M6Web/i18n-tools.git"
   },
-  "jest": {
-    "timers": "fake"
+  "dependencies": {
+    "lodash": "4.17.11",
+    "sprintf-js": "1.1.2"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -23,20 +29,12 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-plugin-use-lodash-es": "^0.2.0",
     "babel-preset-env": "1.7.0",
-    "babel-preset-react": "6.24.1",
-    "enzyme": "3.8.0",
-    "enzyme-adapter-react-16": "1.9.1",
-    "enzyme-to-json": "3.3.5",
-    "jest": "23.6.0",
-    "lodash-es": "4.17.11",
-    "prop-types": "15.7.1",
-    "react": "16.8.3",
-    "react-addons-test-utils": "15.6.2",
-    "react-dom": "16.8.3"
+    "eslint-plugin-jest": "24.0.2",
+    "jest": "26.6.3",
+    "lodash-es": "4.17.11"
   },
-  "dependencies": {
-    "lodash": "4.17.11",
-    "sprintf-js": "1.1.2"
+  "bugs": {
+    "url": "https://github.com/M6Web/i18n-tools/issues"
   },
   "publishConfig": {
     "access": "public"

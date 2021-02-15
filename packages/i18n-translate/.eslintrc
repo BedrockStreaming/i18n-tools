@@ -1,0 +1,7 @@
+{
+  "extends": ["plugin:@m6web/default", "plugin:jest/recommended"],
+  "plugins": ["jest"],
+  "env": {
+    "mocha": true
+  }
+}

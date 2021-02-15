@@ -15,13 +15,15 @@
   },
   "scripts": {
     "lint": "eslint packages/**/src/**/*.js packages/**/tests/**/*.js",
-    "build": "yarn build:i18n-tools && yarn build:react-i18n && yarn build:eslint-plugin-i18n",
+    "build": "yarn build:i18n-tools && yarn build:i18n-translate && yarn build:react-i18n && yarn build:eslint-plugin-i18n",
     "build:eslint-plugin-i18n": "yarn --cwd packages/eslint-plugin-i18n build",
     "build:i18n-tools": "yarn --cwd packages/i18n-lint build",
     "build:react-i18n": "yarn --cwd packages/react-i18n build",
-    "prepack": "yarn prepack:i18n-tools && yarn prepack:react-i18n && yarn prepack:eslint-plugin-i18n",
+    "build:i18n-translate": "yarn --cwd packages/i18n-translate build",
+    "prepack": "yarn prepack:i18n-tools && yarn prepack:i18n-translate && yarn prepack:react-i18n && yarn prepack:eslint-plugin-i18n",
     "prepack:eslint-plugin-i18n": "yarn --cwd packages/eslint-plugin-i18n prepack",
     "prepack:i18n-tools": "yarn --cwd packages/i18n-lint prepack",
+    "prepack:i18n-translate": "yarn --cwd packages/i18n-translate prepack",
     "prepack:react-i18n": "yarn --cwd packages/react-i18n prepack",
     "test": "yarn jest && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests",
     "test:ci": "yarn jest --coverage && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests"
