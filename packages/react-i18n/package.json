@@ -49,6 +49,7 @@
     "format": "prettier-eslint --write src/**/*.js *.md",
     "prepack": "yarn test && yarn build",
     "test": "BABEL_ENV=test jest",
+    "test:coverage": "BABEL_ENV=test jest --coverage",
     "release": "yarn lint && yarn test && yarn build && yarn version"
   }
 }

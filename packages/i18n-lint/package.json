@@ -27,10 +27,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "NODE_ENV=prod babel src --out-dir lib",
     "format": "prettier-eslint --write src/**/*.js tests/**/*.js",
     "prepack": "yarn test && yarn build",
     "test": "jest",
-    "test:integration": "yarn build && node ./lib/index --config tests/test.config.json"
+    "test:integration": "yarn build && node ./lib/index --config tests/test.config.json",
+    "test:coverage": "jest --coverage"
   }
 }
