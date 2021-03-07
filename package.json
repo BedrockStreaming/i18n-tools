@@ -18,6 +18,6 @@
     "build": "yarn lerna run build --stream",
     "prepack": "yarn lerna run prepack --stream",
     "test": "yarn lerna run test --stream",
-    "test:ci": "yarn lerna run test:coverage --stream"
+    "test:ci": "yarn jest --coverage && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests"
   }
 }
