@@ -1,0 +1,23 @@
+# [1.9.0](https://github.com/M6Web/i18n-tools/compare/@m6web/react-i18n@1.9.0...@m6web/react-i18n@1.9.0) (2021-03-08)
+
+
+### Bug Fixes
+
+* **build:** fix build to make the lib importable ([97e59c5](https://github.com/M6Web/i18n-tools/commit/97e59c5232444c1ed46d07e676e8032a280e3209))
+* **index:** fix export and require in provider ([#2](https://github.com/M6Web/i18n-tools/issues/2)) ([73c9814](https://github.com/M6Web/i18n-tools/commit/73c9814070cf24b6825621ce014efaf9060645a5))
+* **pluralize:** introduce a general param for translate function ([#7](https://github.com/M6Web/i18n-tools/issues/7)) ([36b9395](https://github.com/M6Web/i18n-tools/commit/36b9395545618e8f952a7addbb0452b4c9eb09d6))
+* **react-i18n:** exports hook in index.js ([#18](https://github.com/M6Web/i18n-tools/issues/18)) ([c7c3fb8](https://github.com/M6Web/i18n-tools/commit/c7c3fb8434da037a43e39c4cbc0b061cd1fd1e15))
+* **react-i18n:** remove unused contextType in component ([41d99e1](https://github.com/M6Web/i18n-tools/commit/41d99e17aa7d9692c795af2d373a258a54388178))
+
+
+### Features
+
+* **react-i18n:** add errorCallback for missing translations ([#54](https://github.com/M6Web/i18n-tools/issues/54)) ([56fac7d](https://github.com/M6Web/i18n-tools/commit/56fac7da38845b8aa4df4d20242b3db411607c9a))
+* **react-i18n:** add HtmlTrans component to render HTML translations ([#8](https://github.com/M6Web/i18n-tools/issues/8)) ([6b1ea53](https://github.com/M6Web/i18n-tools/commit/6b1ea53ef503dd3fde7147248f1a6b7cba78f2ac))
+* **react-i18n:** allow react element in HtmlTrans element prop ([#15](https://github.com/M6Web/i18n-tools/issues/15)) ([31b89fc](https://github.com/M6Web/i18n-tools/commit/31b89fcb903a7dd46e3da558646a3dd89b534569))
+* **react-i18n:** export tFunction from utils ([#47](https://github.com/M6Web/i18n-tools/issues/47)) ([9d2cde2](https://github.com/M6Web/i18n-tools/commit/9d2cde2d73af7522fd09f6dd8225e7d46577cf16))
+* **react-i18n:** interpolate JSX tags inside translations ([#22](https://github.com/M6Web/i18n-tools/issues/22)) ([1e00a17](https://github.com/M6Web/i18n-tools/commit/1e00a17066546a262b0c632edb8723e487e1a75e))
+* **react-i18n:** upgrade to React 16.4 and use context API ([#9](https://github.com/M6Web/i18n-tools/issues/9)) ([e807481](https://github.com/M6Web/i18n-tools/commit/e807481f8d544c0ccb1d1328e3d1a94afdd929e3))
+
+
+
