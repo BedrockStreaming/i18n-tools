@@ -1,5 +1,14 @@
 {
-  "presets": [
-    "es2015"
-  ]
+  "env": {
+    "test": {
+      "presets": [["env", {
+        "targets": {
+          "node": "current"
+        }
+      }]]
+    },
+    "prod": {
+      "presets": ["es2015"]
+    }
+  }
 }
