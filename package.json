@@ -19,6 +19,7 @@
     "prepack": "yarn lerna run prepack --stream",
     "test": "yarn lerna run test --stream",
     "test:ci": "yarn jest --coverage && yarn --cwd packages/eslint-plugin-i18n mocha --recursive tests",
-    "release": "yarn lerna version  --conventional-commits --create-release github"
+    "release": "yarn lerna version  --conventional-commits --create-release github",
+    "lerna:publish": "yarn lerna publish from-git"
   }
 }
