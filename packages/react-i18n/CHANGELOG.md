@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.9.1](https://github.com/M6Web/i18n-tools/compare/@m6web/react-i18n@1.9.0...@m6web/react-i18n@1.9.1) (2021-03-09)
+
+**Note:** Version bump only for package @m6web/react-i18n
+
+
+
+
+
 # [1.9.0](https://github.com/M6Web/i18n-tools/compare/@m6web/react-i18n@1.9.0...@m6web/react-i18n@1.9.0) (2021-03-08)
 
 
@@ -18,6 +31,3 @@
 * **react-i18n:** export tFunction from utils ([#47](https://github.com/M6Web/i18n-tools/issues/47)) ([9d2cde2](https://github.com/M6Web/i18n-tools/commit/9d2cde2d73af7522fd09f6dd8225e7d46577cf16))
 * **react-i18n:** interpolate JSX tags inside translations ([#22](https://github.com/M6Web/i18n-tools/issues/22)) ([1e00a17](https://github.com/M6Web/i18n-tools/commit/1e00a17066546a262b0c632edb8723e487e1a75e))
 * **react-i18n:** upgrade to React 16.4 and use context API ([#9](https://github.com/M6Web/i18n-tools/issues/9)) ([e807481](https://github.com/M6Web/i18n-tools/commit/e807481f8d544c0ccb1d1328e3d1a94afdd929e3))
-
-
-

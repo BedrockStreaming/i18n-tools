@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.1](https://github.com/M6Web/i18n-tools/compare/@m6web/i18n-lint@1.1.0...@m6web/i18n-lint@1.1.1) (2021-03-09)
+
+**Note:** Version bump only for package @m6web/i18n-lint
+
+
+
+
+
 # [1.1.0](https://github.com/M6Web/i18n-tools/compare/@m6web/i18n-lint@1.1.0...@m6web/i18n-lint@1.1.0) (2021-03-08)
 
 
@@ -13,6 +26,3 @@
 * **alphabetic:** rules to order keys ([#4](https://github.com/M6Web/i18n-tools/issues/4)) ([2536d92](https://github.com/M6Web/i18n-tools/commit/2536d929033110474ad45ba25d4a89f871f56090))
 * **htmlVerifier:** add html tags checks and deep html count check ([#1](https://github.com/M6Web/i18n-tools/issues/1)) ([a7f7c89](https://github.com/M6Web/i18n-tools/commit/a7f7c8915ed176e59ff41687fcb17e64921e7e31))
 * **logger:** add better logger with chalk ([#2](https://github.com/M6Web/i18n-tools/issues/2)) ([0128102](https://github.com/M6Web/i18n-tools/commit/0128102034448af8d62b158eb1cbd4c855dc2090))
-
-
-
