@@ -1,11 +1,19 @@
-# eslint-plugin-m6web-i18n
+# @m6web/eslint-plugin-i18n
+
+[![Continous Integration](https://github.com/M6Web/i18n-tools/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/M6Web/i18n-tools/actions/workflows/continuous-integration.yml)
+![npm](https://img.shields.io/npm/v/@m6web/eslint-plugin-i18n)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@m6web/eslint-plugin-i18n)
+![npm](https://img.shields.io/npm/dy/@m6web/eslint-plugin-i18n)
+![GitHub last commit](https://img.shields.io/github/last-commit/M6Web/i18n-tools)
+![NPM](https://img.shields.io/npm/l/@m6web/eslint-plugin-i18n)
 
 This is an [eslint](http://eslint.org/) plugin for i18n in a [react](https://facebook.github.io/react/) application.
+This plugin provides you with a set of rules to check the correct use of the translation keys but also forces you not to introduce untranslated texts in your React components.
 
 ## Installation
 
 ``` shell
-yarn add -D eslint-plugin-m6web-i18n
+yarn add -D @m6web/eslint-plugin-i18n
 ```
 
 ## Build
@@ -13,16 +21,6 @@ yarn add -D eslint-plugin-m6web-i18n
 ``` shell
 yarn build
 ```
-
-## Bump
-
-To bump we use [mvrsion](https://www.npmjs.com/package/mversion).
-
-example:
-```shell
-yarn mversion -- patch -m
-```
-
 
 ## Rules
 

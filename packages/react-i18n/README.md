@@ -1,4 +1,12 @@
-# React i18n for 6play apps
+# @m6web/react-i18n
+
+[![Continous Integration](https://github.com/M6Web/i18n-tools/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/M6Web/i18n-tools/actions/workflows/continuous-integration.yml)
+![npm](https://img.shields.io/npm/v/@m6web/react-i18n)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@m6web/react-i18n)
+![npm](https://img.shields.io/npm/dy/@m6web/react-i18n)
+![GitHub last commit](https://img.shields.io/github/last-commit/M6Web/i18n-tools)
+![NPM](https://img.shields.io/npm/l/@m6web/react-i18n)
+
 
 This library brings internationalisation through a set of react components.
 
