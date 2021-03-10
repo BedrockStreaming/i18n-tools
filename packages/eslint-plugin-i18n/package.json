@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.11",
+    "lodash": "4.17.19",
     "minimatch": "3.0.4"
   },
   "devDependencies": {
