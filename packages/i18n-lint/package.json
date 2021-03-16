@@ -21,7 +21,7 @@
   "dependencies": {
     "chalk": "2.4.2",
     "is-html": "1.1.0",
-    "lodash": "4.17.11"
+    "lodash": "4.17.19"
   },
   "publishConfig": {
     "access": "public"
