@@ -13,12 +13,6 @@ exports[`i18n translate function with JSX should interpolate basic html tag 1`] 
 </div>
 `;
 
-exports[`i18n translate function with JSX should not try to interpolate basic html tag 1`] = `
-<div>
-  &lt;em&gt;Hello&lt;/em&gt; &lt;strong&gt;Moto&lt;/strong&gt; !
-</div>
-`;
-
 exports[`i18n translate function with JSX should render a complex JSX structure inside the translation 1`] = `
 <div>
   <Bold>
