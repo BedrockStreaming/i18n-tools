@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`i18n translate function with JSX should interpolate basic html tag 1`] = `
+<div>
+  <em>
+    Hello
+  </em>
+   
+  <strong>
+    Moto
+  </strong>
+   !
+</div>
+`;
+
 exports[`i18n translate function with JSX should not try to interpolate basic html tag 1`] = `
 <div>
   &lt;em&gt;Hello&lt;/em&gt; &lt;strong&gt;Moto&lt;/strong&gt; !
@@ -86,6 +99,34 @@ exports[`i18n translate function with JSX should render the short (without child
   </LineBreak>
    !
 </div>
+`;
+
+exports[`i18n translate function with JSX should return un-interpolated translation when a renderer is missing 1`] = `
+Array [
+  "Hello ",
+  <Bold>
+    &lt;Italic&gt;
+    Moto
+    &lt;/Italic&gt;
+  </Bold>,
+  " !",
+]
+`;
+
+exports[`i18n translate function with JSX should return un-interpolated translation when a renderer is missing 2`] = `
+Array [
+  "Hello ",
+  Array [
+    "<Bold>",
+    Array [
+      <Italic>
+        Moto
+      </Italic>,
+    ],
+    "</Bold>",
+  ],
+  " !",
+]
 `;
 
 exports[`i18n translate function with JSX should works with badly formatted JSX 1`] = `

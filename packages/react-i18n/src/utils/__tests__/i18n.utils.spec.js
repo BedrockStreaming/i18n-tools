@@ -252,23 +252,19 @@ describe('i18n translate function', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    /* eslint-disable no-console */
-    it('should throw an error if renderer not provided', () => {
-      console.warn = jest.fn();
+    it('should return un-interpolated translation when a renderer is missing', () => {
       const lang = {
         foo: {
           bar: 'Hello <Bold><Italic>Moto</Italic></Bold> !',
         },
       };
-      const renderers = { Bold };
       const t = translate(lang);
-      t('foo.bar', undefined, undefined, false, renderers);
 
-      expect(console.warn).toHaveBeenCalledWith('No renderer provided for component "Italic"');
+      expect(t('foo.bar', undefined, undefined, false, { Bold })).toMatchSnapshot();
+      expect(t('foo.bar', undefined, undefined, false, { Italic })).toMatchSnapshot();
     });
-    /* eslint-enable no-console */
 
-    it('should not try to interpolate basic html tag', () => {
+    it('should interpolate basic html tag', () => {
       const lang = {
         foo: {
           bar: '<em>Hello</em> <strong>Moto</strong> !',
