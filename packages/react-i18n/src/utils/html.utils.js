@@ -64,38 +64,66 @@ const buildTree = (elements, config = { currentIndex: 0 }, tree = [], currentTag
   return tree;
 };
 
-const buildProps = props => props.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+const buildProps = (serialisedProps, key) => {
+  const props = serialisedProps.reduce((acc, { key: propKey, value }) => ({ ...acc, [propKey]: value }), {});
+  if (key) {
+    props.key = key;
+  }
 
-const renderer = (tree, renderers = {}) =>
-  tree.map(node => {
+  return props;
+};
+
+const getKey = (tagName, index) => {
+  return `${tagName}-${index}`;
+};
+
+const renderer = (tree, renderers = {}) => {
+  // Generate keys for React and HTML element in arrays
+  const withKey = tree.length > 1;
+
+  const map = tree.reduce((acc, node, index) => {
+    const key = withKey && getKey(node.tagName, index);
+
     if (typeof node === 'object') {
       if (node.isReactComponent) {
         if (renderers[node.tagName]) {
-          return React.createElement(
-            renderers[node.tagName],
-            buildProps(node.props),
-            node.isAutoClosing ? undefined : renderer(node.children, renderers),
+          // React component
+          acc.push(
+            React.createElement(
+              renderers[node.tagName],
+              buildProps(node.props, key),
+              node.isAutoClosing ? undefined : renderer(node.children, renderers),
+            ),
           );
+        } else {
+          // Unknown React component, will be pushed without rendering
+          acc.push(node.raw);
+          if (node.children.length) {
+            acc.push(renderer(node.children, renderers));
+            acc.push(`</${node.tagName}>`);
+          }
         }
-
-        const fallback = [node.raw];
-        if (node.children.length) {
-          fallback.push(renderer(node.children, renderers));
-          fallback.push(`</${node.tagName}>`);
-        }
-
-        return fallback;
+      } else {
+        // HTML element
+        acc.push(
+          React.createElement(
+            node.tagName,
+            buildProps(node.props, key),
+            node.isAutoClosing ? undefined : renderer(node.children, renderers),
+          ),
+        );
       }
-
-      return React.createElement(
-        node.tagName,
-        buildProps(node.props),
-        node.isAutoClosing ? undefined : renderer(node.children, renderers),
-      );
+    } else {
+      // Classic translation (string or number)
+      acc.push(node);
     }
 
-    return node;
-  });
+    return acc;
+  }, []);
+
+  // If a child is alone it shouldn't be in an array
+  return map.length === 1 ? map[0] : map;
+};
 
 export const interpolateHTMLTags = (translation, renderers) => {
   const tags = _.compact(translation.split(tagSearch), x => x !== '').reduce(
