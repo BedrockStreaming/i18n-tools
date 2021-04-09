@@ -33,7 +33,7 @@ exports[`i18n translate function with JSX should correctly render a big chunck o
     >
       a disabled 
       <button
-        disabled={null}
+        disabled={true}
         key="button-1"
       >
         button

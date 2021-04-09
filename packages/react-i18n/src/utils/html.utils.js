@@ -5,19 +5,21 @@ const upperCase = /^[A-Z]/;
 const tagSearch = /(<.+?>)/;
 const tagNameSearch = /<\/?(h[1-6]|[A-z]+)/;
 
-const parseProps = props => {
-  if (!props.length) {
-    return null;
+const propsMapper = prop => {
+  const [key, value = true] = prop.split('=');
+
+  if (key) {
+    if (value === true) {
+      return { key, value: true };
+    }
+
+    return { key, value: typeof value === 'string' ? JSON.parse(value) : null };
   }
 
-  return _.compact(
-    props.map(prop => {
-      const [key, value = true] = prop.split('=');
-
-      return key ? { key, value: typeof value === 'string' ? JSON.parse(value) : null } : null;
-    }),
-  );
+  return null;
 };
+
+const parseProps = props => (props.length ? _.compact(props.map(propsMapper)) : null);
 
 const analyseTag = tag => {
   const isAutoClosing = tag[tag.length - 2] === '/';
