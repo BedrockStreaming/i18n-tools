@@ -73,9 +73,7 @@ const buildProps = (serialisedProps, key) => {
   return props;
 };
 
-const getKey = (tagName, index) => {
-  return `${tagName}-${index}`;
-};
+const getKey = (tagName, index) => `${tagName}-${index}`;
 
 const renderer = (tree, renderers = {}) => {
   // Generate keys for React and HTML element in arrays
