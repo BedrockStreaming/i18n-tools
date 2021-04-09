@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 const upperCase = /^[A-Z]/;
 const tagSearch = /(<.+?>)/;
-const tagNameSearch = /<\/?([A-z]+)/;
+const tagNameSearch = /<\/?(h[1-6]|[A-z]+)/;
 
 const parseProps = props => {
   if (!props.length) {

@@ -175,7 +175,7 @@ describe('i18n translate function', () => {
   describe('with JSX', () => {
     const Bold = ({ children }) => <strong>{children}</strong>;
     const Italic = ({ children }) => <em>{children}</em>;
-    const LineBreak = () => <br/>;
+    const LineBreak = () => <br />;
 
     it('should render the JSX component present inside the translation', () => {
       const lang = {
@@ -291,6 +291,26 @@ describe('i18n translate function', () => {
 
       const result = t('foo.bar', undefined, undefined, undefined, renderers);
       const wrapper = mount(<div>{result}</div>);
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should correctly render a big chunck of HTML', () => {
+      const lang = {
+        foo: {
+          bar:
+            '<h1>Test</h1>' +
+            '<p>This is not what we wanna do with this lib but we need to ensure it works anyway</p>' +
+            '<ul>' +
+            '<li>simple link to <a href="https://github.com/M6Web/i18n-tools" target="_blank">the package</a>.</li>' +
+            '<li>a disabled <button disabled>button</button></li>' +
+            '<li>and an auto closing br <br /></li>' +
+            '</ul>',
+        },
+      };
+
+      const t = translate(lang);
+      const wrapper = mount(<div>{t('foo.bar', undefined, undefined, undefined, {})}</div>);
 
       expect(wrapper).toMatchSnapshot();
     });

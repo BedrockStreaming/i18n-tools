@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`i18n translate function with JSX should correctly render a big chunck of HTML 1`] = `
+<div>
+  <h1
+    key="h1-0"
+  >
+    Test
+  </h1>
+  <p
+    key="p-1"
+  >
+    This is not what we wanna do with this lib but we need to ensure it works anyway
+  </p>
+  <ul
+    key="ul-2"
+  >
+    <li
+      key="li-0"
+    >
+      simple link to 
+      <a
+        href="https://github.com/M6Web/i18n-tools"
+        key="a-1"
+        target="_blank"
+      >
+        the package
+      </a>
+      .
+    </li>
+    <li
+      key="li-1"
+    >
+      a disabled 
+      <button
+        disabled={null}
+        key="button-1"
+      >
+        button
+      </button>
+    </li>
+    <li
+      key="li-2"
+    >
+      and an auto closing br 
+      <br
+        key="br-1"
+      />
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`i18n translate function with JSX should interpolate basic html tag 1`] = `
 <div>
   <em
