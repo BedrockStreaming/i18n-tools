@@ -23,12 +23,16 @@ export default class Runner {
   }
 
   run() {
-    const { mainLanguages, path } = this.config;
+    const {
+      settings: {
+        i18n: { principalLangs = [], secondaryLangs = [] },
+      },
+    } = this.config;
 
-    const reports = _.flatMap(mainLanguages, lang => {
-      const tradForLang = Reader.parse(path, `${lang}.json`);
+    const reports = _.flatMap([...principalLangs, ...secondaryLangs], ({ name, translationPath }) => {
+      const tradForLang = Reader.parse(translationPath);
 
-      return _.flatMap(reporters, reporter => reporter(tradForLang, lang));
+      return _.flatMap(reporters, (reporter) => reporter(tradForLang, name));
     });
 
     process.exit(_.find(reports, { error: true }) ? 1 : 0);
