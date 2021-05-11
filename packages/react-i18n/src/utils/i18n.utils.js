@@ -36,7 +36,7 @@ const pluralizeFunctions = {
   },
 };
 
-export const translate = (lang, i18nNames = {}, errorCallback = _.noop) => {
+export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTML = false) => {
   const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
   return (key, data = {}, number, general, renderers) => {
@@ -55,6 +55,8 @@ export const translate = (lang, i18nNames = {}, errorCallback = _.noop) => {
     }
 
     const translatedResult = sprintf(translation, { ...data, ...i18nNames, number });
+
+    if (!parseHTML) return translatedResult;
 
     const htmlTags = interpolateHTMLTags(translatedResult, renderers);
     if (htmlTags.length > 1) return htmlTags;

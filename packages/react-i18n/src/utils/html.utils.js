@@ -4,31 +4,38 @@ import _ from 'lodash';
 const upperCase = /^[A-Z]/;
 const tagSearch = /(<.+?>)/;
 const tagNameSearch = /<\/?(h[1-6]|[A-z]+)/;
+const propsSearch = /(\S+)=["'{]?((?:.(?!["'{]?\s+(?:\S+)=|\s*\/?[}"']))+.)[}"']?|(\S+)/g;
+const ignoredTags = /script|iframe/;
 
-const propsMapper = prop => {
-  const [key, value = true] = prop.split('=');
-
-  if (key) {
-    if (value === true) {
-      return { key, value: true };
+const analyseProps = (isClosing, tag, tagName, isAutoClosing) => {
+  let props;
+  if (isClosing) {
+    props = null;
+  } else {
+    const propsBlock = tag.slice(tag.indexOf(tagName) + tagName.length + 1, tag.length - (isAutoClosing ? 2 : 1));
+    props = [];
+    let match;
+    // eslint-disable-next-line no-cond-assign
+    while ((match = propsSearch.exec(propsBlock)) !== null) {
+      const [, key, value, flag] = match;
+      if (flag) {
+        props.push({ key: flag, value: true });
+      } else {
+        props.push({ key, value });
+      }
     }
-
-    return { key, value: typeof value === 'string' ? JSON.parse(value) : null };
   }
 
-  return null;
+  return props;
 };
-
-const parseProps = props => (props.length ? _.compact(props.map(propsMapper)) : null);
 
 const analyseTag = tag => {
   const isAutoClosing = tag[tag.length - 2] === '/';
   const isClosing = tag[1] === '/';
   const tagName = tagNameSearch.exec(tag)[1];
   const isReactComponent = upperCase.test(tagName);
-  const props = isClosing
-    ? null
-    : parseProps(tag.slice(tag.indexOf(tagName) + tagName.length + 1, tag.length - (isAutoClosing ? 2 : 1)).split(' '));
+
+  const props = analyseProps(isClosing, tag, tagName, isAutoClosing);
 
   return {
     isAutoClosing,
@@ -58,15 +65,18 @@ const buildTree = (elements, config = { currentIndex: 0 }, tree = [], currentTag
       }
     }
 
-    tree.push(element);
+    // Ignore some html elements like script and iframe ^^
+    if (!ignoredTags.test(element.tagName)) {
+      tree.push(element);
+    }
   }
 
-  if (currentTagName) throw new Error(`Malformated HMTL, can't build proper render`);
+  if (currentTagName) throw new Error(`Malformated HTML, can't build proper render`);
 
   return tree;
 };
 
-const buildProps = (serialisedProps, key) => {
+const renderProps = (serialisedProps, key) => {
   const props = serialisedProps.reduce((acc, { key: propKey, value }) => ({ ...acc, [propKey]: value }), {});
   if (key) {
     props.key = key;
@@ -91,7 +101,7 @@ const renderer = (tree, renderers = {}) => {
           acc.push(
             React.createElement(
               renderers[node.tagName],
-              buildProps(node.props, key),
+              renderProps(node.props, key),
               node.isAutoClosing ? undefined : renderer(node.children, renderers),
             ),
           );
@@ -108,7 +118,7 @@ const renderer = (tree, renderers = {}) => {
         acc.push(
           React.createElement(
             node.tagName,
-            buildProps(node.props, key),
+            renderProps(node.props, key),
             node.isAutoClosing ? undefined : renderer(node.children, renderers),
           ),
         );

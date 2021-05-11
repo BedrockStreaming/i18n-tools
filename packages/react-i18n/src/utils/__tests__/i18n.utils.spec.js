@@ -184,7 +184,7 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { Bold };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, false, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -199,7 +199,7 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { Bold, Italic };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, false, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -214,7 +214,7 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { Bold, Italic };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, false, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -229,7 +229,7 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { LineBreak };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, false, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -244,7 +244,7 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { LineBreak, Bold, Italic };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, false, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -258,7 +258,7 @@ describe('i18n translate function', () => {
           bar: 'Hello <Bold><Italic>Moto</Italic></Bold> !',
         },
       };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       expect(t('foo.bar', undefined, undefined, false, { Bold })).toMatchSnapshot();
       expect(t('foo.bar', undefined, undefined, false, { Italic })).toMatchSnapshot();
@@ -271,7 +271,7 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = {};
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, false, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -287,7 +287,7 @@ describe('i18n translate function', () => {
       };
 
       const renderers = { Bold, Italic };
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
 
       const result = t('foo.bar', undefined, undefined, undefined, renderers);
       const wrapper = mount(<div>{result}</div>);
@@ -295,7 +295,7 @@ describe('i18n translate function', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should correctly render a big chunck of HTML', () => {
+    fit('should correctly render a big chunck of HTML', () => {
       const lang = {
         foo: {
           bar:
@@ -305,11 +305,13 @@ describe('i18n translate function', () => {
             '<li>simple link to <a href="https://github.com/M6Web/i18n-tools" target="_blank">the package</a>.</li>' +
             '<li>a disabled <button disabled>button</button></li>' +
             '<li>and an auto closing br <br /></li>' +
+            '<script type="application/javascript">Some script I don\'t wanna see</script>' +
+            '<iframe src="Some iframe I don\'t wanna see" />' +
             '</ul>',
         },
       };
 
-      const t = translate(lang);
+      const t = translate(lang, undefined, undefined, true);
       const wrapper = mount(<div>{t('foo.bar', undefined, undefined, undefined, {})}</div>);
 
       expect(wrapper).toMatchSnapshot();

@@ -48,13 +48,22 @@ const errorCallback = console.warn;
 
 // Put your app in the provider
 const Root = () => (
-  <I18nProvider lang={translations} i18nNames={i18nNames} errorCallback={errorCallback}>
+  <I18nProvider lang={translations} i18nNames={i18nNames} errorCallback={errorCallback} parseHTML>
     <App />
   </I18nProvider>
 );
 ```
 
 ## Use translation components
+
+### i18n Provider
+This component will provide the translation function to following components via the React.Context api.
+
+* **lang**: translation dictionary
+* **i18nNames**: static translation values for interpolation
+* **errorCallback**: callback triggered when an error happens during the execution of the translation function
+* **parseHTML**: activates parsing of HTML inside translation
+* **children**: your App main component
 
 ### i18n String component
 
@@ -67,7 +76,7 @@ import { Trans } from '@m6web/react-i18n';
 // Interpolation values
 const data = { element: 'foo' };
 
-export default const MyComponent = ({ nbExample, t }) => {
+export const MyComponent = ({ nbExample, t }) => {
   return (
     <div class="foo">
       <h1>
@@ -96,7 +105,7 @@ import { HtmlTrans } from '@m6web/react-i18n';
 // Interpolation values
 const data = { element: 'foo' };
 
-export default const MyComponent = ({ nbExample, t }) => {
+export const MyComponent = ({ nbExample, t }) => {
   return (
     <div class="foo">
       <HtmlTrans i18nKey="foo.bar" element="h1" />
@@ -219,7 +228,7 @@ To use general form, you need to set 4th parameter of the translate function to 
 ### HTML Interpolation
 Basic html tags are automatically interpolated in translation if the syntax is correct (opening tag should be close within the translation).
 
-Props are supported too.
+Attributes are supported too.
 
 Basic textual interpolations are proceeded first, and the HTML comes in a second time.
 - translation
@@ -254,6 +263,9 @@ export const MyComponent = () => {
 </div>
 ```
 
+#### excluded elements
+For now `script` and `iframe` elements are ignored with all their children in the HTML tree.  
+
 #### keys
 In case of arrays of component, keys will be automatically generated to please React.
 - translation
@@ -267,8 +279,8 @@ In case of arrays of component, keys will be automatically generated to please R
       '<li>simple link to <a href="https://github.com/M6Web/i18n-tools" target="_blank">the package</a>.</li>' +
       '<li>a disabled <button disabled>button</button></li>' +
       '<li>and an auto closing br <br /></li>' +
-      '</ul>',
-  },
+      '</ul>'
+  }
 };
 ```
 - result
@@ -350,4 +362,6 @@ const MyComponent = () => {
 
 In this example, the `<LinkToHome>` inside your translation will be rendered by the component given in `renderers`.
 
-Props are also supported.
+Attributes are also supported.
+
+:warning: If the translation contains an unknown tag, the translation will be display without HTML parsing.
