@@ -1,3 +1,12 @@
 {
-  "path": "./tests/i18n"
+  "settings": {
+    "i18n": {
+      "principalLangs": [
+        {
+          "name": "test-en",
+          "translationPath": "./tests/i18n/en.json"
+        }
+      ]
+    }
+  }
 }
