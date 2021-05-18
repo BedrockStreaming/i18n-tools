@@ -1,16 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`i18n translate function with JSX should not try to interpolate basic html tag 1`] = `
+exports[`i18n translate function with JSX should correctly render a big chunck of HTML 1`] = `
 <div>
-  &lt;em&gt;Hello&lt;/em&gt; &lt;strong&gt;Moto&lt;/strong&gt; !
+  <h1
+    key="h1-0"
+  >
+    Test
+  </h1>
+  <p
+    key="p-1"
+  >
+    This is not what we wanna do with this lib but we need to ensure it works anyway
+  </p>
+  <ul
+    key="ul-2"
+  >
+    <li
+      key="li-0"
+    >
+      simple link to 
+      <a
+        href="https://github.com/M6Web/i18n-tools"
+        key="a-1"
+        target="_blank"
+      >
+        the package
+      </a>
+      .
+    </li>
+    <li
+      key="li-1"
+    >
+      a disabled 
+      <button
+        disabled={true}
+        key="button-1"
+      >
+        button
+      </button>
+    </li>
+    <li
+      key="li-2"
+    >
+      and an auto closing br 
+      <br
+        key="br-1"
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`i18n translate function with JSX should interpolate basic html tag 1`] = `
+<div>
+  <em
+    key="em-0"
+  >
+    Hello
+  </em>
+   
+  <strong
+    key="strong-2"
+  >
+    Moto
+  </strong>
+   !
 </div>
 `;
 
 exports[`i18n translate function with JSX should render a complex JSX structure inside the translation 1`] = `
 <div>
-  <Bold>
+  <Bold
+    key="Bold-0"
+  >
     <strong>
-      <Italic>
+      <Italic
+        key="Italic-0"
+      >
         <em>
           Hell
         </em>
@@ -18,11 +84,15 @@ exports[`i18n translate function with JSX should render a complex JSX structure 
       o
     </strong>
   </Bold>
-  <LineBreak>
+  <LineBreak
+    key="LineBreak-1"
+  >
     <br />
   </LineBreak>
   Moto
-  <LineBreak>
+  <LineBreak
+    key="LineBreak-3"
+  >
     <br />
   </LineBreak>
    !
@@ -31,13 +101,17 @@ exports[`i18n translate function with JSX should render a complex JSX structure 
 
 exports[`i18n translate function with JSX should render the JSX component and sibling JSX component present inside the translation 1`] = `
 <div>
-  <Italic>
+  <Italic
+    key="Italic-0"
+  >
     <em>
       Hello
     </em>
   </Italic>
    
-  <Bold>
+  <Bold
+    key="Bold-2"
+  >
     <strong>
       Moto
     </strong>
@@ -49,7 +123,9 @@ exports[`i18n translate function with JSX should render the JSX component and si
 exports[`i18n translate function with JSX should render the JSX component present inside the translation 1`] = `
 <div>
   Hello 
-  <Bold>
+  <Bold
+    key="Bold-1"
+  >
     <strong>
       Moto
     </strong>
@@ -61,7 +137,9 @@ exports[`i18n translate function with JSX should render the JSX component presen
 exports[`i18n translate function with JSX should render the nested JSX component present inside the translation 1`] = `
 <div>
   Hello 
-  <Bold>
+  <Bold
+    key="Bold-1"
+  >
     <strong>
       <Italic>
         <em>
@@ -77,15 +155,43 @@ exports[`i18n translate function with JSX should render the nested JSX component
 exports[`i18n translate function with JSX should render the short (without children) JSX component inside the translation 1`] = `
 <div>
   Hello
-  <LineBreak>
+  <LineBreak
+    key="LineBreak-1"
+  >
     <br />
   </LineBreak>
   Moto
-  <LineBreak>
+  <LineBreak
+    key="LineBreak-3"
+  >
     <br />
   </LineBreak>
    !
 </div>
+`;
+
+exports[`i18n translate function with JSX should return un-interpolated translation when a renderer is missing 1`] = `
+Array [
+  "Hello ",
+  <Bold>
+    &lt;Italic&gt;
+    Moto
+    &lt;/Italic&gt;
+  </Bold>,
+  " !",
+]
+`;
+
+exports[`i18n translate function with JSX should return un-interpolated translation when a renderer is missing 2`] = `
+Array [
+  "Hello ",
+  "<Bold>",
+  <Italic>
+    Moto
+  </Italic>,
+  "</Bold>",
+  " !",
+]
 `;
 
 exports[`i18n translate function with JSX should works with badly formatted JSX 1`] = `

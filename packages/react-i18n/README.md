@@ -48,13 +48,22 @@ const errorCallback = console.warn;
 
 // Put your app in the provider
 const Root = () => (
-  <I18nProvider lang={translations} i18nNames={i18nNames} errorCallback={errorCallback}>
+  <I18nProvider lang={translations} i18nNames={i18nNames} errorCallback={errorCallback} parseHTML>
     <App />
   </I18nProvider>
 );
 ```
 
 ## Use translation components
+
+### i18n Provider
+This component will provide the translation function to following components via the React.Context api.
+
+* **lang**: translation dictionary
+* **i18nNames**: static translation values for interpolation
+* **errorCallback**: callback triggered when an error happens during the execution of the translation function
+* **parseHTML**: activates parsing of HTML inside translation
+* **children**: your App main component
 
 ### i18n String component
 
@@ -67,7 +76,7 @@ import { Trans } from '@m6web/react-i18n';
 // Interpolation values
 const data = { element: 'foo' };
 
-export default const MyComponent = ({ nbExample, t }) => {
+export const MyComponent = ({ nbExample, t }) => {
   return (
     <div class="foo">
       <h1>
@@ -96,7 +105,7 @@ import { HtmlTrans } from '@m6web/react-i18n';
 // Interpolation values
 const data = { element: 'foo' };
 
-export default const MyComponent = ({ nbExample, t }) => {
+export const MyComponent = ({ nbExample, t }) => {
   return (
     <div class="foo">
       <HtmlTrans i18nKey="foo.bar" element="h1" />
@@ -216,17 +225,128 @@ The variable used in translation template string has to be `%(number)d`, and is 
 
 To use general form, you need to set 4th parameter of the translate function to `true`
 
-### JSX Interpolation
+### HTML Interpolation
+Basic html tags are automatically interpolated in translation if the syntax is correct (opening tag should be close within the translation).
+
+Attributes are supported too.
+
+Basic textual interpolations are proceeded first, and the HTML comes in a second time.
+- translation
+```json
+{
+  "foo": {
+    "bar": "<a href=\"/page-%(number)s\">To page %(number)s</a>"
+  }
+}
+```
+- code
+```jsx
+import React from 'react';
+import { useTranslate } from './useTranslate';
+
+export const MyComponent = () => {
+  const t = useTranslate();
+
+  return (
+    <div class="foo">
+      <p>{t('foo.bar', { number: 2 })}</p>
+    </div>
+  );
+}
+```
+- result
+```jsx harmony
+<div>
+  <p>
+    <a href="/page-2">To page 2</a>
+  </p>
+</div>
+```
+
+#### excluded elements
+For now `script` and `iframe` elements are ignored with all their children in the HTML tree.  
+
+#### keys
+In case of arrays of component, keys will be automatically generated to please React.
+- translation
+```js
+{
+  foo: {
+    bar:
+      '<h1>Test</h1>' +
+      '<p>This is not what we wanna do with this lib but we need to ensure it works anyway</p>' +
+      '<ul>' +
+      '<li>simple link to <a href="https://github.com/M6Web/i18n-tools" target="_blank">the package</a>.</li>' +
+      '<li>a disabled <button disabled>button</button></li>' +
+      '<li>and an auto closing br <br /></li>' +
+      '</ul>'
+  }
+};
+```
+- result
+```jsx harmony
+<div>
+  <h1
+    key="h1-0"
+  >
+    Test
+  </h1>
+  <p
+    key="p-1"
+  >
+    This is not what we wanna do with this lib but we need to ensure it works anyway
+  </p>
+  <ul
+    key="ul-2"
+  >
+    <li
+      key="li-0"
+    >
+      simple link to
+      <a
+        href="https://github.com/M6Web/i18n-tools"
+        key="a-1"
+        target="_blank"
+      >
+        the package
+      </a>
+      .
+    </li>
+    <li
+      key="li-1"
+    >
+      a disabled
+      <button
+        disabled={true}
+        key="button-1"
+      >
+        button
+      </button>
+    </li>
+    <li
+      key="li-2"
+    >
+      and an auto closing br
+      <br
+        key="br-1"
+      />
+    </li>
+  </ul>
+</div>
+```
+
+#### JSX Interpolation
 
 It is possible to interpolate JSX components inside translation, to do so you have to give `renderers` parameter or props.
 For example if you have in your translation : `foo <LinkToHome>bar</LinkToHome>` you should have a `LinkToHome` renderer.
 
 ```jsx harmony
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslate } from '@m6web/react-i18n';
 
 const renderers = {
-  LinkToHome: ({ children }) => <a href="/">{children}</a>,
+  LinkToHome: ({ children }) => <Link to="home">{children}</Link>,
 };
 
 const MyComponent = () => {
@@ -242,13 +362,6 @@ const MyComponent = () => {
 
 In this example, the `<LinkToHome>` inside your translation will be rendered by the component given in `renderers`.
 
-For the moment only the children props are used by the renderer.
+Attributes are also supported.
 
-```jsx harmony
-// Do
-<Link>Home</Link>
-<Link /> or <Link/>
-
-// Don't
-<Link href="/home">Home</Link>
-```
+:warning: If the translation contains an unknown tag, the translation will be display without HTML parsing.
