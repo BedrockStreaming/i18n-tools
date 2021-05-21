@@ -10,6 +10,8 @@ const tests = {
   doubleSpaceWithNonBreakingSpace: 'foo \u00a0bar',
   doubleSpaceWithHtmlTag: 'foo <foo> bar</foo>',
   doubleSpaceWithHtmlTagClosing: '<foo>foo </foo> bar',
+  selfClosing: 'foo <bar/> foo',
+  openingWithAttr: 'foo <bar attr="barz"> foo',
 };
 
 describe('validateHTML', () => {

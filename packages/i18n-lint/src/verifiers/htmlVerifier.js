@@ -19,7 +19,7 @@ const noMissingTag = string => {
   const openTags = [];
   const closedTags = [];
 
-  _.forEach(getMatches(string, /<([a-zA-Z]+)>/g, 1), tag => {
+  _.forEach(getMatches(string, /<(\w+)[^/]*>/g, 1), tag => {
     openTags.push(tag);
   });
 
