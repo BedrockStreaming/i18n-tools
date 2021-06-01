@@ -34,5 +34,9 @@ Array [
     "error": true,
     "message": "has double white space with inner html tag",
   },
+  Object {
+    "error": true,
+    "message": "has missing html tag",
+  },
 ]
 `;
