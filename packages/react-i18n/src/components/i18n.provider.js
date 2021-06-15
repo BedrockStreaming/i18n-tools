@@ -4,7 +4,7 @@ import { translate } from '../utils/i18n.utils';
 import { Context } from '../context/i18n.context';
 
 export const I18nProvider = ({ lang, i18nNames, children, errorCallback, parseHTML }) => (
-  <Context.Provider value={translate(lang, i18nNames, errorCallback, parseHTML)}>{children}</Context.Provider>
+  <Context.Provider value={translate(lang, { i18nNames, errorCallback, parseHTML })}>{children}</Context.Provider>
 );
 
 I18nProvider.propTypes = {
