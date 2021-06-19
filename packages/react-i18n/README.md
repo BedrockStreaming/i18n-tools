@@ -207,10 +207,11 @@ This is the configuration of plural form for keys:
 
 | language | zero    | singular | general plural | first plural | second plural | third plural |
 | -------- | ------- | -------- | -------------- | ------------ | ------------- | ------------ |
-| FR       | `one`   | `one`    | `other`        | `other`      | -             | -            |
 | EN       | `other` | `one`    | `other`        | `other`      | -             | -            |
-| HU       | `one`   | `one`    | `other`        | `one`        | -             | -            |
+| FR       | `one`   | `one`    | `other`        | `other`      | -             | -            |
 | HR       | `many`  | `one`    | `other`        | `one`        | `few`         | `many`       |
+| HU       | `one`   | `one`    | `other`        | `one`        | -             | -            |
+| NL       | `other` | `one`    | `other`        | `other`      | -             | -            |
 
 The variable used in translation template string has to be `%(number)d`, and is automatically provided by the translate function.
 
