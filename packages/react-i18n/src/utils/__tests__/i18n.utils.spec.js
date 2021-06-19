@@ -81,6 +81,17 @@ describe('i18n translate function', () => {
       expect(t('foo.bar', undefined, 1, true)).toBe('first plural');
       expect(t('foo.bar', undefined, 2, true)).toBe('general plural');
     });
+
+    it('should pluralize in dutch', () => {
+      const lang = {
+        foo: { bar: { one: 'foo bar!', other: 'foos bars!!!' } },
+        _i18n: { lang: 'nl' },
+      };
+      const t = translate(lang);
+      expect(t('foo.bar', undefined, 0, true)).toBe('foos bars!!!');
+      expect(t('foo.bar', undefined, 1, true)).toBe('foo bar!');
+      expect(t('foo.bar', undefined, 2, true)).toBe('foos bars!!!');
+    });
   });
 
   describe('with number interpolation', () => {
