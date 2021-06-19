@@ -3,15 +3,8 @@ import { sprintf } from 'sprintf-js';
 import { interpolateHTMLTags } from './html.utils';
 
 const pluralizeFunctions = {
-  en: number => (number === 0 || number > 1 ? 'other' : 'one'),
+  en: number => (number === 1 ? 'one' : 'other'),
   fr: number => (number > 1 ? 'other' : 'one'),
-  hu: (number, general) => {
-    if (!general) {
-      return 'one';
-    }
-
-    return number > 1 ? 'other' : 'one';
-  },
   hr: (number, general) => {
     // General plural
     if (general) {
@@ -34,6 +27,14 @@ const pluralizeFunctions = {
 
     return '';
   },
+  hu: (number, general) => {
+    if (!general) {
+      return 'one';
+    }
+
+    return number > 1 ? 'other' : 'one';
+  },
+  nl: number => (number === 1 ? 'one' : 'other'),
 };
 
 export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTML = false) => {
