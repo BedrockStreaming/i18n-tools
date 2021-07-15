@@ -7,20 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @m6web/react-i18n
 
-
-
-
-
 ## [1.9.1](https://github.com/M6Web/i18n-tools/compare/@m6web/react-i18n@1.9.0...@m6web/react-i18n@1.9.1) (2021-03-09)
 
 **Note:** Version bump only for package @m6web/react-i18n
 
-
-
-
-
 # [1.9.0](https://github.com/M6Web/i18n-tools/compare/@m6web/react-i18n@1.9.0...@m6web/react-i18n@1.9.0) (2021-03-08)
-
 
 ### Bug Fixes
 
@@ -29,7 +20,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **pluralize:** introduce a general param for translate function ([#7](https://github.com/M6Web/i18n-tools/issues/7)) ([36b9395](https://github.com/M6Web/i18n-tools/commit/36b9395545618e8f952a7addbb0452b4c9eb09d6))
 * **react-i18n:** exports hook in index.js ([#18](https://github.com/M6Web/i18n-tools/issues/18)) ([c7c3fb8](https://github.com/M6Web/i18n-tools/commit/c7c3fb8434da037a43e39c4cbc0b061cd1fd1e15))
 * **react-i18n:** remove unused contextType in component ([41d99e1](https://github.com/M6Web/i18n-tools/commit/41d99e17aa7d9692c795af2d373a258a54388178))
-
 
 ### Features
 

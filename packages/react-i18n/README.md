@@ -7,7 +7,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/M6Web/i18n-tools)
 ![NPM](https://img.shields.io/npm/l/@m6web/react-i18n)
 
-
 This library brings internationalisation through a set of react components.
 
 The translation function is in **[i18n.utils.js](./src/utils/i18n.utils.js)** file.
@@ -57,6 +56,7 @@ const Root = () => (
 ## Use translation components
 
 ### i18n Provider
+
 This component will provide the translation function to following components via the React.Context api.
 
 * **lang**: translation dictionary
@@ -226,12 +226,15 @@ The variable used in translation template string has to be `%(number)d`, and is 
 To use general form, you need to set 4th parameter of the translate function to `true`
 
 ### HTML Interpolation
+
 Basic html tags are automatically interpolated in translation if the syntax is correct (opening tag should be close within the translation).
 
 Attributes are supported too.
 
 Basic textual interpolations are proceeded first, and the HTML comes in a second time.
-- translation
+
+* translation
+
 ```json
 {
   "foo": {
@@ -239,7 +242,9 @@ Basic textual interpolations are proceeded first, and the HTML comes in a second
   }
 }
 ```
-- code
+
+* code
+
 ```jsx
 import React from 'react';
 import { useTranslate } from './useTranslate';
@@ -252,9 +257,11 @@ export const MyComponent = () => {
       <p>{t('foo.bar', { number: 2 })}</p>
     </div>
   );
-}
+};
 ```
-- result
+
+* result
+
 ```jsx harmony
 <div>
   <p>
@@ -264,26 +271,31 @@ export const MyComponent = () => {
 ```
 
 #### excluded elements
-For now `script` and `iframe` elements are ignored with all their children in the HTML tree.  
+
+For now `script` and `iframe` elements are ignored with all their children in the HTML tree.
 
 #### keys
+
 In case of arrays of component, keys will be automatically generated to please React.
-- translation
+
+* translation
+
 ```js
 {
   foo: {
-    bar:
-      '<h1>Test</h1>' +
+    bar: '<h1>Test</h1>' +
       '<p>This is not what we wanna do with this lib but we need to ensure it works anyway</p>' +
       '<ul>' +
       '<li>simple link to <a href="https://github.com/M6Web/i18n-tools" target="_blank">the package</a>.</li>' +
       '<li>a disabled <button disabled>button</button></li>' +
       '<li>and an auto closing br <br /></li>' +
-      '</ul>'
+      '</ul>';
   }
-};
+}
 ```
-- result
+
+* result
+
 ```jsx harmony
 <div>
   <h1
