@@ -311,8 +311,8 @@ describe('i18n translate function', () => {
         },
       };
 
-      const t = translate(lang, undefined, undefined, true);
-      const wrapper = mount(<div>{t('foo.bar', undefined, undefined, undefined, {})}</div>);
+      const t = translate(lang, { parseHTML: true }, undefined, true);
+      const wrapper = mount(<div>{t('foo.bar', {})}</div>);
 
       expect(wrapper).toMatchSnapshot();
     });
