@@ -184,9 +184,9 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { Bold };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -199,9 +199,9 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { Bold, Italic };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -214,9 +214,9 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { Bold, Italic };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -229,9 +229,9 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { LineBreak };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -244,9 +244,9 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = { LineBreak, Bold, Italic };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -258,7 +258,7 @@ describe('i18n translate function', () => {
           bar: 'Hello <Bold><Italic>Moto</Italic></Bold> !',
         },
       };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
       expect(t('foo.bar', undefined, undefined, false, { Bold })).toMatchSnapshot();
       expect(t('foo.bar', undefined, undefined, false, { Italic })).toMatchSnapshot();
@@ -271,9 +271,9 @@ describe('i18n translate function', () => {
         },
       };
       const renderers = {};
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, false, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -287,9 +287,9 @@ describe('i18n translate function', () => {
       };
 
       const renderers = { Bold, Italic };
-      const t = translate(lang, undefined, undefined, true);
+      const t = translate(lang, { parseHTML: true });
 
-      const result = t('foo.bar', undefined, undefined, undefined, renderers);
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -311,7 +311,7 @@ describe('i18n translate function', () => {
         },
       };
 
-      const t = translate(lang, { parseHTML: true }, undefined, true);
+      const t = translate(lang, { parseHTML: true });
       const wrapper = mount(<div>{t('foo.bar', {})}</div>);
 
       expect(wrapper).toMatchSnapshot();
