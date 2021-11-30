@@ -75,7 +75,7 @@ You have to add the following lines in your `.eslintrc` file to configure this p
       // Name of your translate function
       "functionName": "t",
       // If you want to ignore specific files
-      "ignoreFiles": "**/*.spec.js",
+      "ignoreFiles": ["**/*.spec.js", "**/*.int.js"],
       // If you have pluralization
       "pluralizedKeys": ["one", "other"],
       // TTL of the translations file caching (defaults to 500ms)

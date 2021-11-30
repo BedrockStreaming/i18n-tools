@@ -1,6 +1,5 @@
 const _ = require('lodash');
-const minimatch = require('minimatch');
-const { getKeyValue, get, has, getLangConfig, areWeUsingUseTranslate } = require('../utils/utils');
+const { getKeyValue, get, has, getLangConfig, areWeUsingUseTranslate, isFileIgnored } = require('../utils/utils');
 
 const check = ({ key, countNode, config, langsKey, context, node }) => {
   getLangConfig(config, langsKey).forEach(({ name, translation }) => {
@@ -58,7 +57,7 @@ module.exports = langsKey => ({
   create(context) {
     const config = context.settings.i18n;
 
-    if (!config || (config.ignoreFiles && minimatch(context.getFilename(), config.ignoreFiles))) {
+    if (isFileIgnored(context.getFilename(), config)) {
       return {};
     }
 

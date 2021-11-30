@@ -1,4 +1,4 @@
-const minimatch = require('minimatch');
+const { isFileIgnored } = require('../utils/utils');
 
 module.exports = {
   meta: {
@@ -21,7 +21,7 @@ module.exports = {
   create(context) {
     const config = context.settings.i18n;
 
-    if (config && config.ignoreFiles && minimatch(context.getFilename(), config.ignoreFiles)) {
+    if (isFileIgnored(context.getFilename(), config)) {
       return {};
     }
 

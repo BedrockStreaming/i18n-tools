@@ -1,4 +1,4 @@
-const { getLangConfig, has, get } = require('../../../src/utils/utils');
+const { getLangConfig, has, get, isFileIgnored } = require('../../../src/utils/utils');
 const assert = require('assert');
 
 describe('utils', () => {
@@ -93,5 +93,21 @@ describe('utils', () => {
 
     langConfig = getLangConfig(config, 'bar');
     assert.deepEqual(langConfig, barExpectation);
+  });
+
+  it('should ignore File', () => {
+    const fileName = '/Users/asuperuser/code/site-6play-v4/tests/mock/config/someFile.int.js';
+
+    let ignoreFiles = '**/*.spec.js';
+    assert.equal(isFileIgnored(fileName, { ignoreFiles }), false);
+
+    ignoreFiles = '**/*.int.js';
+    assert.equal(isFileIgnored(fileName, { ignoreFiles }), true);
+
+    ignoreFiles = ['**/*.int.js', '**/*.spec.js'];
+    assert.equal(isFileIgnored(fileName, { ignoreFiles }), true);
+
+    ignoreFiles = ['**/*.prout.js', '**/*.spec.js'];
+    assert.equal(isFileIgnored(fileName, { ignoreFiles }), false);
   });
 });

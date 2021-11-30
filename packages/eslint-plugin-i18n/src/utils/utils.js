@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const minimatch = require('minimatch');
 
 const recursiveGet = (object, keys, index) => {
   if (keys.length - index === 1) {
@@ -67,4 +68,10 @@ exports.areWeUsingUseTranslate = node => {
   const usingHook = Object.keys(params).length;
 
   return [usingHook, params];
+};
+
+exports.isFileIgnored = (fileName, config) => {
+  if (!config || !config.ignoreFiles) return false;
+
+  return [].concat(config.ignoreFiles).some(ignorePath => minimatch(fileName, ignorePath));
 };
