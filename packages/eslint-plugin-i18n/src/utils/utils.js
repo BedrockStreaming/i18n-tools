@@ -73,5 +73,5 @@ exports.areWeUsingUseTranslate = node => {
 exports.isFileIgnored = (fileName, config) => {
   if (!config || !config.ignoreFiles) return false;
 
-  return [].concat(config.ignoreFiles).some((ignorePath) => minimatch(fileName, ignorePath));
+  return [].concat(config.ignoreFiles).some(ignorePath => minimatch(fileName, ignorePath));
 };
