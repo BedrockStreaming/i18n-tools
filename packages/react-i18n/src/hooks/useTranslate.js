@@ -4,5 +4,5 @@ import { Context } from '../context/i18n.context';
 export const useTranslate = () => {
   const t = useContext(Context);
 
-  return (key, { data, number, general, renderers } = {}) => t(key, data, number, general, renderers);
+  return (key, { data, general, renderers } = {}) => t(key, data, general, renderers);
 };

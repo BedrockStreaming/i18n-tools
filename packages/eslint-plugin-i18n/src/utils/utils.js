@@ -50,7 +50,7 @@ exports.getLangConfig = (config, languagesKey) => {
   return langConfig[languagesKey];
 };
 
-const useTranslateParams = ['data', 'number', 'general', 'renderers'];
+const useTranslateParams = ['data', 'general', 'renderers'];
 
 exports.areWeUsingUseTranslate = node => {
   if (!node || !node.properties) {
