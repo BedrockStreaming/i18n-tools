@@ -37,10 +37,12 @@ const pluralizeFunctions = {
   nl: number => (number === 1 ? 'one' : 'other'),
 };
 
-export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTML = false) => {
+const defaultConfig = { i18nNames: {}, errorCallback: _.noop, parseHTML: false };
+export const translate = (lang, config = {}) => {
+  const { i18nNames, errorCallback, parseHTML } = { ...defaultConfig, ...config };
   const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
-  return (key, data = {}, number, general, renderers) => {
+  return (key, { data = {}, number, general, renderers } = {}) => {
     let combineKey = key;
     // Pluralize
     if (typeof number !== 'undefined') {
