@@ -14,10 +14,10 @@ describe('useTranslate', () => {
 
   it('should wrap the translation function', () => {
     const wrapTranslate = useTranslate();
-    wrapTranslate('key', { data: {}, general: 'general', renderers: 'renderers' });
+    wrapTranslate('key', { data: {}, number: 'number', general: 'general', renderers: 'renderers' });
 
     expect(useContext).toHaveBeenCalledWith(Context);
-    expect(t).toHaveBeenCalledWith('key', {}, 'general', 'renderers');
+    expect(t).toHaveBeenCalledWith('key', {}, 'number', 'general', 'renderers');
   });
 
   it('should wrap the translation function 2', () => {
@@ -25,6 +25,6 @@ describe('useTranslate', () => {
     wrapTranslate('key');
 
     expect(useContext).toHaveBeenCalledWith(Context);
-    expect(t).toHaveBeenCalledWith('key', undefined, undefined, undefined);
+    expect(t).toHaveBeenCalledWith('key', undefined, undefined, undefined, undefined);
   });
 });
