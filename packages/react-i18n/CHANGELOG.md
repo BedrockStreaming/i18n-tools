@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@2.0.0-alpha.0...@m6web/react-i18n@2.0.0) (2022-01-07)
+
+
+### Features
+
+* **react-i18n:** add dutch plural ([#89](https://github.com/BedrockStreaming/i18n-tools/issues/89)) ([714620a](https://github.com/BedrockStreaming/i18n-tools/commit/714620a338548222a6d191931d65653b1ccbd696))
+
+
+
+
+
 ## [1.9.2](https://github.com/M6Web/i18n-tools/compare/@m6web/react-i18n@1.9.1...@m6web/react-i18n@1.9.2) (2021-03-17)
 
 **Note:** Version bump only for package @m6web/react-i18n

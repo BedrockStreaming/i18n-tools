@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@1.4.2...@m6web/eslint-plugin-i18n@1.5.0) (2022-01-07)
+
+
+### Features
+
+* **lint:** allow array of ignoreFiles paths ([39d45c1](https://github.com/M6Web/eslint-plugin-m6web-i18n/commit/39d45c179cd39bb3a52046545aa96df0b67b37f4))
+
+
+
+
+
 ## [1.4.2](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@1.4.1...@m6web/eslint-plugin-i18n@1.4.2) (2021-03-17)
 
 **Note:** Version bump only for package @m6web/eslint-plugin-i18n
