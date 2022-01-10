@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@2.0.0...@m6web/react-i18n@2.0.1) (2022-01-10)
+
+
+### Bug Fixes
+
+* **typescript:** correctly expose type definitions at publish ([#106](https://github.com/BedrockStreaming/i18n-tools/issues/106)) ([286d1d8](https://github.com/BedrockStreaming/i18n-tools/commit/286d1d84ee212bcade9a1dc8a5f921416eb3f723))
+
+
+
+
+
 # [2.0.0](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@2.0.0-alpha.0...@m6web/react-i18n@2.0.0) (2022-01-07)
 
 
