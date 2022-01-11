@@ -1,5 +1,5 @@
 declare module '@m6web/react-i18n' {
-  import { ElementType } from 'react';
+  import { ElementType, Props } from 'react';
 
   interface TranslateFunctionOptions {
     data?: Record<string, any>;
@@ -32,7 +32,7 @@ declare module '@m6web/react-i18n' {
 
   /* PUBLIC EXPORTS */
 
-  function translate<P extends object>(component: ElementType<P>): ElementType<P & TranslateProps>;
+  function translate(component: ElementType): ElementType;
 
   function useTranslate(): TranslateFunction;
 
