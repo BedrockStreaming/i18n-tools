@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { getKeyValue, get, has, getLangConfig, areWeUsingUseTranslate, isFileIgnored } = require('../utils/utils');
+const { getKeyValue, get, has, getLangConfig, getTranslateParams, isFileIgnored } = require('../utils/utils');
 
 const check = ({ key, countNode, config, langsKey, context, node }) => {
   getLangConfig(config, langsKey).forEach(({ name, translation }) => {
@@ -88,14 +88,9 @@ module.exports = langsKey => ({
         }
 
         const [keyNode] = node.arguments;
-        let [, dataNode, countNode] = node.arguments;
+        const [, optionsNode] = node.arguments;
 
-        const [usingHook, params] = areWeUsingUseTranslate(dataNode);
-
-        if (usingHook) {
-          dataNode = params.data;
-          countNode = params.count;
-        }
+        const { number: countNode } = getTranslateParams(optionsNode);
 
         const key = getKeyValue(keyNode);
 
