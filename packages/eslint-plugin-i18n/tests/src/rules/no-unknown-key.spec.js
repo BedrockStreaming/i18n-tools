@@ -99,7 +99,7 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
       parserOptions,
     },
     {
-      code: 't("basic", undefined, 42)',
+      code: 't("basic", { number: 42 })',
       settings,
       errors: [
         {

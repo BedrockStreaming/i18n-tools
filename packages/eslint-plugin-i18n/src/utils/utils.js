@@ -52,14 +52,19 @@ exports.getLangConfig = (config, languagesKey) => {
 
 const useTranslateParams = ['data', 'number', 'general', 'renderers'];
 
-exports.getTranslateParams = node =>
-  node.properties.reduce((acc, property) => {
+exports.getTranslateParams = node => {
+  if (!node || !node.properties) {
+    return {};
+  }
+
+  return node.properties.reduce((acc, property) => {
     if (useTranslateParams.includes(property.key.name)) {
       return Object.assign(acc, { [property.key.name]: property });
     }
 
     return acc;
   }, {});
+};
 
 exports.isFileIgnored = (fileName, config) => {
   if (!config || !config.ignoreFiles) return false;
