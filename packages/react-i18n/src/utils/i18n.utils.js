@@ -40,7 +40,7 @@ const pluralizeFunctions = {
 export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTML = false) => {
   const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
-  return (key, data = {}, number, general, renderers) => {
+  return (key, { data = {}, number, general, renderers } = {}) => {
     let combineKey = key;
     // Pluralize
     if (typeof number !== 'undefined') {

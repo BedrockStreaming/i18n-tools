@@ -52,22 +52,18 @@ exports.getLangConfig = (config, languagesKey) => {
 
 const useTranslateParams = ['data', 'number', 'general', 'renderers'];
 
-exports.areWeUsingUseTranslate = node => {
+exports.getTranslateParams = node => {
   if (!node || !node.properties) {
-    return [false, null];
+    return {};
   }
 
-  const params = node.properties.reduce((acc, property) => {
+  return node.properties.reduce((acc, property) => {
     if (useTranslateParams.includes(property.key.name)) {
       return Object.assign(acc, { [property.key.name]: property });
     }
 
     return acc;
   }, {});
-
-  const usingHook = Object.keys(params).length;
-
-  return [usingHook, params];
 };
 
 exports.isFileIgnored = (fileName, config) => {

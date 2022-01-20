@@ -32,8 +32,8 @@ const options = [
 ruleTester.run('m6web-i18n/interpolation-data', rule, {
   valid: [
     { code: 't("basic")', settings, options },
-    { code: 't("interpolated", data)', settings, options },
-    { code: 't("pluralizedAndInterpolated", { number: 2 }, 2)', settings, options },
+    { code: 't("interpolated", { data: {} })', settings, options },
+    { code: 't("pluralizedAndInterpolated", { data: { number: 2 }, number: 2 })', settings, options },
     { code: '<Trans i18nKey="basic" />', settings, options, parserOptions },
     { code: '<Trans i18nKey="interpolated" data={data} />', settings, options, parserOptions },
     {
@@ -45,7 +45,7 @@ ruleTester.run('m6web-i18n/interpolation-data', rule, {
   ],
   invalid: [
     {
-      code: 't("basic", data)',
+      code: 't("basic", { data: {} })',
       settings,
       options,
       errors: [
@@ -91,7 +91,7 @@ ruleTester.run('m6web-i18n/interpolation-data', rule, {
       parserOptions,
     },
     {
-      code: 't("pluralized", { foo: "bar" })',
+      code: 't("pluralized", { data: { foo: "bar" } })',
       settings,
       options,
       errors: [
@@ -114,7 +114,7 @@ ruleTester.run('m6web-i18n/interpolation-data', rule, {
       parserOptions,
     },
     {
-      code: 't("pluralizedAndInterpolated", undefined, 2)',
+      code: 't("pluralizedAndInterpolated", { number: 2 })',
       settings,
       options,
       errors: [
