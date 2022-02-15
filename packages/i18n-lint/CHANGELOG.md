@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.1.0...@m6web/i18n-lint@2.2.0) (2022-02-15)
+
+
+### Features
+
+* **i18n-lint:** load eslint js file ([#110](https://github.com/BedrockStreaming/i18n-tools/issues/110)) ([1cbf9a8](https://github.com/BedrockStreaming/i18n-tools/commit/1cbf9a841fbc9f83dfb3804eb0960ebd69633c25))
+
+
+
+
+
 ## [1.1.2](https://github.com/M6Web/i18n-tools/compare/@m6web/i18n-lint@1.1.1...@m6web/i18n-lint@1.1.2) (2021-03-17)
 
 **Note:** Version bump only for package @m6web/i18n-lint
