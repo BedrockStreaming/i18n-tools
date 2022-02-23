@@ -10,10 +10,10 @@ export default class ConfigLoader {
     const extension = path.extname(filePath);
     switch (extension) {
       case '.json':
-        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        return JSON.parse(fs.readFileSync(path.normalize(filePath), 'utf8'));
       case '.js':
         // eslint-disable-next-line import/no-dynamic-require,global-require
-        return require(filePath);
+        return require(path.normalize(`${process.cwd()}/${filePath}`));
       default:
         throw new Error(`Unsupported extension : ${extension}`);
     }
