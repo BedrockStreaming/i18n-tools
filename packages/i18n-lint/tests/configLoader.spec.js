@@ -11,6 +11,7 @@ describe('ConfigLoader', () => {
   });
 
   it('should work with js content', () => {
+    process.cwd = jest.fn().mockReturnValue('');
     const config = ConfigLoader.load(`${__dirname}/data/file.js`);
 
     expect(config).toEqual({
