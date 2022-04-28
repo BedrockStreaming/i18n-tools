@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.2.0...@m6web/i18n-lint@2.3.0) (2022-04-28)
+
+
+### Features
+
+* **bedrock:** load js corrrectly from root ([9085e3c](https://github.com/BedrockStreaming/i18n-tools/commit/9085e3cc968e55e6eead98e944db1e42698b6b28))
+
+
+
+
+
 # [2.2.0](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.1.0...@m6web/i18n-lint@2.2.0) (2022-02-15)
 
 
