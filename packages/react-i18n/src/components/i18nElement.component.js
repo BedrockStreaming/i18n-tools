@@ -4,7 +4,7 @@ import { Context } from '../context/i18n.context';
 
 export const HtmlTrans = ({ i18nKey, data, number, general, element: Element, renderers, ...props }) => (
   <Context.Consumer>
-    {t => <Element {...props} dangerouslySetInnerHTML={{ __html: t(i18nKey, data, number, general, renderers) }} />}
+    {t => <Element {...props} dangerouslySetInnerHTML={{ __html: t(i18nKey, { data, number, general, renderers }) }} />}
   </Context.Consumer>
 );
 
