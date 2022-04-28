@@ -41,6 +41,7 @@ export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTM
   const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
   return (key, { data = {}, number, general, renderers } = {}) => {
+    console.log(renderers);
     let combineKey = key;
     // Pluralize
     if (typeof number !== 'undefined') {
