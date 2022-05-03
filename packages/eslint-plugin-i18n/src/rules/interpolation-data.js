@@ -78,7 +78,7 @@ module.exports = {
 
           const { i18nKey, number, data } = filteredAttributes;
 
-          if (!i18nKey) {
+          if (!i18nKey || typeof i18nKey !== 'string') {
             return;
           }
 
