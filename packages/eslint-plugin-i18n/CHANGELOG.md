@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@2.0.0...@m6web/eslint-plugin-i18n@2.0.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* **eslint-plugin-i18n:** fix eslint rule crash when i18nKey was different from a string ([#120](https://github.com/M6Web/eslint-plugin-m6web-i18n/issues/120)) ([cee2f45](https://github.com/M6Web/eslint-plugin-m6web-i18n/commit/cee2f45b05c986295c030de7180c79ad4ec33395))
+
+
+
+
+
 # [2.0.0](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@1.5.0...@m6web/eslint-plugin-i18n@2.0.0) (2022-01-20)
 
 **Note:** Version bump only for package @m6web/eslint-plugin-i18n
