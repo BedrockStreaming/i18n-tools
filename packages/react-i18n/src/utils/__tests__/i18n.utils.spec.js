@@ -26,7 +26,7 @@ describe('i18n translate function', () => {
   it('should interpolate', () => {
     const lang = { foo: { bar: 'Hello %(name)s !' } };
     const t = translate(lang);
-    expect(t('foo.bar', { name: 'World' })).toBe('Hello World !');
+    expect(t('foo.bar', { data: { name: 'World' } })).toBe('Hello World !');
   });
 
   describe('with general plural', () => {
@@ -306,7 +306,7 @@ describe('i18n translate function', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    fit('should correctly render a big chunck of HTML', () => {
+    it('should correctly render a big chunck of HTML', () => {
       const lang = {
         foo: {
           bar:

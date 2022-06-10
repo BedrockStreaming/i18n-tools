@@ -1,5 +1,5 @@
 declare module '@m6web/react-i18n' {
-  import { ElementType, Props } from 'react';
+  import { ElementType, FC } from 'react';
 
   interface TranslateFunctionOptions {
     data?: Record<string, any>;
@@ -44,9 +44,9 @@ declare module '@m6web/react-i18n' {
     parseHTML?: boolean,
   ): TranslateFunction;
 
-  const I18nProvider: ElementType<I18nProviderProps>;
+  const I18nProvider: FC<I18nProviderProps>;
 
-  const Trans: ElementType<TransProps>;
+  const Trans: FC<TransProps>;
 
-  const HtmlTrans: ElementType<HtmlTransProps>;
+  const HtmlTrans: FC<HtmlTransProps>;
 }
