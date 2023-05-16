@@ -1,6 +1,6 @@
 {
   "name": "@m6web/react-i18n",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Provider and utils for translation in a react app",
   "main": "lib/index.js",
   "types": "types.d.ts",
@@ -14,12 +14,13 @@
   ],
   "peerDependencies": {
     "prop-types": "^15.7.1",
-    "react": "^16.8.1"
+    "react": "^16.8.0 || ^17.0.0"
   },
   "jest": {
     "timers": "fake"
   },
   "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "0.8.0",
     "babel-cli": "6.26.0",
     "babel-plugin-lodash": "3.3.4",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
@@ -27,14 +28,13 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "enzyme": "3.8.0",
-    "enzyme-adapter-react-16": "1.9.1",
     "enzyme-to-json": "3.3.5",
     "jest": "23.6.0",
     "lodash-es": "4.17.14",
     "prop-types": "15.7.1",
-    "react": "16.8.3",
+    "react": "17.0.2",
     "react-addons-test-utils": "15.6.2",
-    "react-dom": "16.8.3"
+    "react-dom": "17.0.2"
   },
   "dependencies": {
     "lodash": "4.17.19",

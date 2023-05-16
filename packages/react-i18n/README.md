@@ -14,7 +14,7 @@ The translation function is in **[i18n.utils.js](./src/utils/i18n.utils.js)** fi
 
 It uses react context API to provide translation function to every components.
 
-React version: `^16.4.0`
+React version: `^16.8.0 || ^17.0.0`
 
 ## Setup
 
