@@ -43,6 +43,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "scripts": {
     "babel-watch": "babel src --out-dir lib --watch --ignore __tests__,__mocks__",
     "build": "yarn build:commonjs && yarn build:es",
