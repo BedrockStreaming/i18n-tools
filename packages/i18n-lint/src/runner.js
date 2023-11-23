@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import _find from 'lodash/find';
+import _flatMap from 'lodash/flatMap';
+import _merge from 'lodash/merge';
 import Reader from './reader';
 import ConfigLoader from './configLoader';
 import { validateHTML } from './verifiers/htmlVerifier';
@@ -16,7 +18,7 @@ export default class Runner {
     const configIndex = process.argv.indexOf('--config') + 1;
     if (configIndex < process.argv.length && configIndex > 0) {
       configPath = process.argv[configIndex];
-      this.config = _.merge(config, ConfigLoader.load(configPath));
+      this.config = _merge(config, ConfigLoader.load(configPath));
     } else {
       this.config = config;
     }
@@ -29,12 +31,12 @@ export default class Runner {
       },
     } = this.config;
 
-    const reports = _.flatMap([...principalLangs, ...secondaryLangs], ({ name, translationPath }) => {
+    const reports = _flatMap([...principalLangs, ...secondaryLangs], ({ name, translationPath }) => {
       const tradForLang = Reader.parse(translationPath);
 
-      return _.flatMap(reporters, (reporter) => reporter(tradForLang, name));
+      return _flatMap(reporters, (reporter) => reporter(tradForLang, name));
     });
 
-    process.exit(_.find(reports, { error: true }) ? 1 : 0);
+    process.exit(_find(reports, { error: true }) ? 1 : 0);
   }
 }

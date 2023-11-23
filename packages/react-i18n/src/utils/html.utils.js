@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import _compact from 'lodash/compact';
 
 const upperCase = /^[A-Z]/;
 const tagSearch = /(<.+?>)/;
@@ -136,7 +136,7 @@ const renderer = (tree, renderers = {}) => {
 };
 
 export const interpolateHTMLTags = (translation, renderers) => {
-  const tags = _.compact(translation.split(tagSearch), x => x !== '').reduce(
+  const tags = _compact(translation.split(tagSearch), x => x !== '').reduce(
     (acc, element) => acc.concat(element[0] === '<' ? analyseTag(element) : element),
     [],
   );

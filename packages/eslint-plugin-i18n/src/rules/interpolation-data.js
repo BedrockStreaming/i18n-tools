@@ -1,4 +1,5 @@
-const _ = require('lodash');
+// eslint-disable-next-line no-underscore-dangle
+const _get = require('lodash/get');
 const { getKeyValue, get, getLangConfig, getTranslateParams, isFileIgnored } = require('../utils/utils');
 
 const check = ({ key, countNode, dataNode, config, context, node }) => {
@@ -67,8 +68,8 @@ module.exports = {
 
     return {
       JSXOpeningElement(node) {
-        const nodeName = _.get(node, 'name.name', null);
-        const nodeAttributes = _.get(node, 'attributes', null);
+        const nodeName = _get(node, 'name.name', null);
+        const nodeAttributes = _get(node, 'attributes', null);
 
         if (nodeName === 'Trans') {
           const filteredAttributes = Object.values(nodeAttributes).reduce(

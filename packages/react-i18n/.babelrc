@@ -11,8 +11,7 @@
       "presets": [["env", { "modules": "commonjs" }]]
     },
     "es": {
-      "presets": [["env", { "modules": false }]],
-      "plugins": ["lodash", "use-lodash-es"]
+      "presets": [["env", { "modules": false }]]
     }
   },
   "presets": [

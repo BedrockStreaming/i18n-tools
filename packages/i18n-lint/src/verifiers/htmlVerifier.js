@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import _countBy from 'lodash/countBy';
+import _every from 'lodash/every';
+import _forEach from 'lodash/forEach';
+import _mergeWith from 'lodash/mergeWith';
 import isHtml from 'is-html';
 import { flatten } from '../utils';
 import { info } from '../logger';
@@ -19,20 +22,20 @@ const noMissingTag = string => {
   const openTags = [];
   const closedTags = [];
 
-  _.forEach(getMatches(string, /<(\w+)[^/]*>/g, 1), tag => {
+  _forEach(getMatches(string, /<(\w+)[^/]*>/g, 1), tag => {
     openTags.push(tag);
   });
 
-  _.forEach(getMatches(string, /<\/([a-zA-Z]+)>/g, 1), tag => {
+  _forEach(getMatches(string, /<\/([a-zA-Z]+)>/g, 1), tag => {
     closedTags.push(tag);
   });
 
-  const tags = _.mergeWith(_.countBy(openTags), _.countBy(closedTags), (objValue, srcValue) => ({
+  const tags = _mergeWith(_countBy(openTags), _countBy(closedTags), (objValue, srcValue) => ({
     open: objValue || 0,
     closed: srcValue || 0,
   }));
 
-  return _.every(tags, tag => tag.open && tag.closed && tag.open === tag.closed);
+  return _every(tags, tag => tag.open && tag.closed && tag.open === tag.closed);
 };
 
 const rules = {
@@ -58,8 +61,8 @@ export const validateHTML = (jsonTree, lang, isError = true) => {
   const reports = [];
 
   info(`Starting lang ${lang.toUpperCase()} \n`);
-  _.forEach(flatten(jsonTree), (value, key) =>
-    _.forEach(rules, ({ test, message }) => {
+  _forEach(flatten(jsonTree), (value, key) =>
+    _forEach(rules, ({ test, message }) => {
       if (!test(value)) {
         reports.push(reportBuilder(lang, key, message, value, isError));
       }

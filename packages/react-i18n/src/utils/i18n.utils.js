@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import _get from 'lodash/get';
+import _has from 'lodash/has';
+import _noop from 'lodash/noop';
 import { sprintf } from 'sprintf-js';
 import { interpolateHTMLTags } from './html.utils';
 
@@ -37,8 +39,8 @@ const pluralizeFunctions = {
   nl: number => (number === 1 ? 'one' : 'other'),
 };
 
-export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTML = false) => {
-  const pluralize = pluralizeFunctions[_.get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
+export const translate = (lang, i18nNames = {}, errorCallback = _noop, parseHTML = false) => {
+  const pluralize = pluralizeFunctions[_get(lang, '_i18n.lang')] || pluralizeFunctions.fr;
 
   return (key, { data = {}, number, general, renderers } = {}) => {
     let combineKey = key;
@@ -48,8 +50,8 @@ export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTM
     }
 
     let translation;
-    if (_.has(lang, combineKey)) {
-      translation = _.get(lang, combineKey);
+    if (_has(lang, combineKey)) {
+      translation = _get(lang, combineKey);
     } else {
       errorCallback(combineKey);
       translation = combineKey;
@@ -67,8 +69,8 @@ export const translate = (lang, i18nNames = {}, errorCallback = _.noop, parseHTM
 };
 
 export const buildList = lang => (list, maxSize) => {
-  const separator = _.get(lang, '_i18n.separator');
-  const lastSeparator = _.get(lang, '_i18n.and');
+  const separator = _get(lang, '_i18n.separator');
+  const lastSeparator = _get(lang, '_i18n.and');
 
   if (!list || !list.length) {
     return '';
