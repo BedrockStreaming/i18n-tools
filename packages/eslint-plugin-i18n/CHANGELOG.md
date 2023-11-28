@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@2.0.1...@m6web/eslint-plugin-i18n@2.0.2) (2023-11-28)
+
+### Performance
+
+* **eslint-plugin-i18n:** optimize lodash imports ([9f95897](https://github.com/BedrockStreaming/i18n-tools/pull/134/commits/9f95897c61040ab2e9950405c19f10320826d21c))
+
+
+
 ## [2.0.1](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@2.0.0...@m6web/eslint-plugin-i18n@2.0.1) (2022-05-05)
 
 

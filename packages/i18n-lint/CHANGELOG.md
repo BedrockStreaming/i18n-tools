@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.3.0...@m6web/i18n-lint@2.3.1) (2023-11-28)
+
+### Performance
+
+* **i18n-lint:** optimize lodash imports ([9f95897](https://github.com/BedrockStreaming/i18n-tools/pull/134/commits/9f95897c61040ab2e9950405c19f10320826d21c))
+
+
+
 # [2.3.0](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.2.0...@m6web/i18n-lint@2.3.0) (2022-04-28)
 
 
