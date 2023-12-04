@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@3.1.0...@m6web/react-i18n@3.1.1) (2023-11-28)
+
+### Performance
+
+* **react-i18n:** optimize lodash imports ([9f95897](https://github.com/BedrockStreaming/i18n-tools/pull/134/commits/9f95897c61040ab2e9950405c19f10320826d21c))
+
+
+
 ## [3.0.1](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@3.0.0...@m6web/react-i18n@3.0.1) (2022-04-28)
 
 
