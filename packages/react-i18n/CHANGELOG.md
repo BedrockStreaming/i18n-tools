@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+
+## [3.1.2](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@3.1.1...@m6web/react-i18n@3.1.2) (2023-12-22)
+
+### Chore
+
+* **react-i18n:** update dependencies
+
+
 ## [3.1.1](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/react-i18n@3.1.0...@m6web/react-i18n@3.1.1) (2023-11-28)
 
 ### Performance

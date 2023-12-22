@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+
+## [2.0.3](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@2.0.2...@m6web/eslint-plugin-i18n@2.0.3) (2023-12-22)
+
+### Chore
+
+* **eslint-plugin-i18n:** update dependencies
+
+
 ## [2.0.2](https://github.com/M6Web/eslint-plugin-m6web-i18n/compare/@m6web/eslint-plugin-i18n@2.0.1...@m6web/eslint-plugin-i18n@2.0.2) (2023-11-28)
 
 ### Performance
