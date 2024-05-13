@@ -14,7 +14,7 @@
   ],
   "peerDependencies": {
     "prop-types": "^15.7.1",
-    "react": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "jest": {
     "timers": "fake"
