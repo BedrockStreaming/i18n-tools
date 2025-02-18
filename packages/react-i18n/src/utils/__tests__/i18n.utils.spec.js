@@ -33,9 +33,9 @@ describe('i18n translate function', () => {
     it('should pluralize with default value', () => {
       const lang = { foo: { bar: { one: 'foo bar!', other: 'foos bars!!!' } } };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 0, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 1, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 2, general: true })).toBe('foos bars!!!');
     });
 
     it('should pluralize in french', () => {
@@ -44,9 +44,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'fr' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 0, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 1, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 2, general: true })).toBe('foos bars!!!');
     });
 
     it('should pluralize in english', () => {
@@ -55,9 +55,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'en' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0, general: true})).toBe('foos bars!!!');
-      expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 0, general: true })).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 1, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 2, general: true })).toBe('foos bars!!!');
     });
 
     it('should pluralize in hungarian', () => {
@@ -66,9 +66,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'hu' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 0, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 1, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 2, general: true })).toBe('foos bars!!!');
     });
 
     it('should pluralize in croatian', () => {
@@ -85,9 +85,9 @@ describe('i18n translate function', () => {
       };
       const t = translate(lang);
 
-      expect(t('foo.bar', {number: 0, general: true})).toBe('first plural');
-      expect(t('foo.bar', {number: 1, general: true})).toBe('first plural');
-      expect(t('foo.bar', {number: 2, general: true})).toBe('general plural');
+      expect(t('foo.bar', { number: 0, general: true })).toBe('first plural');
+      expect(t('foo.bar', { number: 1, general: true })).toBe('first plural');
+      expect(t('foo.bar', { number: 2, general: true })).toBe('general plural');
     });
 
     it('should pluralize in dutch', () => {
@@ -96,9 +96,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'nl' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0, general: true})).toBe('foos bars!!!');
-      expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
-      expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 0, general: true })).toBe('foos bars!!!');
+      expect(t('foo.bar', { number: 1, general: true })).toBe('foo bar!');
+      expect(t('foo.bar', { number: 2, general: true })).toBe('foos bars!!!');
     });
   });
 
@@ -106,9 +106,9 @@ describe('i18n translate function', () => {
     it('should pluralize with default value', () => {
       const lang = { foo: { bar: { one: '%(number)d foo bar!', other: '%(number)d foos bars!!!' } } };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0})).toBe('0 foo bar!');
-      expect(t('foo.bar', {number: 1})).toBe('1 foo bar!');
-      expect(t('foo.bar', {number: 2})).toBe('2 foos bars!!!');
+      expect(t('foo.bar', { number: 0 })).toBe('0 foo bar!');
+      expect(t('foo.bar', { number: 1 })).toBe('1 foo bar!');
+      expect(t('foo.bar', { number: 2 })).toBe('2 foos bars!!!');
     });
 
     it('should pluralize in french', () => {
@@ -117,9 +117,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'fr' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0})).toBe('0 foo bar!');
-      expect(t('foo.bar', {number: 1})).toBe('1 foo bar!');
-      expect(t('foo.bar', {number: 2})).toBe('2 foos bars!!!');
+      expect(t('foo.bar', { number: 0 })).toBe('0 foo bar!');
+      expect(t('foo.bar', { number: 1 })).toBe('1 foo bar!');
+      expect(t('foo.bar', { number: 2 })).toBe('2 foos bars!!!');
     });
 
     it('should pluralize in english', () => {
@@ -128,9 +128,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'en' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0})).toBe('0 foos bars!!!');
-      expect(t('foo.bar', {number: 1})).toBe('1 foo bar!');
-      expect(t('foo.bar', {number: 2})).toBe('2 foos bars!!!');
+      expect(t('foo.bar', { number: 0 })).toBe('0 foos bars!!!');
+      expect(t('foo.bar', { number: 1 })).toBe('1 foo bar!');
+      expect(t('foo.bar', { number: 2 })).toBe('2 foos bars!!!');
     });
 
     it('should pluralize in english', () => {
@@ -139,9 +139,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'en' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0})).toBe('0 foos bars!!!');
-      expect(t('foo.bar', {number: 1})).toBe('1 foo bar!');
-      expect(t('foo.bar', {number: 2})).toBe('2 foos bars!!!');
+      expect(t('foo.bar', { number: 0 })).toBe('0 foos bars!!!');
+      expect(t('foo.bar', { number: 1 })).toBe('1 foo bar!');
+      expect(t('foo.bar', { number: 2 })).toBe('2 foos bars!!!');
     });
 
     it('should pluralize in hungarian', () => {
@@ -150,9 +150,9 @@ describe('i18n translate function', () => {
         _i18n: { lang: 'hu' },
       };
       const t = translate(lang);
-      expect(t('foo.bar', {number: 0})).toBe('0 foo bar!');
-      expect(t('foo.bar', {number: 1})).toBe('1 foo bar!');
-      expect(t('foo.bar', {number: 2})).toBe('2 foo bar!');
+      expect(t('foo.bar', { number: 0 })).toBe('0 foo bar!');
+      expect(t('foo.bar', { number: 1 })).toBe('1 foo bar!');
+      expect(t('foo.bar', { number: 2 })).toBe('2 foo bar!');
     });
 
     it('should pluralize in croatian', () => {
@@ -168,17 +168,17 @@ describe('i18n translate function', () => {
       };
       const t = translate(lang);
       // first plural form
-      [1, 21, 31, 41, 101].forEach(i => expect(t('foo.bar', {number: i})).toBe(`${i} first plural`));
+      [1, 21, 31, 41, 101].forEach(i => expect(t('foo.bar', { number: i })).toBe(`${i} first plural`));
 
       // second plural form
-      [2, 3, 4, 22, 23, 24, 32, 33, 34].forEach(i => expect(t('foo.bar', {number: i})).toBe(`${i} second plural`));
+      [2, 3, 4, 22, 23, 24, 32, 33, 34].forEach(i => expect(t('foo.bar', { number: i })).toBe(`${i} second plural`));
 
       // third plural form
       for (let i = 5; i < 21; i++) {
-        expect(t('foo.bar', {number: i})).toBe(`${i} third plural`);
+        expect(t('foo.bar', { number: i })).toBe(`${i} third plural`);
       }
       [0, 25, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 40, 45].forEach(i =>
-        expect(t('foo.bar', {number: i})).toBe(`${i} third plural`),
+        expect(t('foo.bar', { number: i })).toBe(`${i} third plural`),
       );
     });
   });
@@ -197,7 +197,7 @@ describe('i18n translate function', () => {
       const renderers = { Bold };
       const t = translate(lang, undefined, undefined, true);
 
-      const result = t('foo.bar', {renderers});
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -227,7 +227,7 @@ describe('i18n translate function', () => {
       const renderers = { Bold, Italic };
       const t = translate(lang, undefined, undefined, true);
 
-      const result = t('foo.bar', {renderers});
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -242,7 +242,7 @@ describe('i18n translate function', () => {
       const renderers = { LineBreak };
       const t = translate(lang, undefined, undefined, true);
 
-      const result = t('foo.bar', {renderers});
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -257,7 +257,7 @@ describe('i18n translate function', () => {
       const renderers = { LineBreak, Bold, Italic };
       const t = translate(lang, undefined, undefined, true);
 
-      const result = t('foo.bar', {renderers});
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -271,8 +271,8 @@ describe('i18n translate function', () => {
       };
       const t = translate(lang, undefined, undefined, true);
 
-      expect(t('foo.bar', { renderers: {Bold} })).toMatchSnapshot();
-      expect(t('foo.bar', { renderers: {Italic}  })).toMatchSnapshot();
+      expect(t('foo.bar', { renderers: { Bold } })).toMatchSnapshot();
+      expect(t('foo.bar', { renderers: { Italic } })).toMatchSnapshot();
     });
 
     it('should interpolate basic html tag', () => {
@@ -284,7 +284,7 @@ describe('i18n translate function', () => {
       const renderers = {};
       const t = translate(lang, undefined, undefined, true);
 
-      const result = t('foo.bar', { renderers});
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -300,7 +300,7 @@ describe('i18n translate function', () => {
       const renderers = { Bold, Italic };
       const t = translate(lang, undefined, undefined, true);
 
-      const result = t('foo.bar', {renderers});
+      const result = t('foo.bar', { renderers });
       const wrapper = mount(<div>{result}</div>);
 
       expect(wrapper).toMatchSnapshot();
@@ -327,6 +327,12 @@ describe('i18n translate function', () => {
 
       expect(wrapper).toMatchSnapshot();
     });
+  });
+
+  it('should not crash when translate key contain special char %', () => {
+    const lang = { foo: { bar: 'I can dispay %(name)s without crashing !' } };
+    const t = translate(lang);
+    expect(t('foo.bar', { data: { name: 'special %chars' } })).toBe('I can dispay special %chars without crashing !');
   });
 });
 

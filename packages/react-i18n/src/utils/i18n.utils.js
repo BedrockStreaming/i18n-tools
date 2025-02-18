@@ -1,5 +1,6 @@
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import _mapValues from 'lodash/mapValues';
 import _noop from 'lodash/noop';
 import { sprintf } from 'sprintf-js';
 import { interpolateHTMLTags } from './html.utils';
@@ -57,7 +58,16 @@ export const translate = (lang, i18nNames = {}, errorCallback = _noop, parseHTML
       translation = combineKey;
     }
 
-    const translatedResult = sprintf(translation, { ...data, ...i18nNames, number });
+    // escape special characters (% for now)
+    const translationValues = _mapValues({ ...data, ...i18nNames, number }, value => {
+      if (value) {
+        return value.replace(/%/g, '%%');
+      }
+
+      return value;
+    });
+
+    const translatedResult = sprintf(translation, translationValues).replace(/%%/g, '%');
 
     if (!parseHTML) return translatedResult;
 
