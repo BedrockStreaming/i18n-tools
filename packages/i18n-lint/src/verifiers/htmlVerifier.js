@@ -11,7 +11,7 @@ const getMatches = (string, regex, index = 1) => {
   const matches = [];
   let match = regex.exec(string);
   while (match) {
-    matches.push(match[index]);
+    matches.push(match[index] ? match[index] : match[match.length - 1]);
     match = regex.exec(string);
   }
 
@@ -22,7 +22,7 @@ const noMissingTag = string => {
   const openTags = [];
   const closedTags = [];
 
-  _forEach(getMatches(string, /<(\w+)[^/]*>/g, 1), tag => {
+  _forEach(getMatches(string, /<(\w+)[^/]*>|<(a)\s+href="\S+"[^/]*>/g, 1), tag => {
     openTags.push(tag);
   });
 

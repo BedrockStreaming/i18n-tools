@@ -40,3 +40,7 @@ Array [
   },
 ]
 `;
+
+exports[`validateHTML should validate anchor with interpolated href value 1`] = `Array []`;
+
+exports[`validateHTML should validate anchor with static href value 1`] = `Array []`;
