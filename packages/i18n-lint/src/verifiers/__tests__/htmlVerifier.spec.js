@@ -20,12 +20,12 @@ describe('validateHTML', () => {
   });
 
   it('should validate anchor with static href value', () => {
-    expect(validateHTML({ validAnchor: '<a href="http://localhost">foo</a>' }, 'test', true)).toMatchSnapshot();
+    expect(validateHTML({ validAnchor: '<a href="https://www.m6.fr/html5">foo</a>' }, 'test', true)).toHaveLength(0);
   });
 
   it('should validate anchor with interpolated href value', () => {
     expect(
       validateHTML({ validAnchor: '<a href="%(googlePrivacyUrl)s">Règles de confidentialité</a>' }, 'test', true),
-    ).toMatchSnapshot();
+    ).toHaveLength(0);
   });
 });
