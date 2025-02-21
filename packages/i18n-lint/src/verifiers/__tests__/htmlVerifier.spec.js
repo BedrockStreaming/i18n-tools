@@ -3,7 +3,7 @@ import { validateHTML } from '../htmlVerifier';
 jest.unmock('../htmlVerifier');
 
 const tests = {
-  firstTag: 'foo <div> foo',
+  firstTag: 'foo <a> foo',
   lastTag: 'foo </div> foo',
   control: '<div> foo </div>',
   doubleSpace: 'foo  bar',
@@ -17,5 +17,15 @@ const tests = {
 describe('validateHTML', () => {
   it('should detect html errors', () => {
     expect(validateHTML(tests, 'test', true)).toMatchSnapshot();
+  });
+
+  it('should validate anchor with static href value', () => {
+    expect(validateHTML({ validAnchor: '<a href="https://www.m6.fr/html5">foo</a>' }, 'test', true)).toHaveLength(0);
+  });
+
+  it('should validate anchor with interpolated href value', () => {
+    expect(
+      validateHTML({ validAnchor: '<a href="%(googlePrivacyUrl)s">Règles de confidentialité</a>' }, 'test', true),
+    ).toHaveLength(0);
   });
 });
