@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.3.2...@m6web/i18n-lint@2.3.3) (2025-02-24)
+
+
+### Bug Fixes
+
+* cover edge cases for anchor tags ([#139](https://github.com/BedrockStreaming/i18n-tools/issues/139)) ([81c1186](https://github.com/BedrockStreaming/i18n-tools/commit/81c1186ac4598094323c9c2f9ed04fd8708cf0b6))
+
+
+
+
+
 
 ## [2.3.2](https://github.com/BedrockStreaming/i18n-tools/compare/@m6web/i18n-lint@2.3.1...@m6web/i18n-lint@2.3.2) (2023-12-22)
 
