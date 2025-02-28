@@ -100,6 +100,17 @@ describe('i18n translate function', () => {
       expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
       expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
     });
+
+    it('should pluralize in german', () => {
+      const lang = {
+        foo: { bar: { one: 'foo bar!', other: 'foos bars!!!' } },
+        _i18n: { lang: 'de' },
+      };
+      const t = translate(lang);
+      expect(t('foo.bar', {number: 0, general: true})).toBe('foos bars!!!');
+      expect(t('foo.bar', {number: 1, general: true})).toBe('foo bar!');
+      expect(t('foo.bar', {number: 2, general: true})).toBe('foos bars!!!');
+    });
   });
 
   describe('with number interpolation', () => {

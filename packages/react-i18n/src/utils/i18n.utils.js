@@ -5,6 +5,7 @@ import { sprintf } from 'sprintf-js';
 import { interpolateHTMLTags } from './html.utils';
 
 const pluralizeFunctions = {
+  de: number => (number === 1 ? 'one' : 'other'),
   en: number => (number === 1 ? 'one' : 'other'),
   fr: number => (number > 1 ? 'other' : 'one'),
   hr: (number, general) => {
