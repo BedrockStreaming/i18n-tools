@@ -29,9 +29,9 @@
     "enzyme-to-json": "3.3.5",
     "jest": "23.6.0",
     "prop-types": "15.7.1",
-    "react": "17.0.2",
+    "react": "18.0.0",
     "react-addons-test-utils": "15.6.2",
-    "react-dom": "17.0.2"
+    "react-dom": "18.0.0"
   },
   "dependencies": {
     "lodash": "4.17.21",
