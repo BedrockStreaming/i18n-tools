@@ -12,9 +12,9 @@ This library brings internationalisation through a set of react components.
 
 The translation function is in **[i18n.utils.js](./src/utils/i18n.utils.js)** file.
 
-It uses react context API to provide translation function to every components.
+It uses react context API to provide translation function to every component.
 
-React version: `^16.8.0 || ^17.0.0`
+React version: `^16.8.0 || ^17.0.0 || ^18.0.0`
 
 ## Setup
 
