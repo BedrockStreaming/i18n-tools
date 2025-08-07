@@ -4,12 +4,17 @@
   "pluralized_other": "None for the others",
   "pluralized_zero": "Nothing",
   "pluralized_custom": "Custom pluralization",
+  "advancedPlural_zero": "No items",
+  "advancedPlural_one": "One item",
+  "advancedPlural_two": "Two items",
+  "advancedPlural_few": "A few items",
+  "advancedPlural_many": "Many items",
+  "advancedPlural_other": "Some items",
+  "complexKey.nested_one": "One nested item",
+  "complexKey.nested_other": "{{ count }} nested items",
+  "incompleteKey_one": "Only one variant exists",
   "interpolated": "Hello {{ name }} !",
   "pluralizedAndInterpolated_one": "I'm the only one",
   "pluralizedAndInterpolated_other": "We are {{ number }}",
-  "pluralizedAndInterpolated_zero": "No one here",
-  "complexKey": {
-    "nested_one": "One nested item",
-    "nested_other": "{{ count }} nested items"
-  }
+  "pluralizedAndInterpolated_zero": "No one here"
 }

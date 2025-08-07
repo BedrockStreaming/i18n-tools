@@ -10,39 +10,81 @@ const check = ({ key, countNode, config, langsKey, context, node }) => {
         severity: 2,
         message: `'${name}' language is missing`,
       });
-
       return;
     }
 
-    if (typeof countNode === 'undefined' && !has(translation, key)) {
+    // Détecter si la clé a des variantes pluralisées (react-i18next format)
+    const hasPluralizedVariants = Object.keys(translation).some(translationKey =>
+      translationKey.startsWith(`${key}_`)
+    );
+
+    // Cas prioritaire : clé qui a des variantes pluralisées mais utilisée sans count
+    if (hasPluralizedVariants && !countNode) {
+      context.report({
+        node,
+        severity: 2,
+        message: `'${key}' is a pluralized key and requires a count parameter in '${name}' language`,
+      });
+      return;
+    }
+
+    // Si on utilise count, on s'attend à des variantes pluralisées
+    if (countNode) {
+      if (hasPluralizedVariants) {
+        // Vérifier les variantes react-i18next
+        const availableVariants = Object.keys(translation)
+          .filter(translationKey => translationKey.startsWith(`${key}_`))
+          .map(translationKey => translationKey.substring(key.length + 1));
+
+        // Au minimum, il faut _one et _other pour react-i18next
+        const requiredVariants = ['one', 'other'];
+        const missingVariants = requiredVariants.filter(variant => !availableVariants.includes(variant));
+
+        if (missingVariants.length) {
+          const missingKeys = missingVariants.map(variant => `${key}_${variant}`);
+          context.report({
+            node,
+            message: `[${missingKeys.join(',')}] keys are missing for pluralized key '${key}' in '${name}' language`,
+          });
+        }
+      } else {
+        // Cas où on utilise count mais la clé n'a pas de variantes pluralisées
+        if (has(translation, key)) {
+          // La clé existe comme string simple, mais on essaie de l'utiliser avec count
+          context.report({
+            node,
+            message: `'${key}' is not a pluralized key and doesn't require a count parameter in '${name}' language`,
+          });
+        } else {
+          // La clé n'existe pas du tout
+          context.report({
+            node,
+            severity: 2,
+            message: `'${key}' is missing from '${name}' language`,
+          });
+        }
+      }
+      return;
+    }
+
+    // Pour les clés non pluralisées (sans count et sans variantes)
+    if (!hasPluralizedVariants && !has(translation, key)) {
       context.report({
         node,
         severity: 2,
         message: `'${key}' is missing from '${name}' language`,
       });
-
       return;
     }
 
-    if (typeof countNode === 'undefined' && has(translation, key) && typeof get(translation, key) !== 'string') {
+    // Vérifier que la clé simple est bien une string (pas un objet de pluralisation ancien format)
+    if (!hasPluralizedVariants && has(translation, key) && typeof get(translation, key) !== 'string') {
       context.report({
         node,
         severity: 2,
         message: `'${key}' is not a string in '${name}' language, looks like pluralization value is missing`,
       });
-
       return;
-    }
-
-    if (countNode && Array.isArray(config.pluralizedKeys)) {
-      const missingKeys = config.pluralizedKeys.filter(plural => !has(translation, `${key}.${plural}`));
-
-      if (missingKeys.length) {
-        context.report({
-          node,
-          message: `[${missingKeys}] keys are missing for key '${key}' in '${name}' language`,
-        });
-      }
     }
   });
 };
@@ -73,12 +115,16 @@ module.exports = langsKey => ({
             {},
           );
 
-          const { i18nKey, number } = filteredAttributes;
+          const { i18nKey, number, count } = filteredAttributes;
 
           if (!i18nKey) {
             return;
           }
-          check({ key: i18nKey, countNode: number, config, langsKey, context, node });
+
+          // Support react-i18next: count prend la priorité sur number
+          const countNode = count || number;
+
+          check({ key: i18nKey, countNode, config, langsKey, context, node });
         }
       },
       CallExpression(node) {

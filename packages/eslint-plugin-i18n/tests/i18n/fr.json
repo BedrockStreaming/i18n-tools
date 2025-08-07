@@ -1,12 +1,20 @@
 {
   "basic": "Salut le monde !",
-  "pluralized": {
-    "one": "Tout pour moi",
-    "other": "Rien pour les autres"
-  },
-  "interpolated": "Salut %(name)s !",
-  "pluralizedAndInterpolated": {
-    "one": "Je suis tout seul",
-    "other": "Nous sommes %(number)d"
-  }
+  "pluralized_one": "Tout pour moi",
+  "pluralized_other": "Rien pour les autres",
+  "pluralized_zero": "Rien du tout",
+  "pluralized_custom": "Pluralisation personnalisée",
+  "advancedPlural_zero": "Aucun élément",
+  "advancedPlural_one": "Un élément",
+  "advancedPlural_two": "Deux éléments",
+  "advancedPlural_few": "Quelques éléments",
+  "advancedPlural_many": "Beaucoup d'éléments",
+  "advancedPlural_other": "Des éléments",
+  "complexKey.nested_one": "Un élément imbriqué",
+  "complexKey.nested_other": "{{ count }} éléments imbriqués",
+  "incompleteKey_one": "Une seule variante existe",
+  "interpolated": "Salut {{ name }} !",
+  "pluralizedAndInterpolated_one": "Je suis tout seul",
+  "pluralizedAndInterpolated_other": "Nous sommes {{ number }}",
+  "pluralizedAndInterpolated_zero": "Personne ici"
 }
