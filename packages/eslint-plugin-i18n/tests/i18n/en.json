@@ -1,12 +1,15 @@
 {
   "basic": "Hello world !",
-  "pluralized": {
-    "one": "All for one",
-    "other": "None for the others"
-  },
-  "interpolated": "Hello %(name)s !",
-  "pluralizedAndInterpolated": {
-    "one": "I'm the only one",
-    "other": "We are %(number)d"
+  "pluralized_one": "All for one",
+  "pluralized_other": "None for the others",
+  "pluralized_zero": "Nothing",
+  "pluralized_custom": "Custom pluralization",
+  "interpolated": "Hello {{ name }} !",
+  "pluralizedAndInterpolated_one": "I'm the only one",
+  "pluralizedAndInterpolated_other": "We are {{ number }}",
+  "pluralizedAndInterpolated_zero": "No one here",
+  "complexKey": {
+    "nested_one": "One nested item",
+    "nested_other": "{{ count }} nested items"
   }
 }

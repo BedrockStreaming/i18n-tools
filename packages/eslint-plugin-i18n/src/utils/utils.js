@@ -50,20 +50,37 @@ exports.getLangConfig = (config, languagesKey) => {
   return langConfig[languagesKey];
 };
 
-const useTranslateParams = ['data', 'number', 'general', 'renderers'];
+const useTranslateParams = ['count'];
 
 exports.getTranslateParams = node => {
   if (!node || !node.properties) {
     return {};
   }
 
-  return node.properties.reduce((acc, property) => {
+  const params = node.properties.reduce((acc, property) => {
     if (useTranslateParams.includes(property.key.name)) {
       return Object.assign(acc, { [property.key.name]: property });
     }
 
     return acc;
   }, {});
+
+  // Pour react-i18next, count est utilisé comme countNode
+  if (params.count) {
+    params.number = params.count;
+  }
+
+  // Pour react-i18next, toutes les propriétés en dehors de count sont des variables
+  const variableParams = node.properties.filter(property =>
+    !useTranslateParams.includes(property.key.name)
+  );
+
+  // S'il y a des variables directes, on considère qu'il y a des données
+  if (variableParams.length > 0) {
+    params.data = { hasVariables: true };
+  }
+
+  return params;
 };
 
 exports.isFileIgnored = (fileName, config) => {
