@@ -2,7 +2,7 @@
 const _get = require('lodash/get');
 const { getKeyValue, get, has, getLangConfig, getTranslateParams, isFileIgnored } = require('../utils/utils');
 
-const check = ({ key, countNode, config, langsKey, context, node }) => {
+const check = ({ key, countNode, config, langsKey, context, node, translateParams }) => {
   getLangConfig(config, langsKey).forEach(({ name, translation }) => {
     if (!translation) {
       context.report({
@@ -10,33 +10,78 @@ const check = ({ key, countNode, config, langsKey, context, node }) => {
         severity: 2,
         message: `'${name}' language is missing`,
       });
+
       return;
     }
 
     // Détecter si la clé a des variantes pluralisées (react-i18next format)
-    const hasPluralizedVariants = Object.keys(translation).some(translationKey =>
-      translationKey.startsWith(`${key}_`)
-    );
+    // Chercher dans la structure imbriquée
+    const keyParts = key.split('.');
+    const parentPath = keyParts.slice(0, -1).join('.');
+    const baseKey = keyParts[keyParts.length - 1];
+
+    let hasPluralizedVariants = false;
+    let availableVariants = [];
+    let keyExistsAsSimpleValue = false;
+
+    if (parentPath) {
+      // Clé imbriquée : chercher dans l'objet parent
+      const parentObject = get(translation, parentPath);
+      if (parentObject && typeof parentObject === 'object') {
+        const parentKeys = Object.keys(parentObject);
+
+        // Vérifier si la clé existe comme valeur simple dans le contexte parent
+        keyExistsAsSimpleValue = parentKeys.includes(baseKey) && typeof parentObject[baseKey] === 'string';
+
+        // Vérifier si on a des variantes pluralisées pour cette clé spécifique dans le même contexte
+        hasPluralizedVariants = parentKeys.some(
+          translationKey => translationKey.startsWith(`${baseKey}_`) && translationKey !== baseKey,
+        );
+
+        if (hasPluralizedVariants) {
+          availableVariants = parentKeys
+            .filter(translationKey => translationKey.startsWith(`${baseKey}_`))
+            .map(translationKey => translationKey.substring(baseKey.length + 1));
+        }
+      }
+    } else {
+      // Clé de niveau racine : chercher seulement les variantes de cette clé exacte
+      const rootKeys = Object.keys(translation);
+
+      // Vérifier si la clé existe comme valeur simple au niveau racine
+      keyExistsAsSimpleValue = has(translation, key) && typeof get(translation, key) === 'string';
+
+      hasPluralizedVariants = rootKeys.some(
+        translationKey => translationKey.startsWith(`${key}_`) && translationKey !== key,
+      );
+
+      if (hasPluralizedVariants) {
+        availableVariants = rootKeys
+          .filter(translationKey => translationKey.startsWith(`${key}_`))
+          .map(translationKey => translationKey.substring(key.length + 1));
+      }
+    }
+
+    // Une clé n'est considérée comme pluralisée que si :
+    // 1. Elle a des variantes pluralisées ET
+    // 2. Elle n'existe PAS comme valeur simple
+    const isActuallyPluralized = hasPluralizedVariants && !keyExistsAsSimpleValue;
 
     // Cas prioritaire : clé qui a des variantes pluralisées mais utilisée sans count
-    if (hasPluralizedVariants && !countNode) {
+    if (isActuallyPluralized && !countNode) {
       context.report({
         node,
         severity: 2,
         message: `'${key}' is a pluralized key and requires a count parameter in '${name}' language`,
       });
+
       return;
     }
 
     // Si on utilise count, on s'attend à des variantes pluralisées
     if (countNode) {
-      if (hasPluralizedVariants) {
+      if (isActuallyPluralized) {
         // Vérifier les variantes react-i18next
-        const availableVariants = Object.keys(translation)
-          .filter(translationKey => translationKey.startsWith(`${key}_`))
-          .map(translationKey => translationKey.substring(key.length + 1));
-
-        // Au minimum, il faut _one et _other pour react-i18next
         const requiredVariants = ['one', 'other'];
         const missingVariants = requiredVariants.filter(variant => !availableVariants.includes(variant));
 
@@ -47,44 +92,71 @@ const check = ({ key, countNode, config, langsKey, context, node }) => {
             message: `[${missingKeys.join(',')}] keys are missing for pluralized key '${key}' in '${name}' language`,
           });
         }
-      } else {
-        // Cas où on utilise count mais la clé n'a pas de variantes pluralisées
-        if (has(translation, key)) {
-          // La clé existe comme string simple, mais on essaie de l'utiliser avec count
+      } else if (has(translation, key)) {
+        // NOUVELLE LOGIQUE : Vérifier si count est utilisé dans l'interpolation
+        const translateValue = get(translation, key);
+        const countUsedInInterpolation = typeof translateValue === 'string' && /\{\{\s*count\s*\}\}/.test(translateValue);
+
+        // Si count n'est pas utilisé pour l'interpolation, alors c'est une erreur
+        if (!countUsedInInterpolation) {
           context.report({
             node,
             message: `'${key}' is not a pluralized key and doesn't require a count parameter in '${name}' language`,
           });
-        } else {
-          // La clé n'existe pas du tout
-          context.report({
-            node,
-            severity: 2,
-            message: `'${key}' is missing from '${name}' language`,
-          });
         }
+        // Sinon, c'est valide : count est utilisé pour l'interpolation
+      } else {
+        // La clé n'existe pas du tout
+        context.report({
+          node,
+          severity: 2,
+          message: `'${key}' is missing from '${name}' language`,
+        });
       }
+
       return;
     }
 
-    // Pour les clés non pluralisées (sans count et sans variantes)
-    if (!hasPluralizedVariants && !has(translation, key)) {
+    // Pour les clés non pluralisées (sans count et sans variantes réelles)
+    if (!isActuallyPluralized && !has(translation, key)) {
       context.report({
         node,
         severity: 2,
         message: `'${key}' is missing from '${name}' language`,
       });
+
       return;
     }
 
     // Vérifier que la clé simple est bien une string (pas un objet de pluralisation ancien format)
-    if (!hasPluralizedVariants && has(translation, key) && typeof get(translation, key) !== 'string') {
+    if (!isActuallyPluralized && has(translation, key) && typeof get(translation, key) !== 'string') {
       context.report({
         node,
         severity: 2,
         message: `'${key}' is not a string in '${name}' language, looks like pluralization value is missing`,
       });
+
       return;
+    }
+
+    // NOUVELLE VALIDATION : Suggérer <Trans> si on passe des données à une traduction qui n'en a pas besoin
+    if (!isActuallyPluralized && has(translation, key) && translateParams && translateParams.data && translateParams.data.hasVariables) {
+      const translateValue = get(translation, key);
+
+      if (typeof translateValue === 'string') {
+        // Vérifier si la traduction utilise des variables d'interpolation
+        const hasInterpolation = /\{\{[^}]+\}\}/.test(translateValue);
+
+        // Si on passe des données mais que la traduction n'a pas d'interpolation
+        if (!hasInterpolation) {
+          context.report({
+            node,
+            message: `'${key}' doesn't require any interpolation data in '${name}' language. If you want to pass components to renderers, please use <Trans />`,
+          });
+
+          return;
+        }
+      }
     }
   });
 };
@@ -137,7 +209,8 @@ module.exports = langsKey => ({
         const [keyNode] = node.arguments;
         const [, optionsNode] = node.arguments;
 
-        const { number: countNode } = getTranslateParams(optionsNode);
+        const translateParams = getTranslateParams(optionsNode);
+        const countNode = translateParams.count || translateParams.number;
 
         const key = getKeyValue(keyNode);
 
@@ -145,7 +218,7 @@ module.exports = langsKey => ({
           return;
         }
 
-        check({ key, countNode, config, langsKey, context, node });
+        check({ key, countNode, config, langsKey, context, node, translateParams });
       },
     };
   },

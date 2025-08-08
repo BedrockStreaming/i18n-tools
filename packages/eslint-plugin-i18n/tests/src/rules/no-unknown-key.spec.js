@@ -24,39 +24,47 @@ const parserOptions = {
 
 ruleTester.run('m6web-i18n/no-unknown-key', rule, {
   valid: [
+    // Tests basiques
     { code: 't("basic")', settings },
     { code: 't("interpolated", data)', settings },
-    { code: 't("pluralized", { count: 1 })', settings }, // Test avec count pour clé pluralisée react-i18next
-    { code: 't("pluralizedAndInterpolated", { count: 2 })', settings }, // Test avec clé pluralisée + interpolation
-    { code: 't("complexKey.nested", { count: 3 })', settings }, // Test avec clé imbriquée
-    { code: 't("advancedPlural", { count: 5 })', settings }, // Test avec variantes non-standard (_zero, _few, _many)
-    {
-      code: '<Trans i18nKey="basic" />',
-      settings,
-      parserOptions,
-    },
-    {
-      code: '<Trans i18nKey="pluralized" count={1} />',
-      settings,
-      parserOptions,
-    },
-    {
-      code: '<Trans i18nKey="pluralizedAndInterpolated" count={2} />',
-      settings,
-      parserOptions,
-    },
-    {
-      code: '<Trans i18nKey="complexKey.nested" count={3} />', // Test avec clé imbriquée JSX
-      settings,
-      parserOptions,
-    },
-    {
-      code: '<Trans i18nKey="advancedPlural" count={5} />', // Test avec variantes non-standard JSX
-      settings,
-      parserOptions,
-    },
+
+    // Tests avec pluralisation
+    { code: 't("pluralized", { count: 1 })', settings },
+    { code: 't("pluralizedAndInterpolated", { count: 2 })', settings },
+    { code: 't("advancedPlural", { count: 5 })', settings },
+
+    // Tests avec clés imbriquées
+    { code: 't("complexKey.nested", { count: 3 })', settings },
+    { code: 't("nested.simpleKey")', settings },
+    { code: 't("module.pluralKey", { count: 2 })', settings },
+    { code: 't("items.count", { count: 5 })', settings },
+
+    // Tests avec interpolation
+    { code: 't("pricing.details", { amount: 10 })', settings },
+    { code: 't("user.score", { count: 42 })', settings },
+    { code: 't("validation.minLength", { min: 8 })', settings },
+
+    // Tests pour attributs et clés simples imbriquées
+    { code: 't("foo.bar")', settings },
+    { code: 't("form.email.placeholder")', settings },
+    { code: 't("form.email.label")', settings },
+    { code: 't("button.submit")', settings },
+    { code: 't("button.cancel")', settings },
+
+    // Tests JSX
+    { code: '<Trans i18nKey="basic" />', settings, parserOptions },
+    { code: '<Trans i18nKey="pluralized" count={1} />', settings, parserOptions },
+    { code: '<Trans i18nKey="pluralizedAndInterpolated" count={2} />', settings, parserOptions },
+    { code: '<Trans i18nKey="complexKey.nested" count={3} />', settings, parserOptions },
+    { code: '<Trans i18nKey="advancedPlural" count={5} />', settings, parserOptions },
+    { code: '<Trans i18nKey="nested.simpleKey" />', settings, parserOptions },
+    { code: '<Trans i18nKey="module.pluralKey" count={2} />', settings, parserOptions },
+    { code: '<Trans i18nKey="items.count" count={5} />', settings, parserOptions },
+    { code: '<Trans i18nKey="foo.bar" />', settings, parserOptions },
+    { code: '<Trans i18nKey="button.submit" />', settings, parserOptions },
   ],
   invalid: [
+    // Test fichier de langue manquant
     {
       code: 't("foo")',
       settings: {
@@ -100,29 +108,33 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
       ],
       parserOptions,
     },
+
+    // Test clé manquante
     {
-      code: 't("foo")',
+      code: 't("nonExistentKey")',
       settings,
       errors: [
         {
-          message: "'foo' is missing from 'en' language",
+          message: "'nonExistentKey' is missing from 'en' language",
           type: 'CallExpression',
         },
       ],
     },
     {
-      code: '<Trans i18nKey="foo" />',
+      code: '<Trans i18nKey="nonExistentKey" />',
       settings,
       errors: [
         {
-          message: "'foo' is missing from 'en' language",
+          message: "'nonExistentKey' is missing from 'en' language",
           type: 'JSXOpeningElement',
         },
       ],
       parserOptions,
     },
+
+    // Test utilisation incorrecte de count avec clé non pluralisée
     {
-      code: 't("basic", { count: 42 })', // Utilisation de count avec une clé non pluralisée
+      code: 't("basic", { count: 42 })',
       settings,
       errors: [
         {
@@ -132,7 +144,7 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
       ],
     },
     {
-      code: '<Trans i18nKey="basic" count={42} />', // Utilisation de count avec une clé non pluralisée
+      code: '<Trans i18nKey="basic" count={42} />',
       settings,
       errors: [
         {
@@ -143,28 +155,74 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
       parserOptions,
     },
     {
-      code: 't("nonExistentPluralized", { count: 1 })', // Test pour clé pluralisée qui n'existe pas
+      code: 't("interpolated", { count: 1 })',
       settings,
       errors: [
         {
-          message: "'nonExistentPluralized' is missing from 'en' language",
+          message: "'interpolated' is not a pluralized key and doesn't require a count parameter in 'en' language",
           type: 'CallExpression',
         },
       ],
     },
     {
-      code: '<Trans i18nKey="nonExistentPluralized" count={1} />', // Test pour clé pluralisée qui n'existe pas
+      code: '<Trans i18nKey="interpolated" count={1} />',
       settings,
       errors: [
         {
-          message: "'nonExistentPluralized' is missing from 'en' language",
+          message: "'interpolated' is not a pluralized key and doesn't require a count parameter in 'en' language",
+          type: 'JSXOpeningElement',
+        },
+      ],
+      parserOptions,
+    },
+
+    // Test clé pluralisée utilisée sans count
+    {
+      code: 't("pluralized")',
+      settings,
+      errors: [
+        {
+          message: "'pluralized' is a pluralized key and requires a count parameter in 'en' language",
+          type: 'CallExpression',
+        },
+      ],
+    },
+    {
+      code: '<Trans i18nKey="pluralized" />',
+      settings,
+      errors: [
+        {
+          message: "'pluralized' is a pluralized key and requires a count parameter in 'en' language",
           type: 'JSXOpeningElement',
         },
       ],
       parserOptions,
     },
     {
-      code: 't("incompleteKey", { count: 1 })', // Test pour clé qui n'a qu'une seule variante plurielle
+      code: 't("advancedPlural")',
+      settings,
+      errors: [
+        {
+          message: "'advancedPlural' is a pluralized key and requires a count parameter in 'en' language",
+          type: 'CallExpression',
+        },
+      ],
+    },
+    {
+      code: '<Trans i18nKey="advancedPlural" />',
+      settings,
+      errors: [
+        {
+          message: "'advancedPlural' is a pluralized key and requires a count parameter in 'en' language",
+          type: 'JSXOpeningElement',
+        },
+      ],
+      parserOptions,
+    },
+
+    // Test clé pluralisée avec variantes manquantes
+    {
+      code: 't("incompleteKey", { count: 1 })',
       settings,
       errors: [
         {
@@ -173,29 +231,10 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
         },
       ],
     },
+
+    // Test clé imbriquée inexistante
     {
-      code: 't("interpolated", { count: 1 })', // Test pour clé d'interpolation utilisée avec count
-      settings,
-      errors: [
-        {
-          message: "'interpolated' is not a pluralized key and doesn't require a count parameter in 'en' language",
-          type: 'CallExpression',
-        },
-      ],
-    },
-    {
-      code: '<Trans i18nKey="interpolated" count={1} />', // Test pour clé d'interpolation utilisée avec count en JSX
-      settings,
-      errors: [
-        {
-          message: "'interpolated' is not a pluralized key and doesn't require a count parameter in 'en' language",
-          type: 'JSXOpeningElement',
-        },
-      ],
-      parserOptions,
-    },
-    {
-      code: 't("complexKey.nonExistent", { count: 1 })', // Test clé imbriquée qui n'existe pas
+      code: 't("complexKey.nonExistent", { count: 1 })',
       settings,
       errors: [
         {
@@ -205,7 +244,7 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
       ],
     },
     {
-      code: '<Trans i18nKey="complexKey.nonExistent" count={1} />', // Test clé imbriquée qui n'existe pas JSX
+      code: '<Trans i18nKey="complexKey.nonExistent" count={1} />',
       settings,
       errors: [
         {
@@ -216,46 +255,46 @@ ruleTester.run('m6web-i18n/no-unknown-key', rule, {
       parserOptions,
     },
     {
-      code: 't("pluralized")', // Test clé pluralisée utilisée sans count
+      code: 't("nested.nonExistent")',
       settings,
       errors: [
         {
-          message: "'pluralized' is a pluralized key and requires a count parameter in 'en' language",
+          message: "'nested.nonExistent' is missing from 'en' language",
           type: 'CallExpression',
         },
       ],
     },
     {
-      code: '<Trans i18nKey="pluralized" />', // Test clé pluralisée utilisée sans count JSX
+      code: 't("form.nonExistent.placeholder")',
       settings,
       errors: [
         {
-          message: "'pluralized' is a pluralized key and requires a count parameter in 'en' language",
-          type: 'JSXOpeningElement',
+          message: "'form.nonExistent.placeholder' is missing from 'en' language",
+          type: 'CallExpression',
         },
       ],
-      parserOptions,
     },
+
+    // Test clés pluralisées imbriquées sans count
     {
-      code: 't("advancedPlural")', // Test clé avec variantes non-standard utilisée sans count
+      code: 't("module.pluralKey")',
       settings,
       errors: [
         {
-          message: "'advancedPlural' is a pluralized key and requires a count parameter in 'en' language",
+          message: "'module.pluralKey' is a pluralized key and requires a count parameter in 'en' language",
           type: 'CallExpression',
         },
       ],
     },
     {
-      code: '<Trans i18nKey="advancedPlural" />', // Test clé avec variantes non-standard utilisée sans count JSX
+      code: 't("items.count")',
       settings,
       errors: [
         {
-          message: "'advancedPlural' is a pluralized key and requires a count parameter in 'en' language",
-          type: 'JSXOpeningElement',
+          message: "'items.count' is a pluralized key and requires a count parameter in 'en' language",
+          type: 'CallExpression',
         },
       ],
-      parserOptions,
     },
   ],
 });

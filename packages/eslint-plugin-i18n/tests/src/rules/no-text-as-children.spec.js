@@ -22,8 +22,10 @@ const options = [
 ruleTester.run('m6web-i18n/no-text-as-children', rule, {
   valid: [
     { code: '<span>{t("basic")}</span>', parserOptions, settings },
-    { code: '<span> / </span>', parserOptions, settings, options },
-    { code: '<div><span>{t("basic")}</span>.</div>', parserOptions, settings, options },
+    { code: '<div>{t("button.submit")}</div>', parserOptions, settings },
+    { code: '<p>{t("button.cancel")}</p>', parserOptions, settings },
+    { code: '<h1>{t("error.notFound")}</h1>', parserOptions, settings },
+    { code: '<button>{t("button.save")}</button>', parserOptions, settings },
   ],
   invalid: [
     {

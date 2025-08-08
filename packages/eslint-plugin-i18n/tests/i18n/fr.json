@@ -10,11 +10,52 @@
   "advancedPlural_few": "Quelques éléments",
   "advancedPlural_many": "Beaucoup d'éléments",
   "advancedPlural_other": "Des éléments",
-  "complexKey.nested_one": "Un élément imbriqué",
-  "complexKey.nested_other": "{{ count }} éléments imbriqués",
   "incompleteKey_one": "Une seule variante existe",
   "interpolated": "Salut {{ name }} !",
   "pluralizedAndInterpolated_one": "Je suis tout seul",
   "pluralizedAndInterpolated_other": "Nous sommes {{ number }}",
-  "pluralizedAndInterpolated_zero": "Personne ici"
+  "pluralizedAndInterpolated_zero": "Personne ici",
+  "complexKey": {
+    "nested_one": "Un élément imbriqué",
+    "nested_other": "{{ count }} éléments imbriqués"
+  },
+  "nested": {
+    "simpleKey": "Valeur imbriquée simple"
+  },
+  "module": {
+    "pluralKey_one": "dans {{ days }} jour",
+    "pluralKey_other": "dans {{ days }} jours",
+    "pluralKey_zero": "dans {{ days }} jours"
+  },
+  "items": {
+    "count_one": "{{ count }} élément disponible",
+    "count_other": "{{ count }} éléments disponibles",
+    "count_zero": "{{ count }} éléments disponibles"
+  },
+  "pricing": {
+    "details": "{{ amount }}$ par mois"
+  },
+  "user": {
+    "score": "Votre score est {{ count }} points"
+  },
+  "foo": {
+    "bar": "Traduction de test pour les attributs"
+  },
+  "error": {
+    "notFound": "Page non trouvée",
+    "serverError": "Erreur interne du serveur"
+  },
+  "form": {
+    "email": {
+      "placeholder": "Saisissez votre email",
+      "label": "Adresse email"
+    }
+  },
+  "button": {
+    "submit": "Envoyer",
+    "cancel": "Annuler"
+  },
+  "validation": {
+    "minLength": "{{ min }} caractères minimum requis"
+  }
 }

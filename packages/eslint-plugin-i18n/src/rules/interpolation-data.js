@@ -11,24 +11,70 @@ const check = ({ key, countNode, dataNode, config, context, node }) => {
     const [{ interpolationPattern }] = context.options;
     const interpolationTester = new RegExp(interpolationPattern);
 
-    // Détecter si la clé a des variantes pluralisées
-    const hasPluralizedVariants = Object.keys(translation).some(translationKey =>
-      translationKey.startsWith(`${key}_`)
-    );
+    // Détecter si la clé a des variantes pluralisées (format hybride réaliste)
+    // Structure imbriquée + pluralisation xxx_yyy où yyy n'est pas prédéfini
+    const keyParts = key.split('.');
+    const parentPath = keyParts.slice(0, -1).join('.');
+    const baseKey = keyParts[keyParts.length - 1];
+
+    let hasPluralizedVariants = false;
+    let keyExistsAsSimpleValue = false;
+
+    if (parentPath) {
+      // Clé imbriquée : chercher dans l'objet parent
+      const parentObject = get(translation, parentPath);
+      if (parentObject && typeof parentObject === 'object') {
+        const parentKeys = Object.keys(parentObject);
+
+        // Vérifier si la clé existe comme valeur simple dans le contexte parent
+        keyExistsAsSimpleValue = parentKeys.includes(baseKey) && typeof parentObject[baseKey] === 'string';
+
+        // Vérifier si on a des variantes pluralisées pour cette clé spécifique dans le même contexte
+        // Format xxx_yyy où yyy n'est pas prédéfini
+        hasPluralizedVariants = parentKeys.some(
+          translationKey => translationKey.startsWith(`${baseKey}_`) && translationKey !== baseKey
+        );
+      }
+    } else {
+      // Clé de niveau racine : chercher seulement les variantes de cette clé exacte
+      const rootKeys = Object.keys(translation);
+
+      // Vérifier si la clé existe comme valeur simple au niveau racine
+      keyExistsAsSimpleValue = get(translation, key) && typeof get(translation, key) === 'string';
+
+      hasPluralizedVariants = rootKeys.some(translationKey => translationKey.startsWith(`${key}_`) && translationKey !== key);
+    }
+
+    // Une clé n'est considérée comme pluralisée que si :
+    // 1. Elle a des variantes pluralisées ET
+    // 2. Elle n'existe PAS comme valeur simple
+    const isActuallyPluralized = hasPluralizedVariants && !keyExistsAsSimpleValue;
 
     const isPluralized = !!countNode;
     let values = [];
 
-    if (isPluralized) {
+    if (isPluralized && isActuallyPluralized) {
       // Support react-i18next pluralization format - auto-detect any _xxx suffixes
       const pluralizedValues = [];
 
-      // Check for any keys that start with the base key followed by underscore
-      Object.keys(translation).forEach(translationKey => {
-        if (translationKey.startsWith(`${key}_`)) {
-          pluralizedValues.push(translation[translationKey]);
+      if (parentPath) {
+        // Pour les clés imbriquées, chercher dans l'objet parent
+        const parentObject = get(translation, parentPath);
+        if (parentObject && typeof parentObject === 'object') {
+          Object.keys(parentObject).forEach(translationKey => {
+            if (translationKey.startsWith(`${baseKey}_`)) {
+              pluralizedValues.push(parentObject[translationKey]);
+            }
+          });
         }
-      });
+      } else {
+        // Pour les clés racine, chercher au niveau racine
+        Object.keys(translation).forEach(translationKey => {
+          if (translationKey.startsWith(`${key}_`)) {
+            pluralizedValues.push(translation[translationKey]);
+          }
+        });
+      }
 
       if (pluralizedValues.length > 0) {
         // Use the pluralized variants found
@@ -48,20 +94,40 @@ const check = ({ key, countNode, dataNode, config, context, node }) => {
     }
 
     const hasInterpolation = values.some(value => interpolationTester.test(value));
-    const hasDataProvided = dataNode && dataNode.name !== 'undefined';
+    const hasDataProvided = dataNode && (dataNode.name !== 'undefined' || dataNode.hasVariables);
 
-    // Cas 1: Des données inutiles sont fournies
+    // NOUVELLE LOGIQUE : Vérifier si count est utilisé dans l'interpolation
+    // Ceci fonctionne pour TOUTES les clés (pluralisées ou non)
+    const countUsedInInterpolation = values.some(value =>
+      value && typeof value === 'string' && interpolationTester.test(value) &&
+      (value.includes('{{ count }}') || value.includes('{{count}}'))
+    );
+
+    // Considérer que les données sont fournies si on a dataNode OU si count satisfait l'interpolation
+    const hasDataProvidedIncludingCount = hasDataProvided || (countNode && countUsedInInterpolation);
+
+    // Cas 1: Des données inutiles sont fournies (incluant count sur clé non-pluralisée)
     if (hasDataProvided && !hasInterpolation) {
       context.report({
         node,
         severity: 2,
-        message: `'${key}' doesn't require any interpolation data.`,
+        message: `'${key}' doesn't require any interpolation data. If you want to pass components to renderers, please use <Trans />`,
+      });
+      return;
+    }
+
+    // Cas 1b: Count fourni sur clé non-pluralisée qui n'utilise pas count dans l'interpolation
+    if (countNode && !isActuallyPluralized && !countUsedInInterpolation) {
+      context.report({
+        node,
+        severity: 2,
+        message: `'${key}' doesn't require any interpolation data. If you want to pass components to renderers, please use <Trans />`,
       });
       return;
     }
 
     // Cas 2: Clé pluralisée sans count (seulement si pas de données inutiles)
-    if (hasPluralizedVariants && !countNode) {
+    if (isActuallyPluralized && !countNode) {
       context.report({
         node,
         severity: 2,
@@ -71,7 +137,7 @@ const check = ({ key, countNode, dataNode, config, context, node }) => {
     }
 
     // Cas 3: Données d'interpolation manquantes
-    if (!hasDataProvided && hasInterpolation) {
+    if (!hasDataProvidedIncludingCount && hasInterpolation) {
       context.report({
         node,
         severity: 2,

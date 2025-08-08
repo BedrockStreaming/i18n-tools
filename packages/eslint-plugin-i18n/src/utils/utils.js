@@ -53,7 +53,19 @@ exports.getLangConfig = (config, languagesKey) => {
 const useTranslateParams = ['count'];
 
 exports.getTranslateParams = node => {
-  if (!node || !node.properties) {
+  if (!node) {
+    return {};
+  }
+
+  // Cas 1: Variable/identifiant passé directement (ex: priceAndFrequency)
+  if (node.type === 'Identifier') {
+    return {
+      data: { hasVariables: true, name: node.name },
+    };
+  }
+
+  // Cas 2: Objet littéral avec propriétés explicites
+  if (!node.properties) {
     return {};
   }
 
@@ -71,9 +83,7 @@ exports.getTranslateParams = node => {
   }
 
   // Pour react-i18next, toutes les propriétés en dehors de count sont des variables
-  const variableParams = node.properties.filter(property =>
-    !useTranslateParams.includes(property.key.name)
-  );
+  const variableParams = node.properties.filter(property => !useTranslateParams.includes(property.key.name));
 
   // S'il y a des variables directes, on considère qu'il y a des données
   if (variableParams.length > 0) {

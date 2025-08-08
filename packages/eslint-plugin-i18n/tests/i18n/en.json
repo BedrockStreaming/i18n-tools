@@ -10,11 +10,52 @@
   "advancedPlural_few": "A few items",
   "advancedPlural_many": "Many items",
   "advancedPlural_other": "Some items",
-  "complexKey.nested_one": "One nested item",
-  "complexKey.nested_other": "{{ count }} nested items",
   "incompleteKey_one": "Only one variant exists",
   "interpolated": "Hello {{ name }} !",
   "pluralizedAndInterpolated_one": "I'm the only one",
   "pluralizedAndInterpolated_other": "We are {{ number }}",
-  "pluralizedAndInterpolated_zero": "No one here"
+  "pluralizedAndInterpolated_zero": "No one here",
+  "complexKey": {
+    "nested_one": "One nested item",
+    "nested_other": "{{ count }} nested items"
+  },
+  "nested": {
+    "simpleKey": "Simple nested value"
+  },
+  "module": {
+    "pluralKey_one": "in {{ days }} day",
+    "pluralKey_other": "in {{ days }} days",
+    "pluralKey_zero": "in {{ days }} days"
+  },
+  "items": {
+    "count_one": "{{ count }} item available",
+    "count_other": "{{ count }} items available",
+    "count_zero": "{{ count }} items available"
+  },
+  "pricing": {
+    "details": "${{ amount }} per month"
+  },
+  "user": {
+    "score": "Your score is {{ count }} points"
+  },
+  "foo": {
+    "bar": "Test translation for attributes"
+  },
+  "error": {
+    "notFound": "Page not found",
+    "serverError": "Internal server error"
+  },
+  "form": {
+    "email": {
+      "placeholder": "Enter your email",
+      "label": "Email address"
+    }
+  },
+  "button": {
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "validation": {
+    "minLength": "Minimum {{ min }} characters required"
+  }
 }
