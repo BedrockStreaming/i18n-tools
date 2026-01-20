@@ -1,5 +1,12 @@
-# @M6Web/i18n-tools
-[![Build Status](https://travis-ci.com/M6Web/i18n-tools.svg?branch=master)](https://travis-ci.com/M6Web/i18n-tools) [![Coverage Status](https://coveralls.io/repos/github/M6Web/i18n-tools/badge.svg?branch=master)](https://coveralls.io/github/M6Web/i18n-tools?branch=master)
+# DEPRECATED
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+> ⛔️ **This project is no longer maintained.** Please consider using alternatives like [react-i18next](https://react.i18next.com/) or [FormatJS](https://formatjs.io/) instead.
+
+---
+
+# @M6Web/i18n-tools (Archived)
 
 M6Web tools for i18n features.
 

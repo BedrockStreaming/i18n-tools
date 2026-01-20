@@ -1,12 +1,12 @@
-# @m6web/react-i18n
+# DEPRECATED
 
-[![Continous Integration](https://github.com/M6Web/i18n-tools/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/M6Web/i18n-tools/actions/workflows/continuous-integration.yml)
-![npm](https://img.shields.io/npm/v/@m6web/react-i18n)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/@m6web/react-i18n)
-![npm](https://img.shields.io/npm/dy/@m6web/react-i18n)
-![GitHub last commit](https://img.shields.io/github/last-commit/M6Web/i18n-tools)
-![NPM](https://img.shields.io/npm/l/@m6web/react-i18n)
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
+> ⛔️ **This package is no longer maintained.** Please consider using alternatives like [react-i18next](https://react.i18next.com/) or [FormatJS](https://formatjs.io/) instead.
+
+---
+
+# @m6web/react-i18n (Archived)
 
 This library brings internationalisation through a set of react components.
 

@@ -1,7 +1,7 @@
 {
   "name": "i18-tools",
   "version": "0.1.0",
-  "description": "M6 WEB`s i18n packages",
+  "description": "⛔️ DEPRECATED - M6 WEB's i18n packages",
   "license": "MIT",
   "private": true,
   "workspaces": [
