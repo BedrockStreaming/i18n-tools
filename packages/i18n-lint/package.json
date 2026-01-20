@@ -1,7 +1,7 @@
 {
   "name": "@m6web/i18n-lint",
   "version": "2.3.3",
-  "description": "i18n translation files linter",
+  "description": "⛔️ DEPRECATED - i18n translation files linter",
   "main": "lib/index.js",
   "author": "m6web",
   "license": "MIT",
