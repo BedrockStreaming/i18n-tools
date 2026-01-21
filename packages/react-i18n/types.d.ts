@@ -23,7 +23,7 @@ declare module '@m6web/react-i18n' {
   }
 
   interface HtmlTransProps extends TransProps {
-    element: string | ElementType;
+    element?: string | ElementType;
   }
 
   interface TranslateProps {
